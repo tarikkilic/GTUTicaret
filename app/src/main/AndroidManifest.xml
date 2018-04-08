@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ProductScreen"></activity>
+        <activity android:name=".Categories"></activity>
     </application>
 
 </manifest>
