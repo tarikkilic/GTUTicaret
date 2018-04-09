@@ -18,6 +18,8 @@
         </activity>
         <activity android:name=".ProductScreen"></activity>
         <activity android:name=".Categories"></activity>
+        <activity android:name=".productContent" ></activity>
+        <activity android:name=".commentsPage"></activity>
     </application>
 
 </manifest>
