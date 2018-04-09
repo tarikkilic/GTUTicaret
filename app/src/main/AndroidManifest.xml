@@ -20,6 +20,8 @@
         <activity android:name=".Categories"></activity>
         <activity android:name=".productContent" ></activity>
         <activity android:name=".commentsPage"></activity>
+        <activity android:name=".Hesabim"></activity>
+        <activity android:name=".Cuzdanim"></activity>
     </application>
 
 </manifest>
