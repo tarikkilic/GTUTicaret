@@ -23,6 +23,10 @@
         <activity android:name=".Hesabim"></activity>
         <activity android:name=".Cuzdanim"></activity>
         <activity android:name=".Sepet"></activity>
+        <activity android:name=".KayitOl"></activity>
+        <activity android:name=".Giris"></activity>
+
+
     </application>
 
 </manifest>

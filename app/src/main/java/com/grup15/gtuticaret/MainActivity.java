@@ -9,25 +9,34 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         //ürünler ekranı
-/*
-        setContentView(R.layout.activity_main);
+       /* setContentView(R.layout.activity_main);
         Intent intent = new Intent(this,ProductScreen.class);
         startActivity(intent);*/
-        //kategori ekranı
 
-        /*setContentView(R.layout.categories);
-        Intent intent1 = new Intent(this,Categories.class);*/
 
         setContentView(R.layout.activity_main);
-        Intent intent = new Intent(this,Cuzdanim.class);
+        Intent intent = new Intent(this,Giris.class);
         startActivity(intent);
+
+        /*kategori ekranı
+        setContentView(R.layout.categories);
+        Intent intent1 = new Intent(this,Categories.class);
+*/
+
+
+      /*
+      Cüzdanım
+      setContentView(R.layout.activity_main);
+        Intent intent = new Intent(this,Cuzdanim.class);
+        startActivity(intent);*/
+
         //kategori içerikleri
-        /*
-        setContentView(R.layout.category_contents);
+        /*setContentView(R.layout.category_contents);
         Intent intent2 = new Intent(this,Categories.class);
-        startActivity(intent2);
-        */
+        startActivity(intent2);*/
+
 
 
     }
