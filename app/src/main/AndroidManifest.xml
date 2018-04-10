@@ -22,6 +22,7 @@
         <activity android:name=".commentsPage"></activity>
         <activity android:name=".Hesabim"></activity>
         <activity android:name=".Cuzdanim"></activity>
+        <activity android:name=".Sepet"></activity>
     </application>
 
 </manifest>
