@@ -147,14 +147,13 @@
 
 
     <ImageButton
-        android:id="@+id/giris"
+        android:id="@+id/kayitOl"
         android:layout_width="168dp"
         android:layout_height="52dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="28dp"
         android:src="@drawable/giris" />
-
 
 
 </RelativeLayout>
