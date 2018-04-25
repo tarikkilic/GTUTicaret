@@ -1,5 +1,6 @@
 package com.grup15.gtuticaret;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.Stack;
 
@@ -7,7 +8,7 @@ import java.util.Stack;
  * Created by Serkan Sorman on 24.04.2018.
  */
 
-public class Product {
+public class Product implements Serializable {
     private String name;
     private String features;
     private String type;
