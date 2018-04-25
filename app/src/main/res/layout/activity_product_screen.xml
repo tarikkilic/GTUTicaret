@@ -15,5 +15,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:divider="@color/colorPrimaryDark"
+        android:dividerHeight="10px"/>
 </android.support.constraint.ConstraintLayout>
