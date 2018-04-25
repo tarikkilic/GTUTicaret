@@ -10,7 +10,11 @@ import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.Map;
+
 public class Giris extends AppCompatActivity  {
+
+    Map<String,String> ePostaVeParola;
 
 
     @Override
