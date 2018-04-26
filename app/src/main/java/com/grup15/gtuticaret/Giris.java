@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,6 +17,17 @@ import java.util.Map;
 
 public class Giris extends AppCompatActivity  {
 
+    private void toast(int i){
+        if(i==0){
+            Toast.makeText(this, "Giriş Başarılı.", Toast.LENGTH_LONG).show();
+        }
+        else if(i==1){
+            Toast.makeText(this, "Bu E-posta Adresi Sisteme Kayıtlı Değil.", Toast.LENGTH_LONG).show();
+        }
+        else if(i==2){
+            Toast.makeText(this, "Parola Hatalı!", Toast.LENGTH_LONG).show();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,13 +35,14 @@ public class Giris extends AppCompatActivity  {
 
         setContentView(R.layout.activity_giris);
 
-        findViewById(R.id.yeniKullaniciOlustur).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.kayit).setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view)
             {
-                Intent kayit= new Intent(Giris.this, KayitOl.class);
-                startActivity(kayit);
+                Intent kayitOlEkrani = new Intent(Giris.this, KayitOl.class);
+                startActivity(kayitOlEkrani);
+                finish();
 
 
             }
@@ -61,23 +74,23 @@ public class Giris extends AppCompatActivity  {
 
 
                             /*******************************************************************************/
-                            Intent kayit= new Intent(Giris.this, KayitOl.class);// celal ana sayfası başlayacak
+                            toast(0);
+                            Intent kayit= new Intent(Giris.this, AnaEkran.class);
                             startActivity(kayit);
+                            finish();
                             /**********************************************************************************/
                         }
                         else if(KayitOl.ePostaVeParola.get(((EditText)findViewById(R.id.epostaGiris)).getText().toString())==null){
                             /*******************************************************************************/
-                            //kullanıcı adı hatalıysa girer(celal)
+                            toast(1);
                             /*******************************************************************************/
-
                         }
                         else {
                             /*******************************************************************************/
-                            //şifre hatalı mesajı ekrana verilecek(celal)
+                            toast(2);
                             /*******************************************************************************/
 
                         }
-
                     }
                 });
     }

@@ -4,15 +4,24 @@
 
     <item
         android:id="@+id/navigation_account"
-        android:menuCategory="alternative"
-        android:title="Sivas"></item>
-    <item android:id="@+id/navigation_setting"
-        android:title="Kırma kangal">
-    </item>
+        android:title="Hesabım"
+        android:icon="@drawable/hesabim"
+        ></item>
+
+
     <item
-        android:id="@+id/navigation_Logout"
-        android:title="Başkent Sivas"></item>
-    <item android:id="@+id/navigation_kangal"
-        android:title="Kangal">
+        android:id="@+id/navigation_categories"
+        android:title="Kategoriler"
+        android:icon="@drawable/menu"></item>
+
+
+    <item
+        android:id="@+id/navigation_setting"
+        android:title="Ayarlar"
+        android:icon="@drawable/ayarlar">
     </item>
+
+
+
+
 </menu>

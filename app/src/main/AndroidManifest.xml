@@ -5,7 +5,7 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="GTÜ E-Alışveriş"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -23,8 +23,12 @@
         <activity android:name=".Hesabim"></activity>
         <activity android:name=".Cuzdanim"></activity>
         <activity android:name=".Sepet"></activity>
-        <activity android:name=".KayitOl"></activity>
-        <activity android:name=".Giris"></activity>
+        <activity android:name=".KayitOl"
+            android:theme="@style/Giris"></activity>
+        <activity android:name=".Giris"
+            android:theme="@style/Giris"></activity>
+        <activity android:name=".AnaEkran"></activity>
+
 
 
     </application>

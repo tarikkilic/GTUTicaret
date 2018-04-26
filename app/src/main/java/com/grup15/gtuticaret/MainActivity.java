@@ -23,16 +23,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         initProduct();
 
+        /*
         //ürünler ekranı
         setContentView(R.layout.activity_main);
         Intent intent = new Intent(this,ProductScreen.class);
         intent.putExtra("product",products);
-        startActivity(intent);
+        startActivity(intent);*/
 
-/*
+
         setContentView(R.layout.activity_main);
         Intent intent = new Intent(this,Giris.class);
         startActivity(intent);
+        finish();
 
         /*kategori ekranı
         setContentView(R.layout.categories);

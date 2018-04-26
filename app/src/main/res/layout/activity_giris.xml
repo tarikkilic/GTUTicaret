@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -15,6 +16,16 @@
         android:scaleType="centerCrop"
         android:src="@drawable/background" />
 
+    <ImageView
+        android:id="@+id/ust"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ust" />
+
 
     <ImageView
         android:id="@+id/logo"
@@ -29,44 +40,34 @@
     <ImageView
         android:id="@+id/login1"
         android:layout_width="270dp"
-        android:layout_height="35dp"
-        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/logo"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="235dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/login1" />
+        android:src="@drawable/login1"
+        />
 
     <ImageView
         android:id="@+id/login2"
         android:layout_width="270dp"
-        android:layout_height="35dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="188dp"
-        android:scaleType="centerCrop"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/login1"
+        android:layout_below="@+id/login1"
         android:src="@drawable/login2" />
-
-    <ImageView
-        android:id="@+id/ust"
-        android:layout_width="match_parent"
-        android:layout_height="140dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="0dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ust" />
 
 
     <EditText
         android:id="@+id/epostaGiris"
         android:layout_width="235dp"
-        android:layout_height="39dp"
+        android:layout_height="wrap_content"
+
         android:layout_alignEnd="@+id/login1"
-        android:layout_alignTop="@+id/login1"
+        android:layout_below="@+id/logo"
+        android:layout_marginTop="15dp"
         android:hint="E-Posta "
         android:imeActionId="6"
         android:imeOptions="actionUnspecified"
         android:maxLines="1"
+        android:paddingTop="10dp"
         android:singleLine="true"
         android:textAllCaps="false"
         android:textAppearance="@android:style/TextAppearance.Material.Small.Inverse"
@@ -74,13 +75,14 @@
         android:textColorHint="#000000"
         android:textSize="18sp" />
 
+
     <EditText
         android:id="@+id/passwordGiris"
-        android:layout_width="235dp"
+        android:layout_width="236dp"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/login1"
         android:layout_alignEnd="@+id/login1"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="184dp"
+        android:layout_marginTop="15dp"
         android:hint="Parola"
         android:imeActionId="6"
         android:imeActionLabel="@string/action_sign_in_short"
@@ -92,42 +94,26 @@
         android:textColorHint="#000000"
         android:textSize="18sp" />
 
+    <Button
+        android:id="@+id/kayit"
+        android:background="@drawable/kayit"
+        android:layout_width="114dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/login2"
+        android:layout_alignStart="@+id/login2"
+        android:layout_marginTop="25dp"
+        />
 
-    <ImageButton
+    <Button
         android:id="@+id/giris"
-        android:layout_width="168dp"
-        android:layout_height="52dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="98dp"
-        android:src="@drawable/giris" />
+        android:background="@drawable/giris"
+        android:layout_width="114dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/login2"
+        android:layout_marginTop="25dp"
+        android:layout_alignEnd="@+id/login2"
+        />
 
-    <TextView
-        android:id="@+id/parolamiUnuttum"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="156dp"
-        android:layout_marginEnd="39dp"
-        android:autoLink="web"
-        android:text="Parolamı Unuttum"
-
-        android:textColor="#0000FF"
-        android:textSize="15sp" />
-
-    <TextView
-        android:id="@+id/yeniKullaniciOlustur"
-        android:layout_width="155dp"
-        android:layout_height="30dp"
-        android:layout_alignEnd="@+id/giris"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="38dp"
-        android:autoLink="web"
-        android:text="Yeni Kullanıcı Oluştur"
-
-        android:textColor="#0000FF"
-        android:textSize="15dp" />
 
 
 </RelativeLayout>

@@ -6,6 +6,7 @@
     android:visibility="visible"
     tools:context=".Giris">
 
+
     <ImageView
         android:id="@+id/background"
         android:layout_width="match_parent"
@@ -14,45 +15,6 @@
         android:layout_alignParentTop="true"
         android:scaleType="centerCrop"
         android:src="@drawable/background" />
-
-
-    <ImageView
-        android:id="@+id/logo2"
-        android:layout_width="289dp"
-        android:layout_height="135dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="147dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/logo1" />
-
-    <ImageView
-        android:id="@+id/login1"
-        android:layout_width="270dp"
-        android:layout_height="35dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="197dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/login1" />
-
-    <ImageView
-        android:id="@+id/login2"
-        android:layout_width="272dp"
-        android:layout_height="35dp"
-        android:layout_alignBottom="@+id/password"
-        android:layout_centerHorizontal="true"
-        android:scaleType="centerCrop"
-        android:src="@drawable/login2" />
-
-    <ImageView
-        android:id="@+id/login3"
-        android:layout_width="270dp"
-        android:layout_height="35dp"
-        android:layout_above="@+id/password"
-        android:layout_centerHorizontal="true"
-        android:scaleType="centerCrop"
-        android:src="@drawable/login1" />
 
 
     <ImageView
@@ -67,21 +29,57 @@
 
 
     <ImageView
+        android:id="@+id/logo2"
+        android:layout_width="289dp"
+        android:layout_height="167dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="117dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/logo1" />
+
+    <ImageView
+        android:id="@+id/login1"
+        android:layout_width="270dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/logo2"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/login1" />
+
+    <ImageView
+        android:id="@+id/login2"
+        android:layout_width="270dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/login1"
+        android:layout_marginTop="3dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/login3" />
+
+    <ImageView
+        android:id="@+id/login3"
+        android:layout_width="270dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="3dp"
+        android:layout_below="@+id/login2"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/login3" />
+
+
+    <ImageView
         android:id="@+id/login4"
         android:layout_width="270dp"
-        android:layout_height="35dp"
-        android:layout_alignParentBottom="true"
+        android:layout_height="50dp"
+        android:layout_marginTop="3dp"
+        android:layout_below="@+id/login3"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="242dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/login1" />
+        android:src="@drawable/login2" />
 
     <EditText
         android:id="@+id/eposta"
         android:layout_width="235dp"
-        android:layout_height="39dp"
+        android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/login1"
-        android:layout_alignTop="@+id/login4"
+        android:layout_below="@+id/logo2"
         android:hint="E-Posta "
         android:imeActionId="6"
         android:imeOptions="actionUnspecified"
@@ -96,9 +94,10 @@
     <EditText
         android:id="@+id/ad"
         android:layout_width="235dp"
-        android:layout_height="39dp"
-        android:layout_alignEnd="@+id/login1"
-        android:layout_alignTop="@+id/login1"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/login2"
+        android:layout_below="@+id/login1"
+        android:layout_marginTop="3dp"
         android:hint="Ad"
         android:imeActionId="6"
         android:imeOptions="actionUnspecified"
@@ -113,9 +112,10 @@
     <EditText
         android:id="@+id/soyAd"
         android:layout_width="235dp"
-        android:layout_height="39dp"
-        android:layout_alignEnd="@+id/login1"
-        android:layout_alignTop="@+id/login3"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/login3"
+        android:layout_below="@+id/login2"
+        android:layout_marginTop="3dp"
         android:hint="Soyad "
         android:imeActionId="6"
         android:imeOptions="actionUnspecified"
@@ -131,9 +131,9 @@
         android:id="@+id/password"
         android:layout_width="235dp"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/login1"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="109dp"
+        android:layout_alignEnd="@+id/login4"
+        android:layout_below="@+id/login3"
+        android:layout_marginTop="3dp"
         android:hint="Parola"
         android:imeActionId="6"
         android:imeActionLabel="@string/action_sign_in_short"
@@ -146,14 +146,25 @@
         android:textSize="18sp" />
 
 
-    <ImageButton
+    <Button
         android:id="@+id/kayitOl"
-        android:layout_width="168dp"
-        android:layout_height="52dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="28dp"
-        android:src="@drawable/giris" />
+        android:background="@drawable/kayit"
+        android:layout_width="114dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/login4"
+        android:layout_alignEnd="@+id/login4"
+        android:layout_marginTop="20dp"
+        />
+
+    <Button
+        android:id="@+id/geri"
+        android:background="@drawable/geridon"
+        android:layout_width="114dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/login4"
+        android:layout_alignStart="@+id/login4"
+        android:layout_marginTop="20dp"
+        />
 
 
 </RelativeLayout>

@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -21,12 +22,28 @@ public class KayitOl extends AppCompatActivity {
     public static Map<String, String> ePostaVeParola = new HashMap<String, String>();
     public static File file;
 
+    private void toast(){
+        Toast.makeText(this, "Kayıt Başarılı. Lütfen Giriş Yapınız.", Toast.LENGTH_LONG).show();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_kayitol);
 
+        findViewById(R.id.geri).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view)
+            {
+                Intent giris = new Intent(KayitOl.this, Giris.class);
+                startActivity(giris);
+                finish();
+
+            }
+
+        });
 
         findViewById(R.id.kayitOl).setOnClickListener(
                 new View.OnClickListener()
@@ -58,8 +75,10 @@ public class KayitOl extends AppCompatActivity {
                             e.printStackTrace();
                         }
 
+                        toast();
                         Intent giris= new Intent(KayitOl.this, Giris.class);
                         startActivity(giris);
+                        finish();
                     }
                 });
     }

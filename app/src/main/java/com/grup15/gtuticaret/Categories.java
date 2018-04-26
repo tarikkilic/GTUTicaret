@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageButton;
 
 /**
  * Created by AKIN Ç on 8.04.2018.
@@ -36,6 +37,8 @@ public class Categories extends AppCompatActivity {
         actionBarDrawerToggle.syncState();
         //provides home button is enable
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        actionBarDrawerToggle.getDrawerArrowDrawable().setColor(getColor(R.color.Black));
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
@@ -43,7 +46,6 @@ public class Categories extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
 
     }
-
     /**
      *
      * @param item
@@ -53,6 +55,8 @@ public class Categories extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         if(actionBarDrawerToggle.onOptionsItemSelected(item))
             return true;
+
         return super.onOptionsItemSelected(item);
     }
+
 }

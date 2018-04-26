@@ -2,7 +2,7 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/basket"
-        android:icon="@android:drawable/btn_star_big_on"
+        android:icon="@drawable/sepet"
         android:title="basket"
         app:showAsAction="always">
     </item>
