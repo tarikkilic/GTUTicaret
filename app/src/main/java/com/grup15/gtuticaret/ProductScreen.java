@@ -42,6 +42,7 @@ public class ProductScreen extends AppCompatActivity {
                 Intent intent1 = new Intent(getApplicationContext(),productContent.class);
                 intent1.putExtra("pro",temp.get(i));
                 startActivity(intent1);
+                finish();
             }
         });{
 
