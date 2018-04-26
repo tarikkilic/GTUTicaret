@@ -37,9 +37,13 @@ public class AnaEkran extends AppCompatActivity {
             public boolean onNavigationItemSelected(MenuItem menuItem) {
                 int id = menuItem.getItemId();
                 switch (id) {
+                    case R.id.navigation_menu:
+                        /* Zaten anamenude oldugumuz icin intente gerek yok */
+                        break;
                     case R.id.navigation_account:
-                        //Do some thing here
-                        // add navigation drawer item onclick method here
+                        Intent hesap = new Intent(AnaEkran.this, Hesabim.class);
+                        startActivity(hesap);
+                        finish();
                         break;
                     case R.id.navigation_categories:
                         Intent kategori = new Intent(AnaEkran.this, Categories.class);
@@ -47,13 +51,16 @@ public class AnaEkran extends AppCompatActivity {
                         finish();
                         break;
                     case R.id.navigation_setting:
-                        //Do some thing here
-                        // add navigation drawer item onclick method here
+                        Intent ayarlar = new Intent(AnaEkran.this, Ayarlar.class);
+                        startActivity(ayarlar);
+                        finish();
                         break;
                 }
                 return false;
             }
         });
+
+
 
     }
     @Override
@@ -67,9 +74,17 @@ public class AnaEkran extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         if(actionBarDrawerToggle.onOptionsItemSelected(item))
             return true;
-
+        switch(item.getItemId()) {
+            case R.id.basket:
+                Intent i = new Intent(this, Sepet.class);
+                startActivity(i);
+                finish();
+                break;
+        }
         return super.onOptionsItemSelected(item);
     }
 
 }
+
+
 

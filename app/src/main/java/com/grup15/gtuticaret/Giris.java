@@ -43,8 +43,6 @@ public class Giris extends AppCompatActivity  {
                 Intent kayitOlEkrani = new Intent(Giris.this, KayitOl.class);
                 startActivity(kayitOlEkrani);
                 finish();
-
-
             }
 
         });
@@ -92,10 +90,9 @@ public class Giris extends AppCompatActivity  {
 
                         }
                     }
-                });
+                }
+        );
     }
-
-
-
 }
+
 

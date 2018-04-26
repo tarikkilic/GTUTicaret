@@ -2,6 +2,7 @@ package com.grup15.gtuticaret;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -54,10 +55,20 @@ public class Categories extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent material=new Intent(Categories.this,ProductScreen.class);
-                material.putExtra("ezkey","EV EsYALARI");
+                material.putExtra("ezkey","EV ESYALARI");
                 startActivity(material);
             }
         });
+        ((ImageButton) findViewById(R.id.bilet)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent ticket=new Intent(Categories.this,ProductScreen.class);
+                ticket.putExtra("ezkey","ETKINLIK-BILET");
+                startActivity(ticket);
+            }
+        });
+
+
         //provides to the drawerlayout in activity_main.xml
         mdrawerLayout=(DrawerLayout) findViewById(R.id.drawerLayout);
         //takes four parametr
@@ -71,6 +82,35 @@ public class Categories extends AppCompatActivity {
         //provides home button is enable
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         actionBarDrawerToggle.getDrawerArrowDrawable().setColor(getColor(R.color.Black));
+
+        NavigationView navigation = (NavigationView) findViewById(R.id.toolbar);
+        navigation.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+                int id = menuItem.getItemId();
+                switch (id) {
+                    case R.id.navigation_menu:
+                        Intent menu = new Intent(Categories.this, AnaEkran.class);
+                        startActivity(menu);
+                        finish();
+                        break;
+                    case R.id.navigation_account:
+                        Intent hesap = new Intent(Categories.this, Hesabim.class);
+                        startActivity(hesap);
+                        finish();
+                        break;
+                    case R.id.navigation_categories:
+                        /*Kategori Sınıfında oldugumuz için intente gerek yok. */
+                        break;
+                    case R.id.navigation_setting:
+                        Intent ayarlar = new Intent(Categories.this, Ayarlar.class);
+                        startActivity(ayarlar);
+                        finish();
+                        break;
+                }
+                return false;
+            }
+        });
 
     }
     @Override
@@ -88,7 +128,13 @@ public class Categories extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         if(actionBarDrawerToggle.onOptionsItemSelected(item))
             return true;
-
+        switch(item.getItemId()) {
+            case R.id.basket:
+                Intent i = new Intent(this, Sepet.class);
+                startActivity(i);
+                finish();
+                break;
+        }
         return super.onOptionsItemSelected(item);
     }
 

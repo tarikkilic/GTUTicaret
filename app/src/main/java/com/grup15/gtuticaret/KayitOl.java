@@ -40,7 +40,6 @@ public class KayitOl extends AppCompatActivity {
                 Intent giris = new Intent(KayitOl.this, Giris.class);
                 startActivity(giris);
                 finish();
-
             }
 
         });

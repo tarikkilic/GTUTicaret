@@ -29,6 +29,7 @@
             android:theme="@style/Giris"></activity>
         <activity android:name=".AnaEkran"></activity>
         <activity android:name=".MainActivity"></activity>
+        <activity android:name=".Ayarlar"></activity>
 
 
 

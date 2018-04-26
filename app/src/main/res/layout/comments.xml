@@ -1,14 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawerLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/arkaplan">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
 
-    <ListView android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:id="@+id/mainListView"
-        android:divider="@color/colorPrimaryDark"
-        android:dividerHeight="4px">
-    </ListView>
+        <ListView android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/mainListView"
+            android:divider="@color/colorPrimaryDark"
+            android:dividerHeight="4px">
+        </ListView>
 
-</LinearLayout>
+    </LinearLayout>
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/toolbar"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@drawable/arkaplannav"
+        app:menu="@menu/navigation_menu"
+        app:itemBackground="@drawable/itembackground"
+        android:theme="@style/NavigationTheme"
+        app:itemIconTint="@android:color/black"
+        >
+
+
+    </android.support.design.widget.NavigationView>
+</android.support.v4.widget.DrawerLayout>

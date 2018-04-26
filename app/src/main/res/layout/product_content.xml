@@ -1,186 +1,196 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/arkaplan"
-    tools:context="com.grup15.gtuticaret.productContent">
-
-
-    <Button
-        android:id="@+id/addToBasket"
+    android:background="@drawable/arkaplan">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:background="#0be71a"
-        android:onClick="addToBasket"
-        android:text="SEPETE EKLE"
-        android:textColor="#fffcfc"
-        android:textSize="20sp" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="com.grup15.gtuticaret.productContent">
 
 
-    <ImageButton
-        android:id="@+id/back"
-        android:layout_width="60dp"
-        android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        android:background="@android:color/transparent"
-        android:scaleType="centerInside"
-        app:srcCompat="@drawable/geri" />
+        <Button
+            android:id="@+id/addToBasket"
+
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="#0be71a"
+            android:onClick="addToBasket"
+            android:text="SEPETE EKLE"
+            android:textColor="#fffcfc"
+            android:textSize="20sp" />
 
 
+        <ImageButton
+            android:id="@+id/back"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/geri" />
 
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/back"
-        android:layout_above="@id/addToBasket">
 
-        <RelativeLayout
+        <ScrollView
+            android:id="@+id/scrollView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/back"
+            android:layout_above="@id/addToBasket">
 
-
-            <ImageView
-                android:id="@+id/productImage"
-                android:layout_width="wrap_content"
-                android:layout_height="200dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true" />
-
-            <TextView
-                android:id="@+id/productName"
-                android:layout_width="225dp"
-                android:layout_height="50dp"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/productImage"
-                android:layout_marginStart="22dp"
-                android:layout_marginTop="10dp"
-                android:textStyle="bold|italic" />
-
-            <TextView
-                android:id="@+id/productCost"
-                android:layout_width="100dp"
-                android:layout_height="26dp"
-                android:layout_alignStart="@+id/productName"
-                android:layout_below="@+id/productName"
-                android:layout_marginTop="6dp"
-                android:textStyle="bold|italic" />
-
-            <TextView
-                android:id="@+id/titleFeatures"
-                android:layout_width="204dp"
-                android:layout_height="23dp"
-                android:layout_alignStart="@+id/productCost"
-                android:layout_below="@+id/productCost"
-                android:layout_marginTop="11dp"
-                android:textStyle="bold|italic"
-                android:text="Ürün Özellikleri" />
-
-            <TextView
-                android:id="@+id/features"
-                android:layout_width="356dp"
-                android:layout_height="110dp"
-                android:layout_alignStart="@+id/commentTitle"
-                android:layout_below="@+id/titleFeatures"
-                android:layout_marginTop="11dp"
-                android:textStyle="bold|italic" />
-
-            <TextView
-                android:id="@+id/commentTitle"
-                android:layout_width="100dp"
-                android:layout_height="30dp"
-                android:layout_alignStart="@+id/comment"
-                android:layout_alignTop="@+id/features"
-                android:layout_marginTop="96dp"
-                android:textStyle="bold|italic"
-                android:text="Ürün Yorumları" />
-
-            <TextView
-                android:id="@+id/comment"
-                android:layout_width="356dp"
-                android:layout_height="86dp"
-                android:layout_alignStart="@+id/productName"
-                android:layout_below="@+id/commentTitle" />
-
-
-            <ImageView
-                android:id="@+id/stars"
-                android:layout_width="120dp"
-                android:layout_height="80dp"
-                android:layout_alignBottom="@+id/productName"
-                android:layout_toEndOf="@+id/productName"
-                app:srcCompat="@drawable/star" />
-
-
-            <ImageView
-                android:id="@+id/stars2"
-                android:layout_width="120dp"
-                android:layout_height="80dp"
-                android:layout_alignBottom="@+id/comment"
-                android:layout_marginBottom="63dp"
-                android:layout_toEndOf="@+id/commentTitle"
-                app:srcCompat="@drawable/star" />
-
-            <EditText
-                android:id="@+id/editComment"
-                android:layout_width="356dp"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/comment"
-                android:layout_below="@+id/comment"
-                android:hint="Ürün hakkındaki fikirlerini bizimle paylaş..."
-                android:textSize="15sp"
-                android:gravity="top|left"
-                android:maxLength="144"
-                android:ems="10"
-                android:scrollbars="vertical"
-                android:inputType="textMultiLine" />
-
-            <Button
-                android:id="@+id/addComment"
-                android:layout_width="120dp"
-                android:layout_height="40dp"
-                android:layout_alignBaseline="@+id/showComments"
-                android:layout_alignBottom="@+id/showComments"
-                android:layout_alignEnd="@+id/editComment"
-                android:adjustViewBounds="true"
-                android:background="@drawable/yorumyap"
-                android:onClick="takeComment"
-                android:scaleType="centerInside" />
-
-            <Button
-                android:id="@+id/showComments"
-                android:layout_width="120dp"
-                android:layout_height="40dp"
-                android:layout_alignStart="@+id/editComment"
-                android:layout_below="@+id/editComment"
-                android:layout_marginTop="12dp"
-                android:adjustViewBounds="true"
-                android:background="@drawable/digeryorumlar"
-                android:onClick="showAllComments"
-                android:scaleType="centerInside" />
+                android:orientation="vertical">
 
 
-        </RelativeLayout>
-    </ScrollView>
+                <ImageView
+                    android:id="@+id/productImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="200dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true" />
 
-    <ImageButton
-        android:id="@+id/basket"
-        android:layout_width="60dp"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/scrollView2"
-        android:layout_alignParentEnd="true"
-        android:adjustViewBounds="true"
-        android:background="@android:color/transparent"
-        android:onClick="passToBasket"
-        android:scaleType="centerInside"
-        app:srcCompat="@drawable/img_290616" />
+                <TextView
+                    android:id="@+id/productName"
+                    android:layout_width="225dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/productImage"
+                    android:layout_marginStart="22dp"
+                    android:layout_marginTop="10dp"
+                    android:textStyle="bold|italic" />
+
+                <TextView
+                    android:id="@+id/productCost"
+                    android:layout_width="100dp"
+                    android:layout_height="26dp"
+                    android:layout_alignStart="@+id/productName"
+                    android:layout_below="@+id/productName"
+                    android:layout_marginTop="6dp"
+                    android:textStyle="bold|italic" />
+
+                <TextView
+                    android:id="@+id/titleFeatures"
+                    android:layout_width="204dp"
+                    android:layout_height="23dp"
+                    android:layout_alignStart="@+id/productCost"
+                    android:layout_below="@+id/productCost"
+                    android:layout_marginTop="11dp"
+                    android:textStyle="bold|italic"
+                    android:text="Ürün Özellikleri" />
+
+                <TextView
+                    android:id="@+id/features"
+                    android:layout_width="356dp"
+                    android:layout_height="110dp"
+                    android:layout_alignStart="@+id/commentTitle"
+                    android:layout_below="@+id/titleFeatures"
+                    android:layout_marginTop="11dp"
+                    android:textStyle="bold|italic" />
+
+                <TextView
+                    android:id="@+id/commentTitle"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:layout_alignStart="@+id/comment"
+                    android:layout_alignTop="@+id/features"
+                    android:layout_marginTop="96dp"
+                    android:textStyle="bold|italic"
+                    android:text="Ürün Yorumları" />
+
+                <TextView
+                    android:id="@+id/comment"
+                    android:layout_width="356dp"
+                    android:layout_height="86dp"
+                    android:layout_alignStart="@+id/productName"
+                    android:layout_below="@+id/commentTitle" />
 
 
-</RelativeLayout>
+                <ImageView
+                    android:id="@+id/stars"
+                    android:layout_width="120dp"
+                    android:layout_height="80dp"
+                    android:layout_alignBottom="@+id/productName"
+                    android:layout_toEndOf="@+id/productName"
+                    app:srcCompat="@drawable/star" />
+
+
+                <ImageView
+                    android:id="@+id/stars2"
+                    android:layout_width="120dp"
+                    android:layout_height="80dp"
+                    android:layout_alignBottom="@+id/comment"
+                    android:layout_marginBottom="63dp"
+                    android:layout_toEndOf="@+id/commentTitle"
+                    app:srcCompat="@drawable/star" />
+
+                <EditText
+                    android:id="@+id/editComment"
+                    android:layout_width="356dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/comment"
+                    android:layout_below="@+id/comment"
+                    android:hint="Ürün hakkındaki fikirlerini bizimle paylaş..."
+                    android:textSize="15sp"
+                    android:gravity="top|left"
+                    android:maxLength="144"
+                    android:ems="10"
+                    android:scrollbars="vertical"
+                    android:inputType="textMultiLine" />
+
+                <Button
+                    android:id="@+id/addComment"
+                    android:layout_width="120dp"
+                    android:layout_height="40dp"
+                    android:layout_alignBaseline="@+id/showComments"
+                    android:layout_alignBottom="@+id/showComments"
+                    android:layout_alignEnd="@+id/editComment"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/yorumyap"
+                    android:onClick="takeComment"
+                     />
+
+                <Button
+                    android:id="@+id/showComments"
+                    android:layout_width="120dp"
+                    android:layout_height="40dp"
+                    android:layout_alignStart="@+id/editComment"
+                    android:layout_below="@+id/editComment"
+                    android:layout_marginTop="12dp"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/digeryorumlar"
+                    android:onClick="showAllComments"
+                    />
+
+
+            </RelativeLayout>
+        </ScrollView>
+
+
+    </RelativeLayout>
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/toolbar"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@drawable/arkaplannav"
+        app:menu="@menu/navigation_menu"
+        app:itemBackground="@drawable/itembackground"
+        android:theme="@style/NavigationTheme"
+        app:itemIconTint="@android:color/black"
+        >
+
+
+    </android.support.design.widget.NavigationView>
+</android.support.v4.widget.DrawerLayout>

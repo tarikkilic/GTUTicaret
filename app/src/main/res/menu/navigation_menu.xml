@@ -3,6 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/navigation_menu"
+        android:title="Ana Menüye Dön"
+        android:icon="@drawable/anamenu"
+        ></item>
+
+    <item
         android:id="@+id/navigation_account"
         android:title="Hesabım"
         android:icon="@drawable/hesabim"
@@ -20,8 +26,6 @@
         android:title="Ayarlar"
         android:icon="@drawable/ayarlar">
     </item>
-
-
 
 
 </menu>
