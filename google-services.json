@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "885557316135",
+    "firebase_url": "https://gtuticaret.firebaseio.com",
+    "project_id": "gtuticaret",
+    "storage_bucket": "gtuticaret.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:885557316135:android:877737848649b311",
+        "android_client_info": {
+          "package_name": "com.grup15.gtuticaret"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "885557316135-cm0qkll555n20he1ol4kjk0m30nitbt9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.grup15.gtuticaret",
+            "certificate_hash": "1fc5271a643a8cdc7eb4adb251aa7c8851fff72f"
+          }
+        },
+        {
+          "client_id": "885557316135-oh44ihq2l1i35a0pdesjokonso6p80a8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgDeVYgHyX1aZt-5k-GXEx2tA1skis11c"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "885557316135-oh44ihq2l1i35a0pdesjokonso6p80a8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

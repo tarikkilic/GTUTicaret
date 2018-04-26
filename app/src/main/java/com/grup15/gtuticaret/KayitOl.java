@@ -9,6 +9,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -51,29 +54,9 @@ public class KayitOl extends AppCompatActivity {
                     public void onClick(View view)
                     {
                         ePostaVeParola.put((((EditText)findViewById(R.id.eposta)).getText()).toString(),(((EditText)findViewById(R.id.password)).getText()).toString());
-
-                        File file = new File(getDir("data", MODE_PRIVATE), "KayitOl.ePostaVeParola");
-                        ObjectOutputStream outputStream = null;
-                        try {
-                            outputStream = new ObjectOutputStream(new FileOutputStream(file));
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        try {
-                            outputStream.writeObject(KayitOl.ePostaVeParola);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        try {
-                            outputStream.flush();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        try {
-                            outputStream.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+                        User user = new User(((EditText) findViewById(R.id.eposta)).getText().toString().trim(),((EditText) findViewById(R.id.password)).getText().toString().trim());
+                        mDatabase.child("Users").child(String.valueOf((((EditText)findViewById(R.id.eposta)).getText()).toString().hashCode())).setValue(user);
 
                         toast();
                         Intent giris= new Intent(KayitOl.this, Giris.class);
