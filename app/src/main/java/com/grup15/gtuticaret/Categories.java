@@ -1,11 +1,13 @@
 package com.grup15.gtuticaret;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageButton;
 
 /**
@@ -24,7 +26,38 @@ public class Categories extends AppCompatActivity {
         setContentView(R.layout.categories);
 
 
-
+        ((ImageButton) findViewById(R.id.elektronik)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent electronic=new Intent(Categories.this,ProductScreen.class);
+                electronic.putExtra("elektronik","elektronik");
+                startActivity(electronic);
+            }
+        });
+        ((ImageButton) findViewById(R.id.deney)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent exp=new Intent(Categories.this,ProductScreen.class);
+                exp.putExtra("deney","deney");
+                startActivity(exp);
+            }
+        });
+        ((ImageButton) findViewById(R.id.kitap)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent book=new Intent(Categories.this,ProductScreen.class);
+                book.putExtra("kitap","kitap");
+                startActivity(book);
+            }
+        });
+        ((ImageButton) findViewById(R.id.esya)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent material=new Intent(Categories.this,ProductScreen.class);
+                material.putExtra("esya","esya");
+                startActivity(material);
+            }
+        });
         //provides to the drawerlayout in activity_main.xml
         mdrawerLayout=(DrawerLayout) findViewById(R.id.drawerLayout);
         //takes four parametr
