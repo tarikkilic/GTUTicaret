@@ -71,12 +71,13 @@ public class ProductScreen extends AppCompatActivity {
 
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
+            int imageID = getApplicationContext().getResources().getIdentifier(temp.get(i).getImageCode(),"drawable",getPackageName());
             view = getLayoutInflater().inflate(R.layout.custom_layout,null);
             ImageView imageView = (ImageView)view.findViewById(R.id.imageView);
             TextView textView_name = (TextView) view.findViewById(R.id.textView_name);
             TextView textView_description = (TextView) view.findViewById(R.id.textView_description);
             TextView textView_price = (TextView) view.findViewById(R.id.textView_price);
-            imageView.setImageResource(R.drawable.note1);
+            imageView.setImageResource(imageID);
             textView_name.setText(temp.get(i).getName());
             textView_description.setText(temp.get(i).getFeatures());
             textView_price.setText(Double.toString(temp.get(i).getPrice()));

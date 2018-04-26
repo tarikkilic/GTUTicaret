@@ -9,8 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="150dp">
 
-        <RadioButton
-            android:id="@+id/radioButton"
+        <CheckBox
+            android:id="@+id/check"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"/>
@@ -19,7 +19,7 @@
             android:id="@+id/productInCart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/radioButton"/>
+            android:layout_toRightOf="@+id/check"/>
 
     </RelativeLayout>
 

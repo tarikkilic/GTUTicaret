@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,6 +28,7 @@
         <activity android:name=".Giris"
             android:theme="@style/Giris"></activity>
         <activity android:name=".AnaEkran"></activity>
+        <activity android:name=".MainActivity"></activity>
 
 
 

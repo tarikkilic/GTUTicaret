@@ -13,12 +13,13 @@
         android:id="@+id/addToBasket"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:background="#0be71a"
-        android:textColor="#fffcfc"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:textSize="20sp"
-        android:text="SEPETE EKLE" />
+        android:background="#0be71a"
+        android:onClick="addToBasket"
+        android:text="SEPETE EKLE"
+        android:textColor="#fffcfc"
+        android:textSize="20sp" />
 
 
     <ImageButton
@@ -177,6 +178,7 @@
         android:layout_alignParentEnd="true"
         android:adjustViewBounds="true"
         android:background="@android:color/transparent"
+        android:onClick="passToBasket"
         android:scaleType="centerInside"
         app:srcCompat="@drawable/img_290616" />
 
