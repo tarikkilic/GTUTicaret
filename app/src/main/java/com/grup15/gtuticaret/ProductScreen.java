@@ -17,24 +17,23 @@ import java.util.List;
 
 public class ProductScreen extends AppCompatActivity {
 
-
-
     ArrayList<Product> p = new ArrayList<>();
-
+    ArrayList<Product> temp = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_screen);
         p = (ArrayList<Product>) getIntent().getExtras().getSerializable("product");
         Log.i("DENEMEEEE",Integer.toString(p.size()));
-        ListView listView = (ListView) findViewById(R.id.productList);
+        final ListView listView = (ListView) findViewById(R.id.productList);
         CustomAdapter customAdapter = new CustomAdapter();
         //listeyi customlayouttaki şekilde oluşturdum hepsini
         listView.setAdapter(customAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent1 = new Intent(getApplicationContext(),Categories.class);
+                Intent intent1 = new Intent(getApplicationContext(),productContent.class);
+                intent1.putExtra("pro",temp.get(i));
                 startActivity(intent1);
             }
         });{
@@ -50,8 +49,11 @@ public class ProductScreen extends AppCompatActivity {
         public int getCount() {
             int i = 0,size = 0;
             while(i < p.size()){
-                if(p.get(i).getType().equals("ELEKTRONIK"))
+                if(p.get(i).getType().equals("KITAPLAR")){
                     size++;
+                    temp.add(p.get(i));
+                }
+
                 i++;
             }
             return size;
@@ -75,9 +77,9 @@ public class ProductScreen extends AppCompatActivity {
             TextView textView_description = (TextView) view.findViewById(R.id.textView_description);
             TextView textView_price = (TextView) view.findViewById(R.id.textView_price);
             imageView.setImageResource(R.drawable.note1);
-            textView_name.setText(p.get(i).getName());
-            textView_description.setText(p.get(i).getFeatures());
-            textView_price.setText(Double.toString(p.get(i).getPrice()));
+            textView_name.setText(temp.get(i).getName());
+            textView_description.setText(temp.get(i).getFeatures());
+            textView_price.setText(Double.toString(temp.get(i).getPrice()));
             return view;
         }
     }

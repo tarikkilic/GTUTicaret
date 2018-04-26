@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class productContent extends AppCompatActivity {
     ArrayList<String> comments;
-
+    Product p;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,7 +20,9 @@ public class productContent extends AppCompatActivity {
 
         int image = R.drawable.notebook;
 
-        String name = "ASUS X505BP-BR019 AMD A9-9420 4GB 1TB 2GB R5 M420 DOS 15.6";
+        p = (Product) getIntent().getExtras().getSerializable("pro");
+
+        String name = p.getName();
 
         String price = "1.464,99 TL";
 
