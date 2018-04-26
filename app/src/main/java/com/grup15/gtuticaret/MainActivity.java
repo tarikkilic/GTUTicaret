@@ -14,11 +14,14 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class MainActivity extends AppCompatActivity {
-
+    String fileProduct = "products.txt";
+    String filekeyWord = "key.txt";
+    ArrayList<Product> products = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initProduct();
 
 
         //ürünler ekranı
@@ -55,5 +58,49 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    public void initProduct()  {
+        String line = "";
+        InputStream is;
+        BufferedReader br;
+        try {
+            is = getAssets().open(fileProduct);
+            br = new BufferedReader(new InputStreamReader(is));
+            while((line = br.readLine()) != null){
+                String[] word = line.split(";");
+                Product prd = new Product();
+                prd.setType(word[0]);
+                prd.setImageCode(word[1]);
+                prd.setId(Integer.parseInt(word[2]));
+                prd.setName(word[3]);
+                prd.setFeatures(word[4]);
+                prd.setPrice(Double.parseDouble(word[5]));
+                initkeyWord(prd);
+                products.add(prd);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
+    }
+
+    public void initkeyWord(Product p) {
+        String line = "";
+        InputStream is;
+        BufferedReader br;
+        try {
+            is = getAssets().open(filekeyWord);
+            br = new BufferedReader(new InputStreamReader(is));
+            while((line = br.readLine()) != null){
+
+                LinkedList<String> key = new LinkedList<>();
+                String[] word = line.split(";");
+                key.add(word[0]);
+                key.add(word[1]);
+                key.add(word[2]);
+                p.setKeyWords(key);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
