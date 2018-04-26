@@ -30,7 +30,7 @@ public class Categories extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent electronic=new Intent(Categories.this,ProductScreen.class);
-                electronic.putExtra("elektronik","elektronik");
+                electronic.putExtra("ezkey","ELEKTRONIK");
                 startActivity(electronic);
             }
         });
@@ -38,7 +38,7 @@ public class Categories extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent exp=new Intent(Categories.this,ProductScreen.class);
-                exp.putExtra("deney","deney");
+                exp.putExtra("ezkey","DENEY MALZEMELERI");
                 startActivity(exp);
             }
         });
@@ -46,7 +46,7 @@ public class Categories extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent book=new Intent(Categories.this,ProductScreen.class);
-                book.putExtra("kitap","kitap");
+                book.putExtra("ezkey","KITAPLAR");
                 startActivity(book);
             }
         });
@@ -54,7 +54,7 @@ public class Categories extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent material=new Intent(Categories.this,ProductScreen.class);
-                material.putExtra("esya","esya");
+                material.putExtra("ezkey","EV EsYALARI");
                 startActivity(material);
             }
         });

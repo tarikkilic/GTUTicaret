@@ -12,19 +12,26 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class ProductScreen extends AppCompatActivity {
-
+    String fileProduct = "products.txt";
+    String filekeyWord = "key.txt";
     ArrayList<Product> p = new ArrayList<>();
     ArrayList<Product> temp = new ArrayList<>();
+    String typeC;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_screen);
-        p = (ArrayList<Product>) getIntent().getExtras().getSerializable("product");
-        Log.i("DENEMEEEE",Integer.toString(p.size()));
+        initProduct();
+        typeC = getIntent().getStringExtra("ezkey");
         final ListView listView = (ListView) findViewById(R.id.productList);
         CustomAdapter customAdapter = new CustomAdapter();
         //listeyi customlayouttaki şekilde oluşturdum hepsini
@@ -49,7 +56,7 @@ public class ProductScreen extends AppCompatActivity {
         public int getCount() {
             int i = 0,size = 0;
             while(i < p.size()){
-                if(p.get(i).getType().equals("KITAPLAR")){
+                if(p.get(i).getType().equals(typeC)){
                     size++;
                     temp.add(p.get(i));
                 }
@@ -81,6 +88,53 @@ public class ProductScreen extends AppCompatActivity {
             textView_description.setText(temp.get(i).getFeatures());
             textView_price.setText(Double.toString(temp.get(i).getPrice()));
             return view;
+        }
+    }
+
+
+    public void initProduct()  {
+        String line = "";
+        InputStream is;
+        BufferedReader br;
+        try {
+            is = getAssets().open(fileProduct);
+            br = new BufferedReader(new InputStreamReader(is));
+            while((line = br.readLine()) != null){
+                String[] word = line.split(";");
+                Product prd = new Product();
+                prd.setType(word[0]);
+                prd.setImageCode(word[1]);
+                prd.setId(Integer.parseInt(word[2]));
+                prd.setName(word[3]);
+                prd.setFeatures(word[4]);
+                prd.setPrice(Double.parseDouble(word[5]));
+                initkeyWord(prd);
+                p.add(prd);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void initkeyWord(Product p) {
+        String line = "";
+        InputStream is;
+        BufferedReader br;
+        try {
+            is = getAssets().open(filekeyWord);
+            br = new BufferedReader(new InputStreamReader(is));
+            while((line = br.readLine()) != null){
+
+                LinkedList<String> key = new LinkedList<>();
+                String[] word = line.split(";");
+                key.add(word[0]);
+                key.add(word[1]);
+                key.add(word[2]);
+                p.setKeyWords(key);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
