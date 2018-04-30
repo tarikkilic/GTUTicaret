@@ -17,6 +17,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -53,9 +55,16 @@ public class KayitOl extends AppCompatActivity {
                 {
                     public void onClick(View view)
                     {
-                        ePostaVeParola.put((((EditText)findViewById(R.id.eposta)).getText()).toString(),(((EditText)findViewById(R.id.password)).getText()).toString());
+                        //ePostaVeParola.put((((EditText)findViewById(R.id.eposta)).getText()).toString(),(((EditText)findViewById(R.id.password)).getText()).toString());
                         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-                        User user = new User(((EditText) findViewById(R.id.eposta)).getText().toString().trim(),((EditText) findViewById(R.id.password)).getText().toString().trim());
+                        User user = null;
+                        try {
+                            user = new User(((EditText) findViewById(R.id.eposta)).getText().toString().trim(), Sha256hash.generate(((EditText) findViewById(R.id.password)).getText().toString().trim()));
+                        } catch (NoSuchAlgorithmException e) {
+                            e.printStackTrace();
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
                         mDatabase.child("Users").child(String.valueOf((((EditText)findViewById(R.id.eposta)).getText()).toString().hashCode())).setValue(user);
 
                         toast();

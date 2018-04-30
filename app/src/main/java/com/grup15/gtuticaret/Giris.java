@@ -9,13 +9,27 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 public class Giris extends AppCompatActivity  {
+    ArrayList<String> mails  = new ArrayList<>();
+    ArrayList<String> passwords = new ArrayList<>();
+    String mail,pass;
 
     private void toast(int i){
         if(i==0){
@@ -30,7 +44,7 @@ public class Giris extends AppCompatActivity  {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_giris);
@@ -54,23 +68,40 @@ public class Giris extends AppCompatActivity  {
                 {
                     public void onClick(View view)
                     {
+
+                         mail = ((EditText)findViewById(R.id.epostaGiris)).getText().toString();
+                         pass = ((EditText)findViewById(R.id.passwordGiris)).getText().toString();
                         try {
-                            File file = new File(getDir("data", MODE_PRIVATE), "KayitOl.ePostaVeParola");
-
-                            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
-                            KayitOl.ePostaVeParola= (Map<String, String>) ois.readObject();
-
-                        } catch (IOException e) {
+                            pass = Sha256hash.generate(pass);
+                        } catch (UnsupportedEncodingException e) {
                             e.printStackTrace();
-                        } catch (ClassNotFoundException e) {
+                        } catch (NoSuchAlgorithmException e) {
                             e.printStackTrace();
                         }
 
+                        final boolean[] flag = {false};
+                        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+                        mDatabase.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for(DataSnapshot ds : dataSnapshot.getChildren()){
+                                    HashMap tmp = (HashMap) ds.getValue();
+                                    mails.add(tmp.get("email").toString());
+                                    passwords.add(tmp.get("password").toString());
+                                    if(mails.contains(mail))break;
 
-                        if(KayitOl.ePostaVeParola.get(((EditText)findViewById(R.id.epostaGiris)).getText().toString())!=null
-                                && ((EditText)findViewById(R.id.passwordGiris)).getText().toString()!=null
-                                && KayitOl.ePostaVeParola.get(((EditText)findViewById(R.id.epostaGiris)).getText().toString()).
-                                equals(((EditText)findViewById(R.id.passwordGiris)).getText().toString())){
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+
+                        if(mails.contains(mail) && passwords.contains(pass))
+                            flag[0] = true;
+                        if(flag[0]){
 
 
                             /*******************************************************************************/
@@ -79,11 +110,6 @@ public class Giris extends AppCompatActivity  {
                             startActivity(kayit);
                             finish();
                             /**********************************************************************************/
-                        }
-                        else if(KayitOl.ePostaVeParola.get(((EditText)findViewById(R.id.epostaGiris)).getText().toString())==null){
-                            /*******************************************************************************/
-                            toast(1);
-                            /*******************************************************************************/
                         }
                         else {
                             /*******************************************************************************/
