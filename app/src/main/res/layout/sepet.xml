@@ -40,7 +40,8 @@ android:background="@drawable/arkaplan">
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/sil"
-        android:layout_above="@+id/satınAl">
+        android:layout_above="@+id/satınAl"
+        android:paddingTop="20dp">
 
         <LinearLayout
             android:id="@+id/general"

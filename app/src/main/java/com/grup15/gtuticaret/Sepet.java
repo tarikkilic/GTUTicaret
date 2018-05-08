@@ -12,8 +12,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -35,21 +37,50 @@ public class Sepet extends AppCompatActivity {
         setContentView(R.layout.sepet);
         LinearLayout genel_Sepet = findViewById(R.id.general);
 
+        final LinkedList<Product> tmpCart = (LinkedList<Product>)cart.clone();  //sepetin kopyası üzerinde poll yapabilmek için
         if (cart != null) {
-            LinkedList<Product> tmpCart = (LinkedList<Product>)cart.clone();  //sepetin kopyası üzerinde poll yapabilmek için
             Product tmpProduct;
             Double price = new Double(0);
 
             for (int i = 0; i < cart.size(); ++i) {    //sepetin size kadar
                 View view = getLayoutInflater().inflate(R.layout.sepet_urun_taslak, null);
-                final ImageButton ib = view.findViewById(R.id.productInCart);
+                final ImageView iv = view.findViewById(R.id.productInCart);
                 final CheckBox cb = view.findViewById(R.id.check);
+                final TextView name = view.findViewById(R.id.nameOfProduct);
+                final TextView description = view.findViewById(R.id.descriptionOfProduct);
+                final TextView priceView = view.findViewById(R.id.priceOfProduct);
+                final LinearLayout ll = view.findViewById(R.id.one);
 
                 tmpProduct = tmpCart.poll();
+                final Product tmp = tmpProduct;
+                iv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        Intent intent1 = new Intent(getApplicationContext(),productContent.class);
+                        intent1.putExtra("pro",tmp);
+                        startActivity(intent1);
+                        finish();
+                    }
+                });
+                ll.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent1 = new Intent(getApplicationContext(),productContent.class);
+                        intent1.putExtra("pro",tmp);
+                        startActivity(intent1);
+                        finish();
+                    }
+                });
+                name.setText(tmpProduct.getName());
+                description.setText(tmpProduct.getFeatures());
+                priceView.setText(((Double)tmpProduct.getPrice()).toString() +" TL");
                 price += tmpProduct.getPrice();
                 pairCart.add(new Pair<>(cb, tmpProduct));
                 int image = getApplicationContext().getResources().getIdentifier(tmpProduct.getImageCode(),"drawable",getPackageName());
-                ib.setBackgroundResource(image);//düzelcek
+                iv.setBackgroundResource(image);
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(220, 320);
+                iv.setLayoutParams(layoutParams);
                 genel_Sepet.addView(view);
             }
 
