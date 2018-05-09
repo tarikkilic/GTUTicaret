@@ -4,9 +4,6 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.Stack;
 
-/**
- * Created by Serkan Sorman on 24.04.2018.
- */
 
 public class Product implements Serializable {
     private String name;
@@ -15,7 +12,6 @@ public class Product implements Serializable {
     private double price;
     private int id;
     private LinkedList<String> keyWords;
-    private Stack<String> comments;
     private String imageCode;
 
     public Product(){
@@ -25,7 +21,6 @@ public class Product implements Serializable {
         price = 0;
         id = 0;
         keyWords = null;
-        comments = null;
         imageCode = null;
     }
 
@@ -66,10 +61,6 @@ public class Product implements Serializable {
         return keyWords;
     }
 
-    public Stack<String> getComments() {
-        return comments;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -90,9 +81,6 @@ public class Product implements Serializable {
         this.keyWords = keyWords;
     }
 
-    public void setComments(Stack<String> comments) {
-        this.comments = comments;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -105,8 +93,7 @@ public class Product implements Serializable {
         if (id != product.id) return false;
         if (!name.equals(product.name)) return false;
         if (!features.equals(product.features)) return false;
-        if (!keyWords.equals(product.keyWords)) return false;
-        return comments.equals(product.comments);
+        return keyWords.equals(product.keyWords);
     }
 
     @Override
@@ -117,7 +104,6 @@ public class Product implements Serializable {
                 ", price=" + price +
                 ", id=" + id +
                 ", keyWords=" + keyWords +
-                ", comments=" + comments +
                 '}';
     }
 }

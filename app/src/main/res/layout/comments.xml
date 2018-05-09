@@ -6,19 +6,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/arkaplan">
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+    <ScrollView
+        android:id="@+id/scrollComment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/sil"
+        android:layout_above="@+id/satınAl"
+        android:paddingTop="20dp">
 
-        <ListView android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:id="@+id/mainListView"
-            android:divider="@color/colorPrimaryDark"
-            android:dividerHeight="4px">
-        </ListView>
+        <LinearLayout
+            android:id="@+id/mainComments"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        </LinearLayout>
 
-    </LinearLayout>
+    </ScrollView>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/toolbar"

@@ -73,10 +73,11 @@
                 <TextView
                     android:id="@+id/productCost"
                     android:layout_width="100dp"
-                    android:layout_height="26dp"
+                    android:layout_height="wrap_content"
                     android:layout_alignStart="@+id/productName"
                     android:layout_below="@+id/productName"
                     android:layout_marginTop="6dp"
+                    android:textSize="20sp"
                     android:textStyle="bold|italic" />
 
                 <TextView
@@ -86,35 +87,39 @@
                     android:layout_alignStart="@+id/productCost"
                     android:layout_below="@+id/productCost"
                     android:layout_marginTop="11dp"
+                    android:text="Ürün Özellikleri"
                     android:textStyle="bold|italic"
-                    android:text="Ürün Özellikleri" />
+                    android:textSize="18sp"/>
 
                 <TextView
                     android:id="@+id/features"
-                    android:layout_width="356dp"
-                    android:layout_height="110dp"
-                    android:layout_alignStart="@+id/commentTitle"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/titleFeatures"
                     android:layout_below="@+id/titleFeatures"
-                    android:layout_marginTop="11dp"
                     android:textStyle="bold|italic" />
 
                 <TextView
                     android:id="@+id/commentTitle"
-                    android:layout_width="100dp"
+                    android:layout_width="190dp"
                     android:layout_height="30dp"
-                    android:layout_alignStart="@+id/comment"
-                    android:layout_alignTop="@+id/features"
-                    android:layout_marginTop="96dp"
-                    android:textStyle="bold|italic"
-                    android:text="Ürün Yorumları" />
+                    android:layout_alignStart="@+id/titleFeatures"
+                    android:layout_below="@+id/features"
+                    android:layout_marginTop="15dp"
+                    android:text="Kullanıcıya ait Yorumlar"
+                    android:textSize="18sp"
+                    android:textStyle="bold|italic" />
 
-                <TextView
-                    android:id="@+id/comment"
+
+                <LinearLayout
+                    android:id="@+id/lastCommentLL"
                     android:layout_width="356dp"
-                    android:layout_height="86dp"
-                    android:layout_alignStart="@+id/productName"
-                    android:layout_below="@+id/commentTitle" />
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/titleFeatures"
+                    android:layout_below="@+id/commentTitle"
+                    android:orientation="vertical">
 
+                </LinearLayout>
 
                 <ImageView
                     android:id="@+id/stars"
@@ -125,28 +130,19 @@
                     app:srcCompat="@drawable/star" />
 
 
-                <ImageView
-                    android:id="@+id/stars2"
-                    android:layout_width="120dp"
-                    android:layout_height="80dp"
-                    android:layout_alignBottom="@+id/comment"
-                    android:layout_marginBottom="63dp"
-                    android:layout_toEndOf="@+id/commentTitle"
-                    app:srcCompat="@drawable/star" />
-
                 <EditText
                     android:id="@+id/editComment"
                     android:layout_width="356dp"
                     android:layout_height="wrap_content"
-                    android:layout_alignStart="@+id/comment"
-                    android:layout_below="@+id/comment"
-                    android:hint="Ürün hakkındaki fikirlerini bizimle paylaş..."
-                    android:textSize="15sp"
-                    android:gravity="top|left"
-                    android:maxLength="144"
+                    android:layout_alignStart="@+id/lastCommentLL"
+                    android:layout_below="@+id/lastCommentLL"
                     android:ems="10"
+                    android:gravity="top|left"
+                    android:hint="Kullanıcı hakkındaki fikirlerini bizimle paylaş..."
+                    android:inputType="textMultiLine"
+                    android:maxLength="144"
                     android:scrollbars="vertical"
-                    android:inputType="textMultiLine" />
+                    android:textSize="15sp" />
 
                 <Button
                     android:id="@+id/addComment"
@@ -157,8 +153,7 @@
                     android:layout_alignEnd="@+id/editComment"
                     android:adjustViewBounds="true"
                     android:background="@drawable/yorumyap"
-                    android:onClick="takeComment"
-                     />
+                    android:onClick="takeComment" />
 
                 <Button
                     android:id="@+id/showComments"
@@ -169,8 +164,21 @@
                     android:layout_marginTop="12dp"
                     android:adjustViewBounds="true"
                     android:background="@drawable/digeryorumlar"
-                    android:onClick="showAllComments"
-                    />
+                    android:onClick="showAllComments" />
+
+                <ImageView
+                    android:id="@+id/stars2"
+                    android:layout_width="120dp"
+                    android:layout_height="30dp"
+                    android:layout_above="@+id/lastCommentLL"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="23dp"
+                    app:srcCompat="@drawable/star" />
+
+
+
+
+
 
 
             </RelativeLayout>

@@ -13,24 +13,37 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedList;
+import java.util.Locale;
+import java.util.SimpleTimeZone;
 import java.util.Stack;
 
 public class productContent extends AppCompatActivity {
     private DrawerLayout mdrawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
-    Stack<String> comments;
+    Stack<Comment> comments;
     TextView lastComment;
+    TextView lastCommentDate;
+    TextView lasCommentUser;
     Product newProduct;
+    User currentUser;
+    User userComesProduct;
+    LinearLayout lastCommentLL;
+    View view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.product_content);
+        lastCommentLL = findViewById(R.id.lastCommentLL);
 
         newProduct = (Product) getIntent().getExtras().getSerializable("pro");
         int image = getApplicationContext().getResources().getIdentifier(newProduct.getImageCode(),"drawable",getPackageName());
@@ -40,16 +53,18 @@ public class productContent extends AppCompatActivity {
         String feature = newProduct.getFeatures();
 
 
-        //Her ürüne geçici yorumlar yerleştirildi.
+        //Kullanıcıya geçici yorumlar yerleştirildi.
         comments = new Stack<>();
-        comments.add("GTU Alışveriş sağolsun sizin gibi dürüst satıcıların olduğunu görebildik. Dünya böyle satıcılar uğruna dönüyor");
-        comments.add("Harika sorunsuz bir ürün");
-        comments.add("Teşekkürler");
-        comments.add("Şiddetle tavsiye ediyorum");
-        comments.add("Fiyat performans ürünü :)");
-        comments.add("Zengin değilseniz tavsiye etmiyorum");
-        comments.add("Güvenilir satıcı, kesinlikle tavsiye ederim.");
+        comments.add(new Comment("okula böyle adamlar lazım teşekkürler","01/01/2017","burhanElgun"));
+        comments.add(new Comment("içinde tel olmayan jumper sattı","04/05/2017","ramazanGuvenc"));
+        comments.add(new Comment("Aldığım tüm ürünlerinden memnunum","19/09/2017","emirhanKaragozoglu"));
+        comments.add(new Comment("Paramı alıp kaçtı güvenmeyin","12/02/2018","tarikKilic"));
+        comments.add(new Comment("Adamın dibi yok böyle insan","24/04/2018","akinCam"));
+        comments.add(new Comment("GTU Alışveriş sağolsun sizin gibi dürüst satıcıların olduğunu görebildik. Dünya böyle satıcılar uğruna dönüyor","30/04/2018","celalCanKaya"));
 
+
+        currentUser = new User("ssorman");
+        userComesProduct = new User("newUser",comments);
 
         ImageView productImage = findViewById(R.id.productImage);
         productImage.setImageResource(image);
@@ -63,9 +78,19 @@ public class productContent extends AppCompatActivity {
         TextView productFeatures = findViewById(R.id.features);
         productFeatures.setText(feature);
 
+
+
+        view = getLayoutInflater().inflate(R.layout.row, null);
+
         //yorumların ilk elemanı ekranda gösterilecek yorum son yapılan yorumdur.
-        lastComment = findViewById(R.id.comment);
-        lastComment.setText(comments.peek());
+        lastComment = view.findViewById(R.id.comment);
+        lastCommentDate = view.findViewById(R.id.commentDate);
+        lasCommentUser = view.findViewById(R.id.userName);
+
+        lastComment.setText(userComesProduct.getComments().peek().getCommentText());
+        lastCommentDate.setText(userComesProduct.getComments().peek().getCommentDate());
+        lasCommentUser.setText(userComesProduct.getComments().peek().getUserName());
+        lastCommentLL.addView(view);
 
         findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
 
@@ -76,7 +101,6 @@ public class productContent extends AppCompatActivity {
             }
 
         });
-
 
         mdrawerLayout=(DrawerLayout) findViewById(R.id.drawerLayout);
         actionBarDrawerToggle= new ActionBarDrawerToggle(this,mdrawerLayout,R.string.open,R.string.close);
@@ -142,28 +166,38 @@ public class productContent extends AppCompatActivity {
     //Yorum yapa tıklandığında yeni yapılan yorumu ürün yorumlarının sonuna ekleme
     public void takeComment(View v){
 
+        String formattedDate = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
         EditText editComment = findViewById(R.id.editComment);
         editComment.setFocusable(false);
         if(!editComment.getText().toString().equals(null))
-            comments.add(editComment.getText().toString());
+            userComesProduct.getComments().add(new Comment(editComment.getText().toString(),formattedDate,currentUser.getName()));
+
+        lastComment.setText(userComesProduct.getComments().peek().getCommentText());
+        lastCommentDate.setText(userComesProduct.getComments().peek().getCommentDate());
+        lasCommentUser.setText(userComesProduct.getComments().pop().getUserName());
+
+
         editComment.getText().clear();
-        lastComment.setText(comments.pop());
 
     }
 
     // Yorumlar yeni ekranda gösterilir.
     public void showAllComments(View v){
-        ArrayList<String> temp = new ArrayList<>();
-        temp.addAll(comments);
-        Intent intent = new Intent(this,commentsPage.class);
-        intent.putStringArrayListExtra("allComments",temp);
+        Intent intent = new Intent(getApplicationContext(),commentsPage.class);
+        ArrayList<Comment> arrComment = new ArrayList<>();
+        arrComment.addAll(userComesProduct.getComments());
+        intent.putExtra("comments",arrComment);
         startActivity(intent);
     }
 
     public void addToBasket(View v){
        Toast.makeText(productContent.this,"Ürün sepete eklendi.",
                 Toast.LENGTH_SHORT).show();
-        Sepet.cart.add(newProduct);
+       if(newProduct == null || Sepet.cart.contains(newProduct))
+           Toast.makeText(productContent.this,"Sepetinde aynı üründen birden fazla bulunduramazsın.",
+                   Toast.LENGTH_SHORT).show();
+       else
+           Sepet.cart.add(newProduct);
     }
 
 }
