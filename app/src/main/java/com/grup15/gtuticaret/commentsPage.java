@@ -8,14 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Stack;
 
 /**
  * Created by Serkan Sorman on 09.04.2018.
@@ -31,13 +28,12 @@ public class commentsPage extends AppCompatActivity {
         setContentView(R.layout.comments);
         LinearLayout mainComments = findViewById(R.id.mainComments);
 
-
         //Yorumlar intentle yeni activitiye aktarılır
        ArrayList<Comment> comments=  (ArrayList<Comment>) getIntent().getExtras().getSerializable("comments");
        Collections.reverse(comments);
 
         for (int i = 0; i < comments.size(); ++i) {
-            View view = getLayoutInflater().inflate(R.layout.row, null);
+            View view = getLayoutInflater().inflate(R.layout.comment_row, null);
 
             final TextView name = view.findViewById(R.id.userName);
             final TextView comment = view.findViewById(R.id.comment);
@@ -50,44 +46,8 @@ public class commentsPage extends AppCompatActivity {
             mainComments.addView(view);
         }
 
+        menuBar();
 
-        mdrawerLayout=(DrawerLayout) findViewById(R.id.drawerLayout);
-        actionBarDrawerToggle= new ActionBarDrawerToggle(this,mdrawerLayout,R.string.open,R.string.close);
-        mdrawerLayout.addDrawerListener(actionBarDrawerToggle);
-        actionBarDrawerToggle.syncState();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        actionBarDrawerToggle.getDrawerArrowDrawable().setColor(getColor(R.color.Black));
-
-        NavigationView navigation = (NavigationView) findViewById(R.id.toolbar);
-        navigation.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(MenuItem menuItem) {
-                int id = menuItem.getItemId();
-                switch (id) {
-                    case R.id.navigation_menu:
-                        Intent menu = new Intent(commentsPage.this, AnaEkran.class);
-                        startActivity(menu);
-                        finish();
-                        break;
-                    case R.id.navigation_account:
-                        Intent hesap = new Intent(commentsPage.this, Hesabim.class);
-                        startActivity(hesap);
-                        finish();
-                        break;
-                    case R.id.navigation_categories:
-                        Intent kategori = new Intent(commentsPage.this, Categories.class);
-                        startActivity(kategori);
-                        finish();
-                        break;
-                    case R.id.navigation_setting:
-                        Intent ayarlar = new Intent(commentsPage.this, Ayarlar.class);
-                        startActivity(ayarlar);
-                        finish();
-                        break;
-                }
-                return false;
-            }
-        });
 
     }
 
@@ -110,5 +70,47 @@ public class commentsPage extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+
+    public void menuBar(){
+
+        mdrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, mdrawerLayout, R.string.open, R.string.close);
+        mdrawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        actionBarDrawerToggle.getDrawerArrowDrawable().setColor(getColor(R.color.Black));
+
+        NavigationView navigation = (NavigationView) findViewById(R.id.toolbar);
+        navigation.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+                int id = menuItem.getItemId();
+                switch (id) {
+                    case R.id.navigation_menu:
+                        Intent menu = new Intent(getApplicationContext(), AnaEkran.class);
+                        startActivity(menu);
+                        finish();
+                        break;
+                    case R.id.navigation_account:
+                        Intent hesap = new Intent(getApplicationContext(), Hesabim.class);
+                        startActivity(hesap);
+                        finish();
+                        break;
+                    case R.id.navigation_categories:
+                        Intent kategori = new Intent(getApplicationContext(), Categories.class);
+                        startActivity(kategori);
+                        finish();
+                        break;
+                    case R.id.navigation_setting:
+                        Intent ayarlar = new Intent(getApplicationContext(), Ayarlar.class);
+                        startActivity(ayarlar);
+                        finish();
+                        break;
+                }
+                return false;
+            }
+        });
     }
 }

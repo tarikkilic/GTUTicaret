@@ -16,14 +16,14 @@
 
 
         <Button
-            android:id="@+id/addToBasket"
+            android:id="@+id/addToCart"
 
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:background="#0be71a"
-            android:onClick="addToBasket"
+            android:onClick="addToCart"
             android:text="SEPETE EKLE"
             android:textColor="#fffcfc"
             android:textSize="20sp" />
@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/back"
-            android:layout_above="@id/addToBasket">
+            android:layout_above="@id/addToCart">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -120,14 +120,6 @@
                     android:orientation="vertical">
 
                 </LinearLayout>
-
-                <ImageView
-                    android:id="@+id/stars"
-                    android:layout_width="120dp"
-                    android:layout_height="80dp"
-                    android:layout_alignBottom="@+id/productName"
-                    android:layout_toEndOf="@+id/productName"
-                    app:srcCompat="@drawable/star" />
 
 
                 <EditText
