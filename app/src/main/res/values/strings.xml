@@ -19,4 +19,14 @@
 <string name="yeniKullaniciOlustur"><u>Yeni KullanÄ±cÄ± OluÅŸtur</u></string>
 <string name="parolamiUnuttum"><u>ParolamÄ± Unuttum</u></string>
 
-    </resources>
+
+    <string-array name="country_arrays">
+        <item>Katagoriler</item>
+        <item>Elektronik</item>
+        <item>Deney Malzemeleri</item>
+        <item>Kitaplar</item>
+        <item>Ev Eşyaları</item>
+        <item>Etkinlik-Bilet</item>
+    </string-array>
+
+</resources>

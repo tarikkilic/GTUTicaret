@@ -23,6 +23,7 @@
         <activity android:name=".Hesabim"></activity>
         <activity android:name=".Cuzdanim"></activity>
         <activity android:name=".Sepet"></activity>
+        <activity android:name=".addProduct"></activity>
         <activity android:name=".KayitOl"
             android:theme="@style/Giris"></activity>
         <activity android:name=".Giris"

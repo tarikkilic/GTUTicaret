@@ -15,17 +15,18 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-
+/**
+ * Created by Emirhan Karagözoğlu on 09.04.2018.
+ */
 public class Sepet extends AppCompatActivity {
     private DrawerLayout mdrawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private ArrayList<Pair<CheckBox,Product>> pairCart; //sepetin içindeki ürünleri ve işaretli olup olmadıklarını burdan kontrol etcez
-    static LinkedList<Product> cart = new LinkedList<>();
+
 
     public Sepet(){
         pairCart = new ArrayList<>();
@@ -35,14 +36,14 @@ public class Sepet extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sepet);
-        LinearLayout genel_Sepet = findViewById(R.id.general);
+        final LinearLayout genel_Sepet = findViewById(R.id.general);
 
-        final LinkedList<Product> tmpCart = (LinkedList<Product>)cart.clone();  //sepetin kopyası üzerinde poll yapabilmek için
-        if (cart != null) {
+        final LinkedList<Product> tmpCart = (LinkedList<Product>)User.cart.clone();  //sepetin kopyası üzerinde poll yapabilmek için
+        if (User.cart != null) {
             Product tmpProduct;
-            Double price = new Double(0);
+            Double price = 0.0;
 
-            for (int i = 0; i < cart.size(); ++i) {    //sepetin size kadar
+            for (int i = 0; i < User.cart.size(); ++i) {    //sepetin size kadar
                 View view = getLayoutInflater().inflate(R.layout.sepet_urun_taslak, null);
                 final ImageView iv = view.findViewById(R.id.productInCart);
                 final CheckBox cb = view.findViewById(R.id.check);
@@ -56,7 +57,6 @@ public class Sepet extends AppCompatActivity {
                 iv.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                         Intent intent1 = new Intent(getApplicationContext(),productContent.class);
                         intent1.putExtra("pro",tmp);
                         startActivity(intent1);
@@ -89,17 +89,16 @@ public class Sepet extends AppCompatActivity {
             remove.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    cart = new LinkedList<>();
-                    Double p = new Double(0);
+                    User.cart = new LinkedList<>();
+                    Double p = 0.0;
                     int tmpSize = pairCart.size();
-                    LinearLayout ll = findViewById(R.id.general);
-                    for (int i = 0; i < pairCart.size(); ++i) {
+                    for (int i = 0; i < tmpSize; ++i) {
                         if(!pairCart.get(i).first.isChecked()) {
-                            cart.add(pairCart.get(i).second);
+                            User.cart.add(pairCart.get(i).second);
                             p += pairCart.get(i).second.getPrice();
                         }
                         else {
-                            ll.removeViewAt(i);
+                            genel_Sepet.removeViewAt(i);
                             pairCart.remove(i);
                             --i;
                             --tmpSize;
@@ -140,6 +139,11 @@ public class Sepet extends AppCompatActivity {
                     case R.id.navigation_setting:
                         Intent ayarlar = new Intent(Sepet.this, Ayarlar.class);
                         startActivity(ayarlar);
+                        finish();
+                        break;
+                    case R.id.navigation_addProduct:
+                        Intent addProduct = new Intent(Sepet.this, addProduct.class);
+                        startActivity(addProduct);
                         finish();
                         break;
                 }

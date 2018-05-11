@@ -87,6 +87,11 @@ public class ProductScreen extends AppCompatActivity {
                         startActivity(ayarlar);
                         finish();
                         break;
+                    case R.id.navigation_addProduct:
+                        Intent addProduct = new Intent(ProductScreen.this, addProduct.class);
+                        startActivity(addProduct);
+                        finish();
+                        break;
                 }
                 return false;
             }

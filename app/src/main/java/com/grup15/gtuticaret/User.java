@@ -5,6 +5,7 @@ import android.widget.TextView;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.Locale;
 import java.util.Stack;
 
@@ -14,7 +15,7 @@ public class User implements UserInterface {
     private String name;
     private Stack<Comment> comments;
     private double balance;
-
+    static LinkedList<Product> cart = new LinkedList<>();
 
 
     public User(String name){
@@ -88,10 +89,10 @@ public class User implements UserInterface {
 
     public boolean addToCart(Product newProduct){
 
-        if(newProduct == null || Sepet.cart.contains(newProduct))
+        if(newProduct == null || cart.contains(newProduct))
            return false;
         else{
-            Sepet.cart.add(newProduct);
+            cart.add(newProduct);
             return true;
         }
     }

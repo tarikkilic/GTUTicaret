@@ -8,24 +8,17 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
 
 /**
- * Created by Celal Can and Little Bit Monica on 10.04.2018.
+ * Created by Emirhan Karagözoğlu on 11.05.2018.
  */
-
-public class Cuzdanim extends AppCompatActivity {
+public class addProduct extends AppCompatActivity {
     private DrawerLayout mdrawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.cuzdanim);
-        TextView kisiselbilgi = (TextView) findViewById(R.id.bakiye);
-        //kisiselbilgi.setText(get_wallet().getKey() + get_wallet().getValue());
-        kisiselbilgi.setText("(Eklenecek)");
+        setContentView(R.layout.add_product);
 
         mdrawerLayout=(DrawerLayout) findViewById(R.id.drawerLayout);
         actionBarDrawerToggle= new ActionBarDrawerToggle(this,mdrawerLayout,R.string.open,R.string.close);
@@ -41,27 +34,27 @@ public class Cuzdanim extends AppCompatActivity {
                 int id = menuItem.getItemId();
                 switch (id) {
                     case R.id.navigation_menu:
-                        Intent menu = new Intent(Cuzdanim.this, AnaEkran.class);
+                        Intent menu = new Intent(addProduct.this, AnaEkran.class);
                         startActivity(menu);
                         finish();
                         break;
                     case R.id.navigation_account:
-                        Intent hesap = new Intent(Cuzdanim.this, Hesabim.class);
+                        Intent hesap = new Intent(addProduct.this, Hesabim.class);
                         startActivity(hesap);
                         finish();
                         break;
                     case R.id.navigation_categories:
-                        Intent kategori = new Intent(Cuzdanim.this, Categories.class);
+                        Intent kategori = new Intent(addProduct.this, Categories.class);
                         startActivity(kategori);
                         finish();
                         break;
                     case R.id.navigation_setting:
-                        Intent ayarlar = new Intent(Cuzdanim.this, Ayarlar.class);
+                        Intent ayarlar = new Intent(addProduct.this, Ayarlar.class);
                         startActivity(ayarlar);
                         finish();
                         break;
                     case R.id.navigation_addProduct:
-                        Intent addProduct = new Intent(Cuzdanim.this, addProduct.class);
+                        Intent addProduct = new Intent(addProduct.this, addProduct.class);
                         startActivity(addProduct);
                         finish();
                         break;
@@ -69,7 +62,6 @@ public class Cuzdanim extends AppCompatActivity {
                 return false;
             }
         });
-
     }
 
     @Override

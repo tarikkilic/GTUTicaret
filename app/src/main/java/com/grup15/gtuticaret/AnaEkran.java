@@ -55,6 +55,12 @@ public class AnaEkran extends AppCompatActivity {
                         startActivity(ayarlar);
                         finish();
                         break;
+
+                    case R.id.navigation_addProduct:
+                        Intent addProduct = new Intent(AnaEkran.this, addProduct.class);
+                        startActivity(addProduct);
+                        finish();
+                        break;
                 }
                 return false;
             }

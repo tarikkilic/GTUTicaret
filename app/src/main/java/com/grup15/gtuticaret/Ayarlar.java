@@ -50,6 +50,11 @@ public class Ayarlar extends AppCompatActivity {
                         startActivity(kategori);
                         finish();
                         break;
+                    case R.id.navigation_addProduct:
+                        Intent addProduct = new Intent(Ayarlar.this, addProduct.class);
+                        startActivity(addProduct);
+                        finish();
+                        break;
                     case R.id.navigation_setting:
                     /* Zaten ayarlarda oldugumuz icin intente gerek yok */
                         break;

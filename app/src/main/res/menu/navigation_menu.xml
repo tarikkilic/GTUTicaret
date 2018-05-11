@@ -27,5 +27,10 @@
         android:icon="@drawable/ayarlar">
     </item>
 
+    <item
+        android:id="@+id/navigation_addProduct"
+        android:title="Satılık Ürün Ekle">
+    </item>
+
 
 </menu>

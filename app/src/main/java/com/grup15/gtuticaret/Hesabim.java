@@ -72,6 +72,11 @@ public class Hesabim extends AppCompatActivity {
                         startActivity(ayarlar);
                         finish();
                         break;
+                    case R.id.navigation_addProduct:
+                        Intent addProduct = new Intent(Hesabim.this, addProduct.class);
+                        startActivity(addProduct);
+                        finish();
+                        break;
                 }
                 return false;
             }
