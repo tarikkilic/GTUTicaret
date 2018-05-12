@@ -21,12 +21,12 @@
 
 
     <string-array name="country_arrays">
-        <item>Katagoriler</item>
-        <item>Elektronik</item>
-        <item>Deney Malzemeleri</item>
-        <item>Kitaplar</item>
+        <item>Kategorıler</item>
+        <item>Elektronık</item>
+        <item>Deney Malzemelerı</item>
+        <item>Kıtaplar</item>
         <item>Ev Eşyaları</item>
-        <item>Etkinlik-Bilet</item>
+        <item>Etkınlık-Bılet</item>
     </string-array>
 
 </resources>

@@ -1,6 +1,9 @@
 package com.grup15.gtuticaret;
 
+import android.content.Context;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -111,6 +114,4 @@ public class User implements UserInterface {
 
         editComment.getText().clear();
     }
-
-
 }

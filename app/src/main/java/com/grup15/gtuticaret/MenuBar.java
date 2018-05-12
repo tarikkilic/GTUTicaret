@@ -11,6 +11,7 @@ import android.view.MenuItem;
 public abstract class MenuBar extends AppCompatActivity {
     protected DrawerLayout mdrawerLayout;
     protected ActionBarDrawerToggle actionBarDrawerToggle;
+    private StackTraceElement[] stackTraceElements;
 
     protected void menuBar(){
         mdrawerLayout = findViewById(R.id.drawerLayout);
@@ -19,6 +20,7 @@ public abstract class MenuBar extends AppCompatActivity {
         actionBarDrawerToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         actionBarDrawerToggle.getDrawerArrowDrawable().setColor(getColor(R.color.Black));
+        stackTraceElements = Thread.currentThread().getStackTrace();
 
         NavigationView navigation = findViewById(R.id.toolbar);
         navigation.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -27,39 +29,45 @@ public abstract class MenuBar extends AppCompatActivity {
                 int id = menuItem.getItemId();
                 switch (id) {
                     case R.id.navigation_menu:
-                        if (!getApplication().getClass().getName().equals(AnaEkran.class.getName())) {
+                        if (!stackTraceElements[3].getClassName().equals(AnaEkran.class.getName())) {
                             Intent menu = new Intent(getApplicationContext(), AnaEkran.class);
                             startActivity(menu);
                             finish();
-                        }
+                        } else
+                            mdrawerLayout.closeDrawers();
                         break;
                     case R.id.navigation_account:
-                        if (!getApplication().getClass().getName().equals(Hesabim.class.getName())) {
+                        if (!stackTraceElements[3].getClassName().equals(Hesabim.class.getName())) {
                             Intent hesap = new Intent(getApplicationContext(), Hesabim.class);
                             startActivity(hesap);
                             finish();
-                        }
+                        } else
+                            mdrawerLayout.closeDrawers();
                         break;
                     case R.id.navigation_categories:
-                        if (!getApplication().getClass().getName().equals(Categories.class.getName())) {
+                        if (!stackTraceElements[3].getClassName().equals(Categories.class.getName())) {
                             Intent kategori = new Intent(getApplicationContext(), Categories.class);
                             startActivity(kategori);
                             finish();
-                        }
+                        } else
+                            mdrawerLayout.closeDrawers();
                         break;
                     case R.id.navigation_setting:
-                        if (!getApplication().getClass().getName().equals(Ayarlar.class.getName())) {
+                        if (!stackTraceElements[3].getClassName().equals(Ayarlar.class.getName())) {
                             Intent ayarlar = new Intent(getApplicationContext(), Ayarlar.class);
                             startActivity(ayarlar);
                             finish();
-                        }
+                        } else
+                            mdrawerLayout.closeDrawers();
                         break;
                     case R.id.navigation_addProduct:
-                        if (!getApplication().getClass().getName().equals(addProduct.class.getName())) {
+                        if (!stackTraceElements[3].getClassName().equals(addProduct.class.getName())) {
                             Intent addProduct = new Intent(getApplicationContext(), addProduct.class);
                             startActivity(addProduct);
                             finish();
-                        }
+
+                        } else
+                            mdrawerLayout.closeDrawers();
                         break;
                 }
                 return false;
@@ -78,12 +86,15 @@ public abstract class MenuBar extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         if(actionBarDrawerToggle.onOptionsItemSelected(item))
             return true;
-        switch(item.getItemId()) {
-            case R.id.basket:
-                Intent i = new Intent(this, Sepet.class);
-                startActivity(i);
-                finish();
-                break;
+
+        if (!stackTraceElements[3].getClassName().equals(Sepet.class.getName())) {
+            switch (item.getItemId()) {
+                case R.id.basket:
+                    Intent i = new Intent(this, Sepet.class);
+                    startActivity(i);
+                    finish();
+                    break;
+            }
         }
         return super.onOptionsItemSelected(item);
     }

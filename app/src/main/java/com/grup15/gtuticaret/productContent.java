@@ -108,11 +108,7 @@ public class productContent extends MenuBar {
 
     // Yorumlar yeni ekranda gösterilir.
     public void showAllComments(View v) {
-        Intent intent = new Intent(getApplicationContext(), commentsPage.class);
-        ArrayList<Comment> arrComment = new ArrayList<>();
-        arrComment.addAll(userComesProduct.getComments());
-        intent.putExtra("comments", arrComment);
-        startActivity(intent);
+       System.showAllComments(getApplicationContext(),userComesProduct);
     }
 
     public void addToCart(View v) {

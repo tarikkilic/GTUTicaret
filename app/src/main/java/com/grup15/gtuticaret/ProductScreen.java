@@ -28,7 +28,7 @@ import java.util.List;
 public class ProductScreen extends MenuBar {
     String fileProduct = "products.txt";
     String filekeyWord = "key.txt";
-    ArrayList<Product> p = new ArrayList<>();
+    //ArrayList<Product> p = new ArrayList<>();
     ArrayList<Product> temp = new ArrayList<>();
     String typeC;
     @Override
@@ -62,10 +62,10 @@ public class ProductScreen extends MenuBar {
         @Override
         public int getCount() {
             int i = 0,size = 0;
-            while(i < p.size()){
-                if(p.get(i).getType().equals(typeC)){
+            while(i < System.productList.size()){
+                if(System.productList.get(i).getType().equals(typeC)){
                     size++;
-                    temp.add(p.get(i));
+                    temp.add(System.productList.get(i));
                 }
 
                 i++;
@@ -117,7 +117,8 @@ public class ProductScreen extends MenuBar {
                 prd.setFeatures(word[4]);
                 prd.setPrice(Double.parseDouble(word[5]));
                 initkeyWord(prd);
-                p.add(prd);
+                if(!System.productList.contains(prd))
+                    System.productList.add(prd);
             }
         } catch (IOException e) {
             e.printStackTrace();

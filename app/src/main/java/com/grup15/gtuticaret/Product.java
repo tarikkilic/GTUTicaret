@@ -14,8 +14,18 @@ public class Product implements Serializable {
     private LinkedList<String> keyWords;
     private String imageCode;
 
+    public Product(String name, String features, String type, double price, int id, String imageCode) {
+        this.name = name;
+        this.features = features;
+        this.type = type;
+        this.price = price;
+        this.id = id;
+        this.imageCode = imageCode;
+    }
+
     public Product(){
         name = null;
+
         features = null;
         type = null;
         price = 0;
@@ -89,11 +99,10 @@ public class Product implements Serializable {
 
         Product product = (Product) o;
 
-        if (Double.compare(product.price, price) != 0) return false;
         if (id != product.id) return false;
         if (!name.equals(product.name)) return false;
-        if (!features.equals(product.features)) return false;
-        return keyWords.equals(product.keyWords);
+        return features.equals(product.features);
+
     }
 
     @Override
