@@ -17,9 +17,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignTop="@+id/spinner1"
-        android:text="Ürün Katagorisi "
-        android:textSize="20sp"
         android:gravity="center"
+        android:text="Ürün Kategorisi "
+        android:textSize="20sp"
         android:textStyle="bold|italic" />
 
     <Spinner

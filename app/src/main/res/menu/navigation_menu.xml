@@ -20,6 +20,11 @@
         android:title="Kategoriler"
         android:icon="@drawable/menu"></item>
 
+    <item
+        android:id="@+id/navigation_addProduct"
+        android:title="Satılık Ürün Ekle"
+        android:icon="@drawable/urunsat">
+    </item>
 
     <item
         android:id="@+id/navigation_setting"
@@ -27,10 +32,7 @@
         android:icon="@drawable/ayarlar">
     </item>
 
-    <item
-        android:id="@+id/navigation_addProduct"
-        android:title="Satılık Ürün Ekle">
-    </item>
+
 
 
 </menu>
