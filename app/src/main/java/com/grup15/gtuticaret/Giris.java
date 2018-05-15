@@ -1,21 +1,42 @@
 package com.grup15.gtuticaret;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.util.Map;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
 
 public class Giris extends AppCompatActivity  {
+
+    private static DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    private String password,email;
+
+    private void girisBasarili(){
+            /*******************************************************************************/
+            toast(0);
+            Intent kayit= new Intent(Giris.this, AnaEkran.class);
+            startActivity(kayit);
+            finish();
+            /**********************************************************************************/
+
+    }
+
+    private void girisBasarisiz(){
+        toast(2);
+
+    }
 
     private void toast(int i){
         if(i==0){
@@ -52,43 +73,46 @@ public class Giris extends AppCompatActivity  {
                 {
                     public void onClick(View view)
                     {
-                        try {
-                            File file = new File(getDir("data", MODE_PRIVATE), "KayitOl.ePostaVeParola");
+                        email = ((EditText)findViewById(R.id.epostaGiris)).getText().toString();
+                        password = ((EditText)findViewById(R.id.passwordGiris)).getText().toString();
 
-                            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
-                            KayitOl.ePostaVeParola= (Map<String, String>) ois.readObject();
+                        mDatabase.child("Users").child(String.valueOf(email.hashCode())).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        } catch (ClassNotFoundException e) {
-                            e.printStackTrace();
-                        }
+                                for(DataSnapshot ds : dataSnapshot.getChildren() ){
+                                    HashMap hp = (HashMap) ds.getValue();
+                                    String salt = (String) hp.get("salt");
+                                    try {
+                                        password = Sha256hash.generate(password);
+                                    } catch (UnsupportedEncodingException e) {
+                                        e.printStackTrace();
+                                    } catch (NoSuchAlgorithmException e) {
+                                        e.printStackTrace();
+                                    }
+                                    password = password + salt;
+                                    if(password.equals(hp.get("password").toString()) && email.equals(hp.get("email").toString()))
+                                        girisBasarili();
+                                    else{
+                                        Log.d("OKOKOKOKAOSKDPOAJPOS","AQQWESA");
+                                        toast(1);
+                                    }
+
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                                Log.d("OKOKOKOKAOSKDPOAJPOS","RAMAZAN");
+                                toast(1);
+                            }
+                        });
+                        Log.d("OKOKOKOKAOSKDPOAJPOS","TARIK");
+                        //GirisBasarisiz uyari vermiyor
+                        //notmyproblem
+                        girisBasarisiz();
 
 
-                        if(KayitOl.ePostaVeParola.get(((EditText)findViewById(R.id.epostaGiris)).getText().toString())!=null
-                                && ((EditText)findViewById(R.id.passwordGiris)).getText().toString()!=null
-                                && KayitOl.ePostaVeParola.get(((EditText)findViewById(R.id.epostaGiris)).getText().toString()).
-                                equals(((EditText)findViewById(R.id.passwordGiris)).getText().toString())){
-
-
-                            /*******************************************************************************/
-                            toast(0);
-                            Intent kayit= new Intent(Giris.this, AnaEkran.class);
-                            startActivity(kayit);
-                            finish();
-                            /**********************************************************************************/
-                        }
-                        else if(KayitOl.ePostaVeParola.get(((EditText)findViewById(R.id.epostaGiris)).getText().toString())==null){
-                            /*******************************************************************************/
-                            toast(1);
-                            /*******************************************************************************/
-                        }
-                        else {
-                            /*******************************************************************************/
-                            toast(2);
-                            /*******************************************************************************/
-
-                        }
                     }
                 }
         );

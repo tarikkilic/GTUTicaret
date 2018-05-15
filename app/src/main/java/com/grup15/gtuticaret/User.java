@@ -15,7 +15,7 @@ import java.util.Stack;
 
 public class User implements UserInterface {
 
-    private String name;
+    private String name,surname,password,email,salt;
     private Stack<Comment> comments;
     private double balance;
     static LinkedList<Product> cart = new LinkedList<>();
@@ -27,6 +27,20 @@ public class User implements UserInterface {
 
     }
 
+
+    public User(String n,String s,String e,String p){
+        name = n;
+        surname = s;
+        email = e;
+        password = p;
+    }
+
+    public User(String e, String p,String s){
+        email = e;
+        password = p;
+        salt = s;
+    }
+
     public User(String name, Stack<Comment> comments, double balance) {
         this.name = name;
         this.comments = comments;
@@ -36,6 +50,18 @@ public class User implements UserInterface {
     public User(String name,Stack<Comment> comments){
         this.name = name;
         this.comments = (Stack<Comment>) comments.clone();
+    }
+    public String getPassword(){
+        return password;
+    }
+    public String getEmail(){
+        return email;
+    }
+    public String getSalt(){
+        return salt;
+    }
+    public User(){
+
     }
 
 
