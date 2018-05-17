@@ -72,6 +72,7 @@ public class addProduct extends MenuBar {
                 alert("Lütfen bir kategori seçiniz.");
             else{
                 System.productList.add(newProduct);
+                //----------------> nname, nfeatures,category,nprice eklenecek.
                 uploadImage();
                 Toast.makeText(getApplicationContext(),"Ürünün satışa konuldu.",
                         Toast.LENGTH_SHORT).show();
@@ -124,7 +125,7 @@ public class addProduct extends MenuBar {
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             progressDialog.dismiss();
                             //burada url yi kayitli tutmaliyiz bir yerde.
-                            //user.setUrl(taskSnapshot.getDownloadUrl().toString());
+                            //  ------------> taskSnapshot.getDownloadUrl().toString()
                             Toast.makeText(getApplicationContext(),"Uploaded",Toast.LENGTH_SHORT).show();
                         }
                     })
