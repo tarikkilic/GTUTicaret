@@ -2,6 +2,7 @@ package com.grup15.gtuticaret;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -23,11 +24,17 @@ import java.util.HashMap;
 
 public class Giris extends AppCompatActivity  {
 
-    private static DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    private  DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     private String password,email;
+    public static String whoami;
+    private boolean flag = true;
+    private Integer a = new Integer(5);
 
     private void girisBasarili(){
             /*******************************************************************************/
+            whoami = email;
+            flag = false;
+            a = 6;
             toast(0);
             Intent kayit= new Intent(Giris.this, AnaEkran.class);
             startActivity(kayit);
@@ -37,8 +44,7 @@ public class Giris extends AppCompatActivity  {
     }
 
     private void girisBasarisiz(){
-        toast(2);
-
+            toast(2);
     }
 
     private void toast(int i){
@@ -84,10 +90,11 @@ public class Giris extends AppCompatActivity  {
                 new View.OnClickListener()
                 {
                     public void onClick(View view) {
+
                         if (isNetworkAvailable()) {
 
-                            email = ((EditText) findViewById(R.id.epostaGiris)).getText().toString();
-                            password = ((EditText) findViewById(R.id.passwordGiris)).getText().toString();
+                            email = ((EditText) findViewById(R.id.epostaGiris)).getText().toString().trim();
+                            password = ((EditText) findViewById(R.id.passwordGiris)).getText().toString().trim();
 
                             mDatabase.child("Users").child(String.valueOf(email.hashCode())).addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
@@ -104,26 +111,26 @@ public class Giris extends AppCompatActivity  {
                                             e.printStackTrace();
                                         }
                                         password = password + salt;
-                                        if (password.equals(hp.get("password").toString()) && email.equals(hp.get("email").toString()))
+                                        if (password.equals(hp.get("password").toString()) && email.equals(hp.get("email").toString())){
                                             girisBasarili();
-                                        else {
-                                            Log.d("OKOKOKOKAOSKDPOAJPOS", "AQQWESA");
-                                            toast(1);
                                         }
+                                        else{
+                                            Log.d("flag","girisbasarisiz");
+                                            girisBasarisiz();
+                                        }
+
+
 
                                     }
                                 }
 
                                 @Override
                                 public void onCancelled(DatabaseError databaseError) {
-                                    Log.d("OKOKOKOKAOSKDPOAJPOS", "RAMAZAN");
-                                    toast(1);
+
                                 }
                             });
-                            Log.d("OKOKOKOKAOSKDPOAJPOS", "TARIK");
-                            //GirisBasarisiz uyari vermiyor
-                            //notmyproblem
-                            girisBasarisiz();
+
+
                         }
                         else{
                             toast(3);

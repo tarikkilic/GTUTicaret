@@ -18,7 +18,7 @@ public class Hesabim extends MenuBar {
         setContentView(R.layout.hesabim);
         TextView kisiselbilgi = (TextView) findViewById(R.id.kisiselbilgiler);
         //kisiselbilgi.setText(get_name() +"\n" + get_mail());
-        kisiselbilgi.setText("Ad Soyad(Eklenecek)");
+        kisiselbilgi.setText(Giris.whoami);
 
         findViewById(R.id.cuzdan).setOnClickListener(new View.OnClickListener() {
 

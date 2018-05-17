@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -33,10 +35,12 @@ public class addProduct extends MenuBar {
     private Uri filePath;
     //böyle bisi neden yapmis bilmiyorum.
     private final int PICK_IMAGE_REQUEST = 71;
+    private static DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
     //firebase degiskenleri
     FirebaseStorage storage;
     StorageReference storageReference;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +66,7 @@ public class addProduct extends MenuBar {
         String nprice = price.getText().toString();
         Product newProduct = new Product();
 
+
         if(nname.length() == 0 || nfeatures.length() == 0 || category.length() == 0 || nprice.length() == 0)
             alert("Eksik ürün bilgisi girdiniz");
         else {
@@ -73,6 +78,7 @@ public class addProduct extends MenuBar {
             else{
                 System.productList.add(newProduct);
                 //----------------> nname, nfeatures,category,nprice eklenecek.
+                //Giris.whoami
                 uploadImage();
                 Toast.makeText(getApplicationContext(),"Ürünün satışa konuldu.",
                         Toast.LENGTH_SHORT).show();
