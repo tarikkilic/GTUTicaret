@@ -10,9 +10,11 @@ public class Product implements Serializable {
     private String features;
     private String type;
     private double price;
-    private int id;
+    private Integer id;
     private LinkedList<String> keyWords;
     private String imageCode;
+
+
 
     public Product(String name, String features, String type, double price, int id, String imageCode) {
         this.name = name;
@@ -62,7 +64,7 @@ public class Product implements Serializable {
         return features;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

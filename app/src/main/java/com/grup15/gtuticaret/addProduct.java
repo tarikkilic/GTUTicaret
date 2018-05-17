@@ -78,7 +78,8 @@ public class addProduct extends MenuBar {
             else{
                 System.productList.add(newProduct);
                 //----------------> nname, nfeatures,category,nprice eklenecek.
-                //Giris.whoami
+                newProduct.setId((nname+Giris.whoami).hashCode());
+                mDatabase.child("Urunler").child(String.valueOf(newProduct.getId())).child(String.valueOf(newProduct.getId())).setValue(newProduct);
                 uploadImage();
                 Toast.makeText(getApplicationContext(),"Ürünün satışa konuldu.",
                         Toast.LENGTH_SHORT).show();
