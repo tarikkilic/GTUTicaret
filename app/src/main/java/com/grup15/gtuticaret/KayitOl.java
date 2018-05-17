@@ -32,6 +32,11 @@ public class KayitOl extends AppCompatActivity {
         Toast.makeText(this, "Kayıt Başarılı. Lütfen Giriş Yapınız.", Toast.LENGTH_LONG).show();
     }
 
+    //Kayit ol basarisizsa
+    private void toast1(){
+        Toast.makeText(this, "Kayıt Başarısiz. Lütfen Tekrar Deneyiniz.", Toast.LENGTH_LONG).show();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,22 +64,30 @@ public class KayitOl extends AppCompatActivity {
                         //String name = (((EditText)findViewById(R.id.name)).getText()).toString().trim();
                         //String surname = (((EditText)findViewById(R.id.surname)).getText()).toString().trim();
                         String email = (((EditText)findViewById(R.id.eposta)).getText()).toString().trim();
-                        String password = (((EditText)findViewById(R.id.password)).getText()).toString();
-                        try {
-                            password = Sha256hash.generate(password);
-                        } catch (UnsupportedEncodingException e) {
-                            e.printStackTrace();
-                        } catch (NoSuchAlgorithmException e) {
-                            e.printStackTrace();
+                        String password = (((EditText)findViewById(R.id.password)).getText()).toString().trim();
+                        if(email.length() == 0 || password.length() == 0){
+                            toast1();
+                            startActivity(new Intent(KayitOl.this,KayitOl.class));
+                            finish();
                         }
-                        String salt =  Sha256hash.getNextSalt();
-                        password = password + salt;
-                        User user = new User(email,password,salt);
-                        mDatabase.child("Users").child(String.valueOf(email.hashCode())).child(String.valueOf(email.hashCode())).setValue(user);
-                        toast();
-                        Intent giris= new Intent(KayitOl.this, Giris.class);
-                        startActivity(giris);
-                        finish();
+                        else{
+                            try {
+                                password = Sha256hash.generate(password);
+                            } catch (UnsupportedEncodingException e) {
+                                e.printStackTrace();
+                            } catch (NoSuchAlgorithmException e) {
+                                e.printStackTrace();
+                            }
+                            String salt =  Sha256hash.getNextSalt();
+                            password = password + salt;
+                            User user = new User(email,password,salt);
+                            mDatabase.child("Users").child(String.valueOf(email.hashCode())).child(String.valueOf(email.hashCode())).setValue(user);
+                            toast();
+                            Intent giris= new Intent(KayitOl.this, Giris.class);
+                            startActivity(giris);
+                            finish();
+                        }
+
                     }
                 });
     }
