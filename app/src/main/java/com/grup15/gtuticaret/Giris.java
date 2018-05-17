@@ -1,6 +1,9 @@
 package com.grup15.gtuticaret;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -48,6 +51,9 @@ public class Giris extends AppCompatActivity  {
         else if(i==2){
             Toast.makeText(this, "Parola Hatalı!", Toast.LENGTH_LONG).show();
         }
+        else if(i==3){
+            Toast.makeText(this, "İnternet Bağlantınızı Kontrol Ediniz", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
@@ -61,61 +67,76 @@ public class Giris extends AppCompatActivity  {
             @Override
             public void onClick(View view)
             {
-                Intent kayitOlEkrani = new Intent(Giris.this, KayitOl.class);
-                startActivity(kayitOlEkrani);
-                finish();
+                if(isNetworkAvailable()) {
+                    Intent kayitOlEkrani = new Intent(Giris.this, KayitOl.class);
+                    startActivity(kayitOlEkrani);
+                    finish();
+                }
+                else{
+                    toast(3);
+                }
             }
 
         });
 
         findViewById(R.id.giris).setOnClickListener(
+
                 new View.OnClickListener()
                 {
-                    public void onClick(View view)
-                    {
-                        email = ((EditText)findViewById(R.id.epostaGiris)).getText().toString();
-                        password = ((EditText)findViewById(R.id.passwordGiris)).getText().toString();
+                    public void onClick(View view) {
+                        if (isNetworkAvailable()) {
 
-                        mDatabase.child("Users").child(String.valueOf(email.hashCode())).addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
+                            email = ((EditText) findViewById(R.id.epostaGiris)).getText().toString();
+                            password = ((EditText) findViewById(R.id.passwordGiris)).getText().toString();
 
-                                for(DataSnapshot ds : dataSnapshot.getChildren() ){
-                                    HashMap hp = (HashMap) ds.getValue();
-                                    String salt = (String) hp.get("salt");
-                                    try {
-                                        password = Sha256hash.generate(password);
-                                    } catch (UnsupportedEncodingException e) {
-                                        e.printStackTrace();
-                                    } catch (NoSuchAlgorithmException e) {
-                                        e.printStackTrace();
+                            mDatabase.child("Users").child(String.valueOf(email.hashCode())).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                                        HashMap hp = (HashMap) ds.getValue();
+                                        String salt = (String) hp.get("salt");
+                                        try {
+                                            password = Sha256hash.generate(password);
+                                        } catch (UnsupportedEncodingException e) {
+                                            e.printStackTrace();
+                                        } catch (NoSuchAlgorithmException e) {
+                                            e.printStackTrace();
+                                        }
+                                        password = password + salt;
+                                        if (password.equals(hp.get("password").toString()) && email.equals(hp.get("email").toString()))
+                                            girisBasarili();
+                                        else {
+                                            Log.d("OKOKOKOKAOSKDPOAJPOS", "AQQWESA");
+                                            toast(1);
+                                        }
+
                                     }
-                                    password = password + salt;
-                                    if(password.equals(hp.get("password").toString()) && email.equals(hp.get("email").toString()))
-                                        girisBasarili();
-                                    else{
-                                        Log.d("OKOKOKOKAOSKDPOAJPOS","AQQWESA");
-                                        toast(1);
-                                    }
-
                                 }
-                            }
 
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-                                Log.d("OKOKOKOKAOSKDPOAJPOS","RAMAZAN");
-                                toast(1);
-                            }
-                        });
-                        Log.d("OKOKOKOKAOSKDPOAJPOS","TARIK");
-                        //GirisBasarisiz uyari vermiyor
-                        //notmyproblem
-                        girisBasarisiz();
-
-
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                    Log.d("OKOKOKOKAOSKDPOAJPOS", "RAMAZAN");
+                                    toast(1);
+                                }
+                            });
+                            Log.d("OKOKOKOKAOSKDPOAJPOS", "TARIK");
+                            //GirisBasarisiz uyari vermiyor
+                            //notmyproblem
+                            girisBasarisiz();
+                        }
+                        else{
+                            toast(3);
+                        }
                     }
                 }
         );
+    }
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }
 
