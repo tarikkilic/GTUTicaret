@@ -1,5 +1,6 @@
 package com.grup15.gtuticaret;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -7,8 +8,10 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v4.content.FileProvider;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -23,9 +26,12 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.UUID;
+
+import static com.grup15.gtuticaret.KayitOl.file;
 
 /**
  * Created by Emirhan Karagözoğlu on 11.05.2018.
@@ -36,66 +42,72 @@ public class addProduct extends MenuBar {
     //böyle bisi neden yapmis bilmiyorum.
     private final int PICK_IMAGE_REQUEST = 71;
     private static DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-
     //firebase degiskenleri
-    FirebaseStorage storage;
-    StorageReference storageReference;
-
+    private FirebaseStorage storage;
+    private StorageReference storageReference;
+    //ürün bilgilerini tutar
+    private Product newProduct;
+    //button text vs.
+    private Spinner spinner;
+    private EditText name;
+    private EditText features;
+    private EditText price;
+    //image url
+    private String imageUrl = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_product);
         super.menuBar();
+
         //firebase in referansina ulasiyoruz.
         storage = FirebaseStorage.getInstance();
         storageReference =storage.getReference();
+        //edittext leri init edilir.
+        spinner = findViewById(R.id.spinner1);
+        name = findViewById(R.id.name);
+        features = findViewById(R.id.description);
+        price = findViewById(R.id.editPrice);
     }
 
 
     public void addProductToList(View view){
-
-        Spinner spinner = findViewById(R.id.spinner1);
-        EditText name = findViewById(R.id.name);
-        EditText features = findViewById(R.id.description);
-        EditText price = findViewById(R.id.editPrice);
-
+        //textlere yazilan degerler tutulur.
         String nname = name.getText().toString();
         String nfeatures = features.getText().toString();
         String category =  String.valueOf(spinner.getSelectedItem()).toUpperCase();
         String nprice = price.getText().toString();
-        Product newProduct = new Product();
-
-
         if(nname.length() == 0 || nfeatures.length() == 0 || category.length() == 0 || nprice.length() == 0)
             alert("Eksik ürün bilgisi girdiniz");
         else {
-            newProduct = new Product(nname, nfeatures, category, Double.parseDouble(nprice), 5, "@drawable/ps4");
-            if(System.productList.contains(newProduct))
-                alert("Ürünün zaten satışa konuldu.");
-            else if(newProduct.getType().equals("KATEGORILER"))
+            if(category.equals("KATEGORILER"))
                 alert("Lütfen bir kategori seçiniz.");
             else{
-                System.productList.add(newProduct);
-                //----------------> nname, nfeatures,category,nprice eklenecek.
+                //product objesi init edilir.
+                newProduct = new Product();
+                newProduct.setName(nname);
+                newProduct.setFeatures(nfeatures);
+                newProduct.setType(category);
+                newProduct.setPrice(Double.parseDouble(nprice));
+                newProduct.setImageCode(imageUrl);
                 newProduct.setId((nname+Giris.whoami).hashCode());
                 mDatabase.child("Urunler").child(String.valueOf(newProduct.getId())).child(String.valueOf(newProduct.getId())).setValue(newProduct);
-                uploadImage();
+                System.productList.add(newProduct);
                 Toast.makeText(getApplicationContext(),"Ürünün satışa konuldu.",
                         Toast.LENGTH_SHORT).show();
             }
         }
-
-
-
-
     }
 
 
-    //Resim yükleme eklenecek
+    //Resim ceker
     public void addImage(View view){
         chooseImage();
-
+    }
+    //resim upload edilir
+    public void upload(View view){
+        uploadImage();
     }
 
     @Override
@@ -131,8 +143,8 @@ public class addProduct extends MenuBar {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             progressDialog.dismiss();
-                            //burada url yi kayitli tutmaliyiz bir yerde.
-                            //  ------------> taskSnapshot.getDownloadUrl().toString()
+                            //resmin url'si tutulur.
+                            imageUrl = taskSnapshot.getDownloadUrl().toString();
                             Toast.makeText(getApplicationContext(),"Uploaded",Toast.LENGTH_SHORT).show();
                         }
                     })
@@ -169,6 +181,5 @@ public class addProduct extends MenuBar {
                     }
                 }).show();
     }
-
 
 }

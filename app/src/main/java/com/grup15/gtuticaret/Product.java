@@ -27,7 +27,6 @@ public class Product implements Serializable {
 
     public Product(){
         name = null;
-
         features = null;
         type = null;
         price = 0;
