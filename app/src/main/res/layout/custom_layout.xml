@@ -37,22 +37,15 @@
             <TextView
                 android:id="@+id/textView_description"
                 android:layout_width="match_parent"
-                android:layout_height="36dp"
+                android:layout_height="61dp"
                 android:text="TextView" />
 
             <TextView
                 android:id="@+id/textView_price"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="65dp"
                 android:text="TextView" />
 
-            <RatingBar
-                android:id="@+id/ratingBar2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:numStars="5"
-                android:rating="3"
-                android:isIndicator="true"/>
         </LinearLayout>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

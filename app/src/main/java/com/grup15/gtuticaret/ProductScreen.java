@@ -17,57 +17,90 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
 public class ProductScreen extends MenuBar {
-    String fileProduct = "products.txt";
-    String filekeyWord = "key.txt";
-    //ArrayList<Product> p = new ArrayList<>();
-    ArrayList<Product> temp = new ArrayList<>();
     String typeC;
+    //firebasedeki tum urunler arr arrayine cekiyorum
+    private ArrayList<Product> arr;
+    //sadece istenen kategorilerdeki urunleri temp arrayine atiyorum.
+    private ArrayList<Product> temp;
+    //firebase degiskenleri
+    private DatabaseReference mFirebaseDatabase;
+    private FirebaseDatabase mFirebaseInstance;
+    private ListView listView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_screen);
-        initProduct();
+        super.menuBar();
+        arr = new ArrayList<>();
+        temp = new ArrayList<>();
+        //kategori ekranina tiklanan kategoriyi tutuyorum.
         typeC = getIntent().getStringExtra("ezkey");
-        final ListView listView = (ListView) findViewById(R.id.productList);
-        CustomAdapter customAdapter = new CustomAdapter();
-        //listeyi customlayouttaki şekilde oluşturdum hepsini
-        listView.setAdapter(customAdapter);
+        mFirebaseInstance = FirebaseDatabase.getInstance();
+        // Urunler kismindaki referanslari aliyorum sadece
+        mFirebaseDatabase = mFirebaseInstance.getReference().child("Urunler") ;
+        listView =  findViewById(R.id.productList);
+
+        //tiklandiginde urun ekranina gider.
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent1 = new Intent(getApplicationContext(),productContent.class);
                 intent1.putExtra("pro",temp.get(i));
                 startActivity(intent1);
-                finish();
             }
         });
 
-        super.menuBar();
+        //firebasedeki urunleri bu metotla cekiyorum
+        mFirebaseDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren() ;
+                Iterator<DataSnapshot> iterator = snapshotIterable.iterator();
+                while (iterator.hasNext()) {
+                    DataSnapshot dataSnapshot1 = iterator.next();
+                    Product product = dataSnapshot1.getValue(Product.class);
+                    arr.add(product);
+                    FireListAdapter fireListAdapter = new FireListAdapter();
+                    fireListAdapter.notifyDataSetChanged();
+                    listView.setAdapter(fireListAdapter);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                //dolduralacak
+            }
+        });
     }
 
-
-    //listeyi otomatik doldurmak için custom layout kullandim.
-
-    class CustomAdapter extends BaseAdapter{
-
+    public class FireListAdapter extends BaseAdapter{
+        //belirlenen kategoride kac tane urun var onu buluyor.
         @Override
         public int getCount() {
             int i = 0,size = 0;
-            while(i < System.productList.size()){
-                if(System.productList.get(i).getType().equals(typeC)){
+            while(i < arr.size()){
+                if((arr.get(i).getType()).equals(typeC)){
                     size++;
-                    temp.add(System.productList.get(i));
+                    temp.add(arr.get(i));
                 }
-
                 i++;
             }
             return size;
@@ -75,75 +108,30 @@ public class ProductScreen extends MenuBar {
 
         @Override
         public Object getItem(int i) {
-            return null;
+            return arr.get(i);
         }
 
         @Override
         public long getItemId(int i) {
-            return 0;
+            return i;
         }
 
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
-            int imageID = getApplicationContext().getResources().getIdentifier(temp.get(i).getImageCode(),"drawable",getPackageName());
+            //arraydeki degerleri ekrana aktariyorum.
             view = getLayoutInflater().inflate(R.layout.custom_layout,null);
-            ImageView imageView = (ImageView)view.findViewById(R.id.imageView);
-            TextView textView_name = (TextView) view.findViewById(R.id.textView_name);
-            TextView textView_description = (TextView) view.findViewById(R.id.textView_description);
-            TextView textView_price = (TextView) view.findViewById(R.id.textView_price);
-            imageView.setImageResource(imageID);
+            ImageView imageView = view.findViewById(R.id.imageView);
+            TextView textView_name =  view.findViewById(R.id.textView_name);
+            TextView textView_description =  view.findViewById(R.id.textView_description);
+            TextView textView_price =  view.findViewById(R.id.textView_price);
+            Picasso.get()
+                    .load(temp.get(i).getImageCode())
+                    .into(imageView);
             textView_name.setText(temp.get(i).getName());
             textView_description.setText(temp.get(i).getFeatures());
             textView_price.setText(Double.toString(temp.get(i).getPrice()) + " TL ");
+
             return view;
-        }
-    }
-
-
-    public void initProduct()  {
-        String line = "";
-        InputStream is;
-        BufferedReader br;
-        try {
-            is = getAssets().open(fileProduct);
-            br = new BufferedReader(new InputStreamReader(is));
-            while((line = br.readLine()) != null){
-                String[] word = line.split(";");
-                Product prd = new Product();
-                prd.setType(word[0]);
-                prd.setImageCode(word[1]);
-                prd.setId(Integer.parseInt(word[2]));
-                prd.setName(word[3]);
-                prd.setFeatures(word[4]);
-                prd.setPrice(Double.parseDouble(word[5]));
-                initkeyWord(prd);
-                if(!System.productList.contains(prd))
-                    System.productList.add(prd);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    public void initkeyWord(Product p) {
-        String line = "";
-        InputStream is;
-        BufferedReader br;
-        try {
-            is = getAssets().open(filekeyWord);
-            br = new BufferedReader(new InputStreamReader(is));
-            while((line = br.readLine()) != null){
-
-                LinkedList<String> key = new LinkedList<>();
-                String[] word = line.split(";");
-                key.add(word[0]);
-                key.add(word[1]);
-                key.add(word[2]);
-                p.setKeyWords(key);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 }

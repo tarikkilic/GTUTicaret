@@ -11,6 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -34,12 +36,11 @@ public class productContent extends MenuBar {
         lastCommentLL = findViewById(R.id.lastCommentLL);
 
         newProduct = (Product) getIntent().getExtras().getSerializable("pro");
-        int image = getApplicationContext().getResources().getIdentifier(newProduct.getImageCode(), "drawable", getPackageName());
 
         String name = newProduct.getName();
         Double price = newProduct.getPrice();
         String feature = newProduct.getFeatures();
-
+        String imageUrl = newProduct.getImageCode();
 
         //Kullanıcıya geçici yorumlar yerleştirildi.
         comments = new Stack<>();
@@ -55,7 +56,9 @@ public class productContent extends MenuBar {
         userComesProduct = new User("newUser", comments);
 
         ImageView productImage = findViewById(R.id.productImage);
-        productImage.setImageResource(image);
+        Picasso.get()
+                .load(imageUrl)
+                .into(productImage);
 
         TextView productName = findViewById(R.id.productName);
         productName.setText(name);

@@ -92,7 +92,7 @@ public class addProduct extends MenuBar {
                 newProduct.setPrice(Double.parseDouble(nprice));
                 newProduct.setImageCode(imageUrl);
                 newProduct.setId((nname+Giris.whoami).hashCode());
-                mDatabase.child("Urunler").child(String.valueOf(newProduct.getId())).child(String.valueOf(newProduct.getId())).setValue(newProduct);
+                mDatabase.child("Urunler").child(String.valueOf(newProduct.getId())).setValue(newProduct);
                 System.productList.add(newProduct);
                 Toast.makeText(getApplicationContext(),"Ürünün satışa konuldu.",
                         Toast.LENGTH_SHORT).show();
