@@ -32,7 +32,6 @@ public abstract class MenuBar extends AppCompatActivity {
                         if (!stackTraceElements[3].getClassName().equals(AnaEkran.class.getName())) {
                             Intent menu = new Intent(getApplicationContext(), AnaEkran.class);
                             startActivity(menu);
-                            finish();
                         } else
                             mdrawerLayout.closeDrawers();
                         break;
@@ -40,7 +39,6 @@ public abstract class MenuBar extends AppCompatActivity {
                         if (!stackTraceElements[3].getClassName().equals(Hesabim.class.getName())) {
                             Intent hesap = new Intent(getApplicationContext(), Hesabim.class);
                             startActivity(hesap);
-                            finish();
                         } else
                             mdrawerLayout.closeDrawers();
                         break;
@@ -48,7 +46,6 @@ public abstract class MenuBar extends AppCompatActivity {
                         if (!stackTraceElements[3].getClassName().equals(Categories.class.getName())) {
                             Intent kategori = new Intent(getApplicationContext(), Categories.class);
                             startActivity(kategori);
-                            finish();
                         } else
                             mdrawerLayout.closeDrawers();
                         break;
@@ -56,7 +53,6 @@ public abstract class MenuBar extends AppCompatActivity {
                         if (!stackTraceElements[3].getClassName().equals(Ayarlar.class.getName())) {
                             Intent ayarlar = new Intent(getApplicationContext(), Ayarlar.class);
                             startActivity(ayarlar);
-                            finish();
                         } else
                             mdrawerLayout.closeDrawers();
                         break;
@@ -64,7 +60,6 @@ public abstract class MenuBar extends AppCompatActivity {
                         if (!stackTraceElements[3].getClassName().equals(addProduct.class.getName())) {
                             Intent addProduct = new Intent(getApplicationContext(), addProduct.class);
                             startActivity(addProduct);
-                            finish();
 
                         } else
                             mdrawerLayout.closeDrawers();

@@ -93,9 +93,11 @@ public class addProduct extends MenuBar {
                 newProduct.setImageCode(imageUrl);
                 newProduct.setId((nname+Giris.whoami).hashCode());
                 mDatabase.child("Urunler").child(String.valueOf(newProduct.getId())).setValue(newProduct);
-                System.productList.add(newProduct);
+                //System.productList.add(newProduct);
                 Toast.makeText(getApplicationContext(),"Ürünün satışa konuldu.",
                         Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(),AnaEkran.class);
+                startActivity(intent);
             }
         }
     }

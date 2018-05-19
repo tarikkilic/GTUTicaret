@@ -43,7 +43,7 @@ public class Categories extends MenuBar {
             @Override
             public void onClick(View view) {
                 Intent material=new Intent(Categories.this,ProductScreen.class);
-                material.putExtra("ezkey","EV ESYALARI");
+                material.putExtra("ezkey","EV EŞYALARI");
                 startActivity(material);
             }
         });

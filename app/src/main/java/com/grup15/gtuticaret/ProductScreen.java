@@ -77,11 +77,10 @@ public class ProductScreen extends MenuBar {
                     DataSnapshot dataSnapshot1 = iterator.next();
                     Product product = dataSnapshot1.getValue(Product.class);
                     arr.add(product);
-                    FireListAdapter fireListAdapter = new FireListAdapter();
-                    fireListAdapter.notifyDataSetChanged();
-                    listView.setAdapter(fireListAdapter);
-
                 }
+                FireListAdapter fireListAdapter = new FireListAdapter();
+                fireListAdapter.notifyDataSetChanged();
+                listView.setAdapter(fireListAdapter);
             }
 
             @Override
