@@ -1,17 +1,14 @@
 package com.grup15.gtuticaret;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.v4.content.FileProvider;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -26,12 +23,9 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.LinkedList;
+import java.io.ByteArrayOutputStream;
+import java.net.URI;
 import java.util.UUID;
-
-import static com.grup15.gtuticaret.KayitOl.file;
 
 /**
  * Created by Emirhan Karagözoğlu on 11.05.2018.
@@ -92,7 +86,7 @@ public class addProduct extends MenuBar {
                 newProduct.setPrice(Double.parseDouble(nprice));
                 newProduct.setImageCode(imageUrl);
                 newProduct.setId((nname+Giris.whoami).hashCode());
-                mDatabase.child("Urunler").child(String.valueOf(newProduct.getId())).setValue(newProduct);
+                mDatabase.child("Urunler").child(category).child(String.valueOf(newProduct.getId())).setValue(newProduct);
                 //System.productList.add(newProduct);
                 Toast.makeText(getApplicationContext(),"Ürünün satışa konuldu.",
                         Toast.LENGTH_SHORT).show();
@@ -130,6 +124,8 @@ public class addProduct extends MenuBar {
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent,"Select Picture"),PICK_IMAGE_REQUEST);
     }
+
+
 
     private void uploadImage() {
         if(filePath != null){

@@ -41,7 +41,6 @@ public class ProductScreen extends MenuBar {
     private ArrayList<Product> temp;
     //firebase degiskenleri
     private DatabaseReference mFirebaseDatabase;
-    private FirebaseDatabase mFirebaseInstance;
     private ListView listView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +51,8 @@ public class ProductScreen extends MenuBar {
         temp = new ArrayList<>();
         //kategori ekranina tiklanan kategoriyi tutuyorum.
         typeC = getIntent().getStringExtra("ezkey");
-        mFirebaseInstance = FirebaseDatabase.getInstance();
         // Urunler kismindaki referanslari aliyorum sadece
-        mFirebaseDatabase = mFirebaseInstance.getReference().child("Urunler") ;
+        mFirebaseDatabase = FirebaseDatabase.getInstance().getReference().child("Urunler").child(typeC) ;
         listView =  findViewById(R.id.productList);
 
         //tiklandiginde urun ekranina gider.
