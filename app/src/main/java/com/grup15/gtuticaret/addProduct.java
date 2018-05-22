@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.EditText;
@@ -24,6 +25,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.net.URI;
 import java.util.UUID;
 
@@ -102,7 +104,7 @@ public class addProduct extends MenuBar {
         chooseImage();
     }
     //resim upload edilir
-    public void upload(View view){
+    public void upload(View view) throws IOException {
         uploadImage();
     }
 
@@ -127,41 +129,38 @@ public class addProduct extends MenuBar {
 
 
 
-    private void uploadImage() {
-        if(filePath != null){
+    private void uploadImage() throws IOException {
+        if (filePath != null) {
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Uploading..");
             progressDialog.show();
             //firebase de images klasörü olusturulur.
             StorageReference ref = storageReference.child("images/" + UUID.randomUUID().toString());
-            //telefonda secilen resmin dosya yolu parametre olarak konulur.
-            ref.putFile(filePath)
-                    //basarili olunca proggresbar kapatilir.
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            progressDialog.dismiss();
-                            //resmin url'si tutulur.
-                            imageUrl = taskSnapshot.getDownloadUrl().toString();
-                            Toast.makeText(getApplicationContext(),"Uploaded",Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    //basarisiz olunca hata ekrana bastirilir.
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            progressDialog.dismiss();
-                            Toast.makeText(getApplicationContext(),"Failed" +  e.getMessage(),Toast.LENGTH_LONG).show();
-                        }
-                    })
-                    //islem devam ederken yüzde kaci yüklendigi gösterilir.
-                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            double progress = (100*taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount());
-                            progressDialog.setMessage("Uploaded " + (int)progress+"%");
-                        }
-                    });
+            Bitmap bmp = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bmp.compress(Bitmap.CompressFormat.JPEG, 15, baos);
+            byte[] data = baos.toByteArray();
+            UploadTask uploadTask = ref.putBytes(data);
+            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    progressDialog.dismiss();
+                    imageUrl = taskSnapshot.getDownloadUrl().toString();
+                    Toast.makeText(getApplicationContext(), "Uploaded", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                    double progress = (100 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
+                    progressDialog.setMessage("Uploaded " + (int) progress + "%");
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    progressDialog.dismiss();
+                    Toast.makeText(getApplicationContext(), "Failed" + e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
         }
     }
 

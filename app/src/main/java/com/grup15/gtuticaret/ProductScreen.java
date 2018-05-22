@@ -29,6 +29,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -37,8 +39,6 @@ public class ProductScreen extends MenuBar {
     String typeC;
     //firebasedeki tum urunler arr arrayine cekiyorum
     private ArrayList<Product> arr;
-    //sadece istenen kategorilerdeki urunleri temp arrayine atiyorum.
-    private ArrayList<Product> temp;
     //firebase degiskenleri
     private DatabaseReference mFirebaseDatabase;
     private ListView listView;
@@ -48,19 +48,17 @@ public class ProductScreen extends MenuBar {
         setContentView(R.layout.activity_product_screen);
         super.menuBar();
         arr = new ArrayList<>();
-        temp = new ArrayList<>();
         //kategori ekranina tiklanan kategoriyi tutuyorum.
         typeC = getIntent().getStringExtra("ezkey");
         // Urunler kismindaki referanslari aliyorum sadece
         mFirebaseDatabase = FirebaseDatabase.getInstance().getReference().child("Urunler").child(typeC) ;
         listView =  findViewById(R.id.productList);
-
         //tiklandiginde urun ekranina gider.
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent1 = new Intent(getApplicationContext(),productContent.class);
-                intent1.putExtra("pro",temp.get(i));
+                intent1.putExtra("pro",arr.get(i));
                 startActivity(intent1);
             }
         });
@@ -92,15 +90,7 @@ public class ProductScreen extends MenuBar {
         //belirlenen kategoride kac tane urun var onu buluyor.
         @Override
         public int getCount() {
-            int i = 0,size = 0;
-            while(i < arr.size()){
-                if((arr.get(i).getType()).equals(typeC)){
-                    size++;
-                    temp.add(arr.get(i));
-                }
-                i++;
-            }
-            return size;
+            return arr.size();
         }
 
         @Override
@@ -122,11 +112,12 @@ public class ProductScreen extends MenuBar {
             TextView textView_description =  view.findViewById(R.id.textView_description);
             TextView textView_price =  view.findViewById(R.id.textView_price);
             Picasso.get()
-                    .load(temp.get(i).getImageCode())
+                    .load(arr.get(i).getImageCode())
+                    .resize(110,130)
                     .into(imageView);
-            textView_name.setText(temp.get(i).getName());
-            textView_description.setText(temp.get(i).getFeatures());
-            textView_price.setText(Double.toString(temp.get(i).getPrice()) + " TL ");
+            textView_name.setText(arr.get(i).getName());
+            textView_description.setText(arr.get(i).getFeatures());
+            textView_price.setText(Double.toString(arr.get(i).getPrice()) + " TL ");
 
             return view;
         }
