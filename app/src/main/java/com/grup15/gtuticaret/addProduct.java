@@ -49,7 +49,7 @@ public class addProduct extends MenuBar {
     private EditText features;
     private EditText price;
     //image url
-    private String imageUrl = "";
+    private String imageUrl = "default";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

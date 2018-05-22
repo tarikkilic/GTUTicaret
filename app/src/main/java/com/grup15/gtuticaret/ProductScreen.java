@@ -111,10 +111,20 @@ public class ProductScreen extends MenuBar {
             TextView textView_name =  view.findViewById(R.id.textView_name);
             TextView textView_description =  view.findViewById(R.id.textView_description);
             TextView textView_price =  view.findViewById(R.id.textView_price);
-            Picasso.get()
-                    .load(arr.get(i).getImageCode())
-                    .resize(110,130)
-                    .into(imageView);
+            if(arr.get(i).getImageCode().equals("default")){
+                Picasso.get()
+                        .load("https://firebasestorage.googleapis.com/v0/b/gtuticaret.appspot." +
+                                "com/o/images%2Fkangal.jpg?alt=media&token=f0fc558a-63db-42a8-bfb5-6be4b572c1d8")
+                        .resize(110,130)
+                        .into(imageView);
+            }
+            else{
+                Picasso.get()
+                        .load(arr.get(i).getImageCode())
+                        .resize(110,130)
+                        .into(imageView);
+            }
+
             textView_name.setText(arr.get(i).getName());
             textView_description.setText(arr.get(i).getFeatures());
             textView_price.setText(Double.toString(arr.get(i).getPrice()) + " TL ");
