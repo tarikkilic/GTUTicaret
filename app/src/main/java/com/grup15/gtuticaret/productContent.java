@@ -56,9 +56,17 @@ public class productContent extends MenuBar {
         userComesProduct = new User("newUser", comments);
 
         ImageView productImage = findViewById(R.id.productImage);
-        Picasso.get()
-                .load(imageUrl)
-                .into(productImage);
+        if(imageUrl.equals("default")){
+            Picasso.get()
+                    .load(imageUrl)
+                    .into(productImage);
+        }
+        else{
+            Picasso.get()
+                    .load("https://firebasestorage.googleapis.com/v0/b/gtuticaret.appspot.com/o/images%2Fkangal.jpg?alt=media&token=f0fc558a-63db-42a8-bfb5-6be4b572c1d8")
+                    .into(productImage);
+        }
+
 
         TextView productName = findViewById(R.id.productName);
         productName.setText(name);
