@@ -15,9 +15,8 @@ import java.util.Stack;
 
 public class User implements UserInterface {
 
-    private String name,surname,password,email,salt;
+    private String name,surname,password,email,salt,balanceLeft,balanceRight;
     private Stack<Comment> comments;
-    private double balance;
     static LinkedList<Product> cart = new LinkedList<>();
 
 
@@ -28,24 +27,26 @@ public class User implements UserInterface {
     }
 
 
-    public User(String n,String s,String e,String p){
+
+
+    public User(String n,String s,String e,String p,String sT,String bL,String bR){
         name = n;
         surname = s;
         email = e;
         password = p;
+        balanceLeft = bL;
+        balanceRight = bR;
+        salt = sT;
     }
 
-    public User(String e, String p,String s){
+    public User(String e, String p,String s,String bL,String bR){
         email = e;
         password = p;
         salt = s;
+        balanceLeft = bL;
+        balanceRight = bR;
     }
 
-    public User(String name, Stack<Comment> comments, double balance) {
-        this.name = name;
-        this.comments = comments;
-        this.balance = balance;
-    }
 
     public User(String name,Stack<Comment> comments){
         this.name = name;
@@ -73,9 +74,7 @@ public class User implements UserInterface {
         return comments;
     }
 
-    public double getBalance() {
-        return balance;
-    }
+
 
     public void setName(String name) {
         this.name = name;
@@ -86,22 +85,9 @@ public class User implements UserInterface {
         this.comments = comments;
     }
 
-    public void setBalance(double balance) {
-        this.balance = balance;
-    }
 
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
 
-        User user = (User) o;
-
-        if (Double.compare(user.balance, balance) != 0) return false;
-        if (name != null ? !name.equals(user.name) : user.name != null) return false;
-        return comments != null ? comments.equals(user.comments) : user.comments == null;
-    }
 
     @Override
     public int hashCode() {
@@ -109,8 +95,6 @@ public class User implements UserInterface {
         long temp;
         result = name != null ? name.hashCode() : 0;
         result = 31 * result + (comments != null ? comments.hashCode() : 0);
-        temp = Double.doubleToLongBits(balance);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
     }
 
@@ -139,5 +123,22 @@ public class User implements UserInterface {
         comment.get(2).setText(userComesProduct.getComments().pop().getUserName());
 
         editComment.getText().clear();
+    }
+
+
+    public String getBalanceLeft() {
+        return balanceLeft;
+    }
+
+    public void setBalanceLeft(String balanceLeft) {
+        this.balanceLeft = balanceLeft;
+    }
+
+    public String getBalanceRight() {
+        return balanceRight;
+    }
+
+    public void setBalanceRight(String balanceRight) {
+        this.balanceRight = balanceRight;
     }
 }

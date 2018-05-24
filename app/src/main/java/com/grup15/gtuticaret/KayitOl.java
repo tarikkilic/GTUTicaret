@@ -80,7 +80,7 @@ public class KayitOl extends AppCompatActivity {
                             }
                             String salt =  Sha256hash.getNextSalt();
                             password = password + salt;
-                            User user = new User(email,password,salt);
+                            User user = new User(email,password,salt,"0","0");
                             mDatabase.child("Users").child(String.valueOf(email.hashCode())).child(String.valueOf(email.hashCode())).setValue(user);
                             toast();
                             Intent giris= new Intent(KayitOl.this, Giris.class);

@@ -134,11 +134,11 @@ public class addProduct extends MenuBar {
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Uploading..");
             progressDialog.show();
-            //firebase de images klasörü olusturulur.
+            //firebase de images klasörü olusturulur/erisir.
             StorageReference ref = storageReference.child("images/" + UUID.randomUUID().toString());
             Bitmap bmp = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bmp.compress(Bitmap.CompressFormat.JPEG, 15, baos);
+            bmp.compress(Bitmap.CompressFormat.JPEG, 25, baos);
             byte[] data = baos.toByteArray();
             UploadTask uploadTask = ref.putBytes(data);
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {

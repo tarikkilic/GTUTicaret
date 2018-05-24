@@ -27,6 +27,7 @@ public class Giris extends AppCompatActivity  {
     private  DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     private String password,email;
     public static String whoami;
+    public static String balanceLeft,balanceRight;
     private boolean flag = true;
     private Integer a = new Integer(5);
 
@@ -112,6 +113,8 @@ public class Giris extends AppCompatActivity  {
                                         }
                                         password = password + salt;
                                         if (password.equals(hp.get("password").toString()) && email.equals(hp.get("email").toString())){
+                                            balanceLeft = (String) hp.get("balanceLeft");
+                                            balanceRight = (String) hp.get("balanceRight");
                                             girisBasarili();
                                         }
                                         else{
