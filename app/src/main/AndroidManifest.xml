@@ -32,6 +32,7 @@
         <activity android:name=".Giris"
             android:theme="@style/Giris"></activity>
         <activity android:name=".AnaEkran"></activity>
+        <activity android:name=".Chat"></activity>
         <activity android:name=".MainActivity"></activity>
         <activity android:name=".Ayarlar"></activity>
         <activity android:name=".MenuBar" />
