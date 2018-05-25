@@ -8,6 +8,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * Created by Serkan Sorman on 12.05.2018.
@@ -16,6 +18,7 @@ import java.util.ArrayList;
 public abstract class System extends AppCompatActivity{
 
     static ArrayList<Product> productList = new ArrayList<>();
+    static Queue<Product> lastProducts = new LinkedList<>();
 
     public static void showAllComments(Context context,User userComesProduct) {
 
@@ -35,7 +38,8 @@ public abstract class System extends AppCompatActivity{
         EditText price = findViewById(R.id.editPrice);
 
         Product newProduct = new Product(name.getText().toString(),features.getText().toString(),
-                String.valueOf(spinner.getSelectedItem()).toUpperCase(),Double.parseDouble(price.getText().toString()),System.productList.size()+1,"@drawable/ps4");
+                String.valueOf(spinner.getSelectedItem()).toUpperCase(),Double.parseDouble(price.getText().toString()),System.productList.size()+1,"@drawable/varsayilan");
+
 
         System.productList.add(newProduct);
     }

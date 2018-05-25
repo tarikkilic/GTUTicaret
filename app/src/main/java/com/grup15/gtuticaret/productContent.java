@@ -57,9 +57,7 @@ public class productContent extends MenuBar {
 
         ImageView productImage = findViewById(R.id.productImage);
         if(imageUrl.equals("default")){
-            Picasso.get()
-                    .load(imageUrl)
-                    .into(productImage);
+            productImage.setImageResource(R.drawable.varsayilan);
         }
         else{
             Picasso.get()

@@ -28,6 +28,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.util.UUID;
+import com.grup15.gtuticaret.System;
 
 /**
  * Created by Emirhan Karagözoğlu on 11.05.2018.
@@ -89,6 +90,8 @@ public class addProduct extends MenuBar {
                 newProduct.setImageCode(imageUrl);
                 newProduct.setId((nname+Giris.whoami).hashCode());
                 mDatabase.child("Urunler").child(category).child(String.valueOf(newProduct.getId())).setValue(newProduct);
+                mDatabase.child("SonEklenenler").child(String.valueOf(newProduct.getId())).setValue(newProduct);
+
                 //System.productList.add(newProduct);
                 Toast.makeText(getApplicationContext(),"Ürünün satışa konuldu.",
                         Toast.LENGTH_SHORT).show();
@@ -178,5 +181,7 @@ public class addProduct extends MenuBar {
                     }
                 }).show();
     }
+
+
 
 }

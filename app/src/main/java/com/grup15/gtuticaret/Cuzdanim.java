@@ -24,5 +24,6 @@ public class Cuzdanim extends MenuBar {
         TextView kisiselbilgi = (TextView) findViewById(R.id.bakiye);
         //kisiselbilgi.setText(get_wallet().getKey() + get_wallet().getValue());
         kisiselbilgi.setText(Giris.balanceLeft+","+Giris.balanceRight);
+        super.menuBar();
     }
 }

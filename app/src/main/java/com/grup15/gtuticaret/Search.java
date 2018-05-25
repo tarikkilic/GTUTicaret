@@ -1,14 +1,7 @@
 package com.grup15.gtuticaret;
 
 import android.content.Intent;
-import android.support.design.widget.NavigationView;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -24,19 +17,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
 
-public class ProductScreen extends MenuBar {
-    String typeC;
+/**
+ * Created by Celal Can on 26.05.2018.
+ */
+
+public class Search extends MenuBar {
     //firebasedeki tum urunler arr arrayine cekiyorum
     private ArrayList<Product> arr;
     //firebase degiskenleri
@@ -49,7 +37,6 @@ public class ProductScreen extends MenuBar {
         super.menuBar();
         arr = new ArrayList<>();
         //kategori ekranina tiklanan kategoriyi tutuyorum.
-        typeC = getIntent().getStringExtra("ezkey");
         // Urunler kismindaki referanslari aliyorum sadece
         mFirebaseDatabase = FirebaseDatabase.getInstance().getReference().child("Urunler").child(typeC) ;
         listView =  findViewById(R.id.productList);
@@ -74,7 +61,7 @@ public class ProductScreen extends MenuBar {
                     Product product = dataSnapshot1.getValue(Product.class);
                     arr.add(product);
                 }
-                FireListAdapter fireListAdapter = new FireListAdapter();
+                Search.FireListAdapter fireListAdapter = new ProductScreen.FireListAdapter();
                 fireListAdapter.notifyDataSetChanged();
                 listView.setAdapter(fireListAdapter);
             }
@@ -86,7 +73,7 @@ public class ProductScreen extends MenuBar {
         });
     }
 
-    public class FireListAdapter extends BaseAdapter{
+    public class FireListAdapter extends BaseAdapter {
         //belirlenen kategoride kac tane urun var onu buluyor.
         @Override
         public int getCount() {
@@ -129,5 +116,3 @@ public class ProductScreen extends MenuBar {
         }
     }
 }
-
-
