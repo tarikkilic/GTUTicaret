@@ -25,42 +25,23 @@ import java.util.LinkedList;
 
 
 public class Search extends MenuBar {
-    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("Urunler");
+    DatabaseReference mDatabase;
     HashMap<String,Product> everything;
     private ArrayList<Product> arr;
     private ListView listView;
+    private String key;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_screen);
         super.menuBar();
-        // KENDİM TEMP Bİ PRODUCT OLUŞTURDUM ONU ARRAYLİST'E ATTIM. ARR = SEARCH("KEYWORD") ŞEKLİNDE ARAMAYI YAPIP SEARCHÜN TEST ET.
-        // Sonraki yorum satırına kadar olan yerler test için silebilirsin
-        Product a = new Product();
-        a.setName("at");
-        a.setFeatures("ldldpepe");
-        a.setId(96910);
-        a.setPrice(313);
-        a.setType("ELEKTRONIK");
-        a.setImageCode("default");
-        Product b = new Product();
-        b.setName("mouse");
-        b.setFeatures("ldldpepe");
-        b.setId(96910);
-        b.setPrice(313);
-        b.setType("ELEKTRONIK");
-        b.setImageCode("https://firebasestorage.googleapis.com/v0/b/gtuticaret.appspot.com/o/images%2F0f17680d-bd00-4849-b66d-0414a7ae7596?alt=media&token=d9864b70-c3bf-4600-be0c-d76282f498fc");
         arr = new ArrayList<>();
-        arr.add(a);
-        arr.add(b);
+        String typeC = "ELEKTRONIK";
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Urunler").child(typeC);
         //kategori ekranina tiklanan kategoriyi tutuyorum.
         // Urunler kismindaki referanslari aliyorum sadece
         listView =  findViewById(R.id.productList);
-        FireListAdapter fireListAdapter = new FireListAdapter();
-        fireListAdapter.notifyDataSetChanged();
-        listView.setAdapter(fireListAdapter);
-        //tiklandiginde urun ekranina gider.
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -69,36 +50,41 @@ public class Search extends MenuBar {
                 startActivity(intent1);
             }
         });
+        key = "klavye";
+        search(key);
+
     }
 
-    public ArrayList<Product> search(String key){
-        ArrayList<Product> result = new ArrayList<>();
-        everything = new HashMap<>();
-        mDatabase.child("ELEKTRONIK").addValueEventListener(new ValueEventListener() {
+    private void search(final String key) {
+        mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren() ;
                 Iterator<DataSnapshot> iterator = snapshotIterable.iterator();
+                everything = new HashMap<>();
                 while (iterator.hasNext()) {
                     DataSnapshot dataSnapshot1 = iterator.next();
                     Product product = dataSnapshot1.getValue(Product.class);
                     everything.put(product.getName(),product);
                 }
+                String [] arr1 = key.split("\\s+");
+                if(everything.get(key) != null)
+                    arr.add(everything.get(key));
+                for(int i =0;i<arr1.length;i++)
+                    if(everything.get(arr1[i]) != null)
+                        arr.add(everything.get(arr1[i]));
+                FireListAdapter fireListAdapter = new FireListAdapter();
+                fireListAdapter.notifyDataSetChanged();
+                listView.setAdapter(fireListAdapter);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                //dolduralacak
             }
         });
-        String [] arr = key.split("\\s+");
-        if(everything.get(key) != null)
-            result.add(everything.get(key));
-        for(int i =0;i<arr.length;i++)
-            if(everything.get(arr[i]) != null)
-                result.add(everything.get(arr[i]));
-        return result;
     }
+
 
     public class FireListAdapter extends BaseAdapter {
         //belirlenen kategoride kac tane urun var onu buluyor.
