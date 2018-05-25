@@ -13,12 +13,15 @@
         android:title="Hesabım"
         android:icon="@drawable/hesabim"
         ></item>
-
-
+    <item
+        android:id="@+id/navigation_message"
+        android:title="Mesajlar"
+        android:icon="@drawable/message"></item>
     <item
         android:id="@+id/navigation_categories"
         android:title="Kategoriler"
-        android:icon="@drawable/menu"></item>
+        android:icon="@drawable/menu"
+        ></item>
 
     <item
         android:id="@+id/navigation_addProduct"

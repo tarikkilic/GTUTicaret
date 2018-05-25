@@ -49,6 +49,13 @@ public abstract class MenuBar extends AppCompatActivity {
                         } else
                             mdrawerLayout.closeDrawers();
                         break;
+                    case R.id.navigation_message:
+                        if (!stackTraceElements[3].getClassName().equals(Chat.class.getName())) {
+                            Intent chat = new Intent(getApplicationContext(), Chat.class);
+                            startActivity(chat);
+                        } else
+                            mdrawerLayout.closeDrawers();
+                        break;
                     case R.id.navigation_setting:
                         if (!stackTraceElements[3].getClassName().equals(Ayarlar.class.getName())) {
                             Intent ayarlar = new Intent(getApplicationContext(), Ayarlar.class);
@@ -64,6 +71,7 @@ public abstract class MenuBar extends AppCompatActivity {
                         } else
                             mdrawerLayout.closeDrawers();
                         break;
+
                 }
                 return false;
             }
