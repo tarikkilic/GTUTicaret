@@ -1,8 +1,8 @@
 package com.grup15.gtuticaret;
 
-<<<<<<< HEAD
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -10,42 +10,56 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-=======
-
-
->>>>>>> 7d6f50f152e731325c13c685dd4f8abd545d8896
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-<<<<<<< HEAD
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 
-/**
- * Created by Celal Can on 26.05.2018.
- */
 
 public class Search extends MenuBar {
-    //firebasedeki tum urunler arr arrayine cekiyorum
+    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("Urunler");
+    HashMap<String,Product> everything;
     private ArrayList<Product> arr;
-    //firebase degiskenleri
-    private DatabaseReference mFirebaseDatabase;
     private ListView listView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_screen);
         super.menuBar();
+        // KENDİM TEMP Bİ PRODUCT OLUŞTURDUM ONU ARRAYLİST'E ATTIM. ARR = SEARCH("KEYWORD") ŞEKLİNDE ARAMAYI YAPIP SEARCHÜN TEST ET.
+        // Sonraki yorum satırına kadar olan yerler test için silebilirsin
+        Product a = new Product();
+        a.setName("at");
+        a.setFeatures("ldldpepe");
+        a.setId(96910);
+        a.setPrice(313);
+        a.setType("ELEKTRONIK");
+        a.setImageCode("default");
+        Product b = new Product();
+        b.setName("mouse");
+        b.setFeatures("ldldpepe");
+        b.setId(96910);
+        b.setPrice(313);
+        b.setType("ELEKTRONIK");
+        b.setImageCode("https://firebasestorage.googleapis.com/v0/b/gtuticaret.appspot.com/o/images%2F0f17680d-bd00-4849-b66d-0414a7ae7596?alt=media&token=d9864b70-c3bf-4600-be0c-d76282f498fc");
         arr = new ArrayList<>();
+        arr.add(a);
+        arr.add(b);
         //kategori ekranina tiklanan kategoriyi tutuyorum.
         // Urunler kismindaki referanslari aliyorum sadece
-        mFirebaseDatabase = FirebaseDatabase.getInstance().getReference().child("Urunler").child(typeC) ;
         listView =  findViewById(R.id.productList);
+        FireListAdapter fireListAdapter = new FireListAdapter();
+        fireListAdapter.notifyDataSetChanged();
+        listView.setAdapter(fireListAdapter);
         //tiklandiginde urun ekranina gider.
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -55,25 +69,12 @@ public class Search extends MenuBar {
                 startActivity(intent1);
             }
         });
+    }
 
-        //firebasedeki urunleri bu metotla cekiyorum
-        mFirebaseDatabase.addValueEventListener(new ValueEventListener() {
-=======
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-
-
-public class Search {
-    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("Urunler");
-    HashMap<String,Product> everything;
     public ArrayList<Product> search(String key){
         ArrayList<Product> result = new ArrayList<>();
         everything = new HashMap<>();
         mDatabase.child("ELEKTRONIK").addValueEventListener(new ValueEventListener() {
->>>>>>> 7d6f50f152e731325c13c685dd4f8abd545d8896
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren() ;
@@ -81,24 +82,22 @@ public class Search {
                 while (iterator.hasNext()) {
                     DataSnapshot dataSnapshot1 = iterator.next();
                     Product product = dataSnapshot1.getValue(Product.class);
-<<<<<<< HEAD
-                    arr.add(product);
-                }
-                Search.FireListAdapter fireListAdapter = new ProductScreen.FireListAdapter();
-                fireListAdapter.notifyDataSetChanged();
-                listView.setAdapter(fireListAdapter);
-=======
                     everything.put(product.getName(),product);
                 }
->>>>>>> 7d6f50f152e731325c13c685dd4f8abd545d8896
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-<<<<<<< HEAD
-                //dolduralacak
+
             }
         });
+        String [] arr = key.split("\\s+");
+        if(everything.get(key) != null)
+            result.add(everything.get(key));
+        for(int i =0;i<arr.length;i++)
+            if(everything.get(arr[i]) != null)
+                result.add(everything.get(arr[i]));
+        return result;
     }
 
     public class FireListAdapter extends BaseAdapter {
@@ -142,17 +141,5 @@ public class Search {
 
             return view;
         }
-=======
-
-            }
-        });
-        String [] arr = key.split("\\s+");
-        if(everything.get(key) != null)
-            result.add(everything.get(key));
-        for(int i =0;i<arr.length;i++)
-            if(everything.get(arr[i]) != null)
-                result.add(everything.get(arr[i]));
-        return result;
->>>>>>> 7d6f50f152e731325c13c685dd4f8abd545d8896
     }
 }
