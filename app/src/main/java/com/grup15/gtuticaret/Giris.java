@@ -24,7 +24,7 @@ import java.util.HashMap;
 
 public class Giris extends AppCompatActivity  {
 
-    private  DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     private String password,email;
     public static String whoami;
     public static String balanceLeft,balanceRight;

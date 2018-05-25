@@ -1,5 +1,6 @@
 package com.grup15.gtuticaret;
 
+<<<<<<< HEAD
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,12 +10,17 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+=======
+
+
+>>>>>>> 7d6f50f152e731325c13c685dd4f8abd545d8896
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+<<<<<<< HEAD
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -52,6 +58,22 @@ public class Search extends MenuBar {
 
         //firebasedeki urunleri bu metotla cekiyorum
         mFirebaseDatabase.addValueEventListener(new ValueEventListener() {
+=======
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
+
+
+public class Search {
+    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("Urunler");
+    HashMap<String,Product> everything;
+    public ArrayList<Product> search(String key){
+        ArrayList<Product> result = new ArrayList<>();
+        everything = new HashMap<>();
+        mDatabase.child("ELEKTRONIK").addValueEventListener(new ValueEventListener() {
+>>>>>>> 7d6f50f152e731325c13c685dd4f8abd545d8896
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren() ;
@@ -59,15 +81,21 @@ public class Search extends MenuBar {
                 while (iterator.hasNext()) {
                     DataSnapshot dataSnapshot1 = iterator.next();
                     Product product = dataSnapshot1.getValue(Product.class);
+<<<<<<< HEAD
                     arr.add(product);
                 }
                 Search.FireListAdapter fireListAdapter = new ProductScreen.FireListAdapter();
                 fireListAdapter.notifyDataSetChanged();
                 listView.setAdapter(fireListAdapter);
+=======
+                    everything.put(product.getName(),product);
+                }
+>>>>>>> 7d6f50f152e731325c13c685dd4f8abd545d8896
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+<<<<<<< HEAD
                 //dolduralacak
             }
         });
@@ -114,5 +142,17 @@ public class Search extends MenuBar {
 
             return view;
         }
+=======
+
+            }
+        });
+        String [] arr = key.split("\\s+");
+        if(everything.get(key) != null)
+            result.add(everything.get(key));
+        for(int i =0;i<arr.length;i++)
+            if(everything.get(arr[i]) != null)
+                result.add(everything.get(arr[i]));
+        return result;
+>>>>>>> 7d6f50f152e731325c13c685dd4f8abd545d8896
     }
 }
