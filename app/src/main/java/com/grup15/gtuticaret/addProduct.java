@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -26,9 +25,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.net.URI;
 import java.util.UUID;
-import com.grup15.gtuticaret.System;
 
 /**
  * Created by Emirhan Karagözoğlu on 11.05.2018.
@@ -89,6 +86,7 @@ public class addProduct extends MenuBar {
                 newProduct.setPrice(Double.parseDouble(nprice));
                 newProduct.setImageCode(imageUrl);
                 newProduct.setId((nname+Giris.whoami).hashCode());
+                newProduct.setSeller(System.currentUser);
                 mDatabase.child("Urunler").child(category).child(String.valueOf(newProduct.getId())).setValue(newProduct);
                 mDatabase.child("SonEklenenler").child(String.valueOf(newProduct.getId())).setValue(newProduct);
 

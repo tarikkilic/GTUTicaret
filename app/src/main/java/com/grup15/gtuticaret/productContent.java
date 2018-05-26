@@ -61,7 +61,7 @@ public class productContent extends MenuBar {
         }
         else{
             Picasso.get()
-                    .load("https://firebasestorage.googleapis.com/v0/b/gtuticaret.appspot.com/o/images%2Fkangal.jpg?alt=media&token=f0fc558a-63db-42a8-bfb5-6be4b572c1d8")
+                    .load(imageUrl)
                     .into(productImage);
         }
 

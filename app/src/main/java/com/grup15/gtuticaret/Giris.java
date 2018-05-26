@@ -2,7 +2,6 @@ package com.grup15.gtuticaret;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -34,6 +33,7 @@ public class Giris extends AppCompatActivity  {
     private void girisBasarili(){
             /*******************************************************************************/
             whoami = email;
+            System.currentUser = whoami;
             flag = false;
             a = 6;
             toast(0);

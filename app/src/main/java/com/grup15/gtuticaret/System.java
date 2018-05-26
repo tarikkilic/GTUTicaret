@@ -16,7 +16,7 @@ import java.util.Queue;
  */
 
 public abstract class System extends AppCompatActivity{
-
+    static String currentUser;
     static ArrayList<Product> productList = new ArrayList<>();
     static Queue<Product> lastProducts = new LinkedList<>();
 

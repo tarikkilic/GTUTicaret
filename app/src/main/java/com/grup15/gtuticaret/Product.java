@@ -1,11 +1,18 @@
 package com.grup15.gtuticaret;
 
+import android.support.annotation.NonNull;
+
+import com.google.firebase.database.ServerValue;
+
 import java.io.Serializable;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Stack;
 
 
-public class Product implements Serializable {
+public class Product implements Serializable{
     private String name;
     private String features;
     private String type;
@@ -13,6 +20,7 @@ public class Product implements Serializable {
     private Integer id;
     private LinkedList<String> keyWords;
     private String imageCode;
+    private String seller;
 
 
 
@@ -115,5 +123,44 @@ public class Product implements Serializable {
                 ", id=" + id +
                 ", keyWords=" + keyWords +
                 '}';
+    }
+
+
+    public String getSeller() {
+        return seller;
+    }
+
+    public void setSeller(String seller) {
+        this.seller = seller;
+    }
+
+}
+
+class artanFiyat implements Comparator<Product>{
+    @Override
+    public int compare(Product one, Product two) {
+        return Double.compare(one.getPrice(),two.getPrice());
+    }
+}
+
+
+class azalanFiyat implements Comparator<Product>{
+    @Override
+    public int compare(Product one, Product two) {
+        return Double.compare(two.getPrice(),one.getPrice());
+    }
+}
+
+class artanIsim implements Comparator<Product>{
+    @Override
+    public int compare(Product one, Product two) {
+        return  one.getName().toUpperCase().compareTo(two.getName().toUpperCase());
+    }
+}
+
+class azalanIsim implements Comparator<Product>{
+    @Override
+    public int compare(Product one, Product two) {
+        return  two.getName().toUpperCase().compareTo(one.getName().toUpperCase());
     }
 }

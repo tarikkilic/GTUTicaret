@@ -28,5 +28,12 @@
         <item>Ev Eşyaları</item>
         <item>Etkınlık-Bılet</item>
     </string-array>
+    <string-array name="sorted_arrays">
+        <item>Seciniz</item>
+        <item>Fiyata göre artan</item>
+        <item>Fiyata göre azalan</item>
+        <item>Isme gore A-Z</item>
+        <item>Isme gore Z-A</item>
+    </string-array>
 
 </resources>
