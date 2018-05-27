@@ -6,9 +6,11 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -19,6 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -36,6 +39,10 @@ public class Search extends MenuBar {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_screen);
         super.menuBar();
+        Spinner spinner = findViewById(R.id.spinner2);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.sorted_arrays, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
         arr = new ArrayList<>();
         String typeC = "ELEKTRONIK";
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Urunler").child(typeC);
@@ -50,10 +57,53 @@ public class Search extends MenuBar {
                 startActivity(intent1);
             }
         });
-        key = "klavye";
-        search(key);
+        search(this.getIntent().getStringExtra("arananDeger"));
+
+        //spinner metotlari
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                //neyi sectiyse ona göre siralar
+                //artanFiyat vs. Product classinin icinde bu claslar
+                if(adapterView.getSelectedItem().equals("Fiyata göre artan")){
+                    Collections.sort(arr,new artanFiyat());
+                    listView.setAdapter(null);
+                    Search.FireListAdapter fireListAdapter = new Search.FireListAdapter(arr);
+                    fireListAdapter.notifyDataSetChanged();
+                    listView.setAdapter(fireListAdapter);
+                }
+                else if(adapterView.getSelectedItem().equals("Fiyata göre azalan")){
+                    Collections.sort(arr,new azalanFiyat());
+                    listView.setAdapter(null);
+                    Search.FireListAdapter fireListAdapter = new Search.FireListAdapter(arr);
+                    fireListAdapter.notifyDataSetChanged();
+                    listView.setAdapter(fireListAdapter);
+                }
+
+                else if(adapterView.getSelectedItem().equals("Isme gore A-Z")){
+                    Collections.sort(arr,new artanIsim());
+                    listView.setAdapter(null);
+                    Search.FireListAdapter fireListAdapter = new Search.FireListAdapter(arr);
+                    fireListAdapter.notifyDataSetChanged();
+                    listView.setAdapter(fireListAdapter);
+                }
+                else if(adapterView.getSelectedItem().equals("Isme gore Z-A")){
+                    Collections.sort(arr,new azalanIsim());
+                    listView.setAdapter(null);
+                    Search.FireListAdapter fireListAdapter = new Search.FireListAdapter(arr);
+                    fireListAdapter.notifyDataSetChanged();
+                    listView.setAdapter(fireListAdapter);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
     }
+
 
     private void search(final String key) {
         mDatabase.addValueEventListener(new ValueEventListener() {
@@ -73,7 +123,7 @@ public class Search extends MenuBar {
                 for(int i =0;i<arr1.length;i++)
                     if(everything.get(arr1[i]) != null)
                         arr.add(everything.get(arr1[i]));
-                FireListAdapter fireListAdapter = new FireListAdapter();
+                FireListAdapter fireListAdapter = new FireListAdapter(arr);
                 fireListAdapter.notifyDataSetChanged();
                 listView.setAdapter(fireListAdapter);
             }
@@ -83,10 +133,18 @@ public class Search extends MenuBar {
                 //dolduralacak
             }
         });
+
     }
 
 
     public class FireListAdapter extends BaseAdapter {
+
+        private ArrayList<Product> fArr;
+
+        public FireListAdapter(ArrayList<Product> array) {
+            fArr = array;
+        }
+
         //belirlenen kategoride kac tane urun var onu buluyor.
         @Override
         public int getCount() {
@@ -128,4 +186,6 @@ public class Search extends MenuBar {
             return view;
         }
     }
+
+
 }
