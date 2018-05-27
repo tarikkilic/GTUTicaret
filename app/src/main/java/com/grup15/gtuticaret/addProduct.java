@@ -101,13 +101,10 @@ public class addProduct extends MenuBar {
 
 
     //Resim ceker
-    public void addImage(View view){
+    public void addImage(View view) {
         chooseImage();
     }
-    //resim upload edilir
-    public void upload(View view) throws IOException {
-        uploadImage();
-    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -115,6 +112,11 @@ public class addProduct extends MenuBar {
         if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data!= null && data.getData() != null){
             //secilen resmin dosya yolu filePath e atanir.
             filePath = data.getData();
+            try {
+                uploadImage();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

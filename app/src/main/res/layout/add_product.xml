@@ -73,8 +73,9 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="71dp"
+        android:layout_above="@+id/button2"
+        android:layout_alignEnd="@+id/editPrice"
+        android:layout_marginBottom="25dp"
         android:onClick="addImage"
         android:text="Fotoğraf Çek/Ekle"
         android:textSize="16sp" />
@@ -88,17 +89,6 @@
         android:onClick="addProductToList"
         android:text="Ürünü Satılığa Çıkar"
         android:textSize="20sp" />
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/button"
-        android:layout_alignBottom="@+id/button"
-        android:layout_marginStart="26dp"
-        android:layout_toEndOf="@+id/button"
-        android:onClick="upload"
-        android:text="fotoğraf yükle" />
 
 
 </RelativeLayout>
