@@ -92,7 +92,7 @@ public class ListGraph
       return edges.get(source).peek().getDest();
     }
     else
-      return Categories.categories[random.nextInt(6)];
+      return Categories.categories[random.nextInt(5)];
 
 
 
