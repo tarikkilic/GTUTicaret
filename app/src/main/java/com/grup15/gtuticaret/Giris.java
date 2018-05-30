@@ -29,6 +29,8 @@ public class Giris extends AppCompatActivity  {
     public static String balanceLeft,balanceRight;
     private boolean flag = true;
     private Integer a = new Integer(5);
+    private int flagg = 0;
+    private int flaggg=0;
 
     private void girisBasarili(){
             /*******************************************************************************/
@@ -97,13 +99,17 @@ public class Giris extends AppCompatActivity  {
                             email = ((EditText) findViewById(R.id.epostaGiris)).getText().toString().trim();
                             password = ((EditText) findViewById(R.id.passwordGiris)).getText().toString().trim();
 
+
                             mDatabase.child("Users").child(String.valueOf(email.hashCode())).addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
+                                    flagg=1;
+
 
                                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
                                         HashMap hp = (HashMap) ds.getValue();
                                         String salt = (String) hp.get("salt");
+
                                         try {
                                             password = Sha256hash.generate(password);
                                         } catch (UnsupportedEncodingException e) {
@@ -112,13 +118,16 @@ public class Giris extends AppCompatActivity  {
                                             e.printStackTrace();
                                         }
                                         password = password + salt;
+
                                         if (password.equals(hp.get("password").toString()) && email.equals(hp.get("email").toString())){
                                             balanceLeft = (String) hp.get("balanceLeft");
                                             balanceRight = (String) hp.get("balanceRight");
+                                            flaggg=1;
                                             girisBasarili();
                                         }
                                         else{
                                             Log.d("flag","girisbasarisiz");
+                                            flagg=0;
                                             girisBasarisiz();
                                         }
 
@@ -132,7 +141,9 @@ public class Giris extends AppCompatActivity  {
 
                                 }
                             });
-
+                            if(flagg==0 && flaggg!=1){
+                                toast(1);
+                            }
 
                         }
                         else{
