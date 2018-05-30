@@ -43,7 +43,7 @@ public class Inbox extends AppCompatActivity {
         });
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("Mesajlar").child(Giris.whoami).addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase.child("Mesajlar").child(String.valueOf(Giris.whoami.hashCode())).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot ds : dataSnapshot.getChildren()){

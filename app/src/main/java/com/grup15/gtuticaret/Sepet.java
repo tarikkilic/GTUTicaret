@@ -55,7 +55,7 @@ public class Sepet extends MenuBar {
                     m.setUser();
                     m.setSend_time();
                     DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-                    mDatabase.child("Mesajlar").child(seller).child(Giris.whoami).child(m.getSend_time()).setValue(m);
+                    mDatabase.child("Mesajlar").child(String.valueOf(seller.hashCode())).child(String.valueOf(Giris.whoami.hashCode())).child(m.getSend_time()).setValue(m);
 
                 }
             }
