@@ -58,7 +58,7 @@ public class Giris extends AppCompatActivity  {
             Toast.makeText(this, "Bu E-posta Adresi Sisteme Kayıtlı Değil.", Toast.LENGTH_LONG).show();
         }
         else if(i==2){
-            Toast.makeText(this, "Parola Hatalı!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Parola veya Kullanici adi hatali!", Toast.LENGTH_LONG).show();
         }
         else if(i==3){
             Toast.makeText(this, "İnternet Bağlantınızı Kontrol Ediniz", Toast.LENGTH_LONG).show();
@@ -127,13 +127,14 @@ public class Giris extends AppCompatActivity  {
                                         }
                                         else{
                                             Log.d("flag","girisbasarisiz");
-                                            flagg=0;
-                                            girisBasarisiz();
+
                                         }
 
 
 
                                     }
+                                    girisBasarisiz();
+
                                 }
 
                                 @Override
@@ -141,9 +142,7 @@ public class Giris extends AppCompatActivity  {
 
                                 }
                             });
-                            if(flagg==0 && flaggg!=1){
-                                toast(1);
-                            }
+
 
                         }
                         else{
