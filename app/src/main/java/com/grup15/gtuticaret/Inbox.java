@@ -24,18 +24,19 @@ import java.util.ArrayList;
 public class Inbox extends AppCompatActivity {
     private ListView listView;
     //deneme amacli bi class ve array
-    private ArrayList<Deneme> deneme_arr;
-    public static String whichone = "ab";
+    private ArrayList<String> msgName;
+    public static String whichone = "empty";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inbox);
         listView = findViewById(R.id.list_inbox);
-        deneme_arr = new ArrayList<>();
+        msgName = new ArrayList<>();
         //tikladiginde chat ekrani aciliyor
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                whichone = msgName.get(i);
                 Intent chat = new Intent(getApplicationContext(), Chat.class);
                 startActivity(chat);
             }
@@ -46,11 +47,10 @@ public class Inbox extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
-                    Deneme tmp = new Deneme(ds.getKey(),ds.getKey());
-                    deneme_arr.add(tmp);
+                    msgName.add(ds.getKey());
 
                 }
-                CustomAdapter adapter = new CustomAdapter(deneme_arr);
+                CustomAdapter adapter = new CustomAdapter(msgName);
                 listView.setAdapter(adapter);
             }
 
@@ -69,9 +69,9 @@ public class Inbox extends AppCompatActivity {
 
 
     public class CustomAdapter extends BaseAdapter {
-        ArrayList<Deneme> adapter_arr;
+        ArrayList<String> adapter_arr;
 
-        public CustomAdapter(ArrayList<Deneme> d){
+        public CustomAdapter(ArrayList<String> d){
             adapter_arr = d;
         }
 
@@ -94,42 +94,13 @@ public class Inbox extends AppCompatActivity {
         public View getView(int i, View view, ViewGroup viewGroup) {
             view = getLayoutInflater().inflate(R.layout.inbox_custom, null);
             TextView textView_name = view.findViewById(R.id.textView_name_inbox);
-            TextView textView_des = view.findViewById(R.id.textView_description_inbox);
 
-            textView_name.setText(adapter_arr.get(i).getName());
-            textView_des.setText(adapter_arr.get(i).getDes());
+            textView_name.setText(adapter_arr.get(i));
             return view;
         }
     }
 
-    public class Deneme{
-        private String name;
-        private String des;
 
-
-        public Deneme(String name, String des) {
-            this.name = name;
-            this.des = des;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getDes() {
-            return des;
-        }
-
-        public void setDes(String des) {
-            this.des = des;
-        }
-
-
-    }
 
 
 }

@@ -2,28 +2,26 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/linear"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/textView_name_inbox"
             android:layout_width="match_parent"
-            android:layout_height="57dp"
+            android:layout_height="72dp"
             android:text="TextView"
             android:textSize="30sp" />
-
-        <TextView
-            android:id="@+id/textView_description_inbox"
-            android:layout_width="match_parent"
-            android:layout_height="51dp"
-            android:text="TextView"
-            android:textSize="18sp" />
 
     </LinearLayout>
 
