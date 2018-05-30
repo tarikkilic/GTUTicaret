@@ -4,6 +4,7 @@ package com.grup15.gtuticaret;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -21,6 +22,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 
 public class KayitOl extends AppCompatActivity {
@@ -65,7 +67,7 @@ public class KayitOl extends AppCompatActivity {
                         //String surname = (((EditText)findViewById(R.id.surname)).getText()).toString().trim();
                         String email = (((EditText)findViewById(R.id.eposta)).getText()).toString().trim();
                         String password = (((EditText)findViewById(R.id.password)).getText()).toString().trim();
-                        if(email.length() == 0 || password.length() == 0){
+                        if(isEmailValid(email)==false || password.length() == 0){
                             toast1();
                             startActivity(new Intent(KayitOl.this,KayitOl.class));
                             finish();
@@ -90,5 +92,19 @@ public class KayitOl extends AppCompatActivity {
 
                     }
                 });
+    }
+    boolean isEmailValid(String email){
+        Pattern pattern = Patterns.EMAIL_ADDRESS;
+        if(pattern.matcher(email).matches()==false){
+            return false;
+        }
+        else{
+            if(email.substring(email.indexOf('@')).equals(new String("@gtu.edu.tr"))){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
     }
 }
