@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.grup15.gtuticaret">
+
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.CAMERA"> </uses-permission>
+    <uses-permission android:name="android.permission.CAMERA"></uses-permission>
+
     <application
+        android:allowBackup="true"
         android:hardwareAccelerated="true"
-        android:largeHeap="true"
-    android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="GTÜ E-Alışveriş"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -19,26 +21,27 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ProductScreen"></activity>
-        <activity android:name=".Categories"></activity>
-        <activity android:name=".productContent" ></activity>
-        <activity android:name=".commentsPage"></activity>
-        <activity android:name=".Hesabim"></activity>
-        <activity android:name=".Cuzdanim"></activity>
-        <activity android:name=".Sepet"></activity>
-        <activity android:name=".addProduct"></activity>
-        <activity android:name=".KayitOl"
-            android:theme="@style/Giris"></activity>
-        <activity android:name=".Giris"
-            android:theme="@style/Giris"></activity>
-        <activity android:name=".AnaEkran"></activity>
-        <activity android:name=".Chat"></activity>
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".Ayarlar"></activity>
+        <activity android:name=".ProductScreen" />
+        <activity android:name=".Categories" />
+        <activity android:name=".productContent" />
+        <activity android:name=".commentsPage" />
+        <activity android:name=".Hesabim" />
+        <activity android:name=".Cuzdanim" />
+        <activity android:name=".Sepet" />
+        <activity android:name=".addProduct" />
+        <activity
+            android:name=".KayitOl"
+            android:theme="@style/Giris" />
+        <activity
+            android:name=".Giris"
+            android:theme="@style/Giris" />
+        <activity android:name=".AnaEkran" />
+        <activity android:name=".Chat" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".Ayarlar" />
         <activity android:name=".MenuBar" />
         <activity android:name=".Search" />
-
-
+        <activity android:name=".Inbox"></activity>
     </application>
 
 </manifest>
