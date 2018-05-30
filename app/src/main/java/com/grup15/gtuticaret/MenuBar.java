@@ -50,9 +50,9 @@ public abstract class MenuBar extends AppCompatActivity {
                             mdrawerLayout.closeDrawers();
                         break;
                     case R.id.navigation_message:
-                        if (!stackTraceElements[3].getClassName().equals(Chat.class.getName())) {
-                            Intent chat = new Intent(getApplicationContext(), Chat.class);
-                            startActivity(chat);
+                        if (!stackTraceElements[3].getClassName().equals(Inbox.class.getName())) {
+                            Intent inbox = new Intent(getApplicationContext(), Inbox.class);
+                            startActivity(inbox);
                         } else
                             mdrawerLayout.closeDrawers();
                         break;
