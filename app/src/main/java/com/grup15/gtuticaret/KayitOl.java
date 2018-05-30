@@ -33,10 +33,13 @@ public class KayitOl extends AppCompatActivity {
     private void toast(){
         Toast.makeText(this, "Kayıt Başarılı. Lütfen Giriş Yapınız.", Toast.LENGTH_LONG).show();
     }
-
+    private static int i =0;
     //Kayit ol basarisizsa
     private void toast1(){
         Toast.makeText(this, "Kayıt Başarısiz. Lütfen Tekrar Deneyiniz.", Toast.LENGTH_LONG).show();
+    }
+    private void toast2(){
+        Toast.makeText(this, "E-posta uzantısı @gtu.edu.tr olmalıdır.", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -68,7 +71,12 @@ public class KayitOl extends AppCompatActivity {
                         String email = (((EditText)findViewById(R.id.eposta)).getText()).toString().trim();
                         String password = (((EditText)findViewById(R.id.password)).getText()).toString().trim();
                         if(isEmailValid(email)==false || password.length() == 0){
-                            toast1();
+                            if(i==99){
+                                toast2();
+                            }
+                            else{
+                                toast1();
+                            }
                             startActivity(new Intent(KayitOl.this,KayitOl.class));
                             finish();
                         }
@@ -94,6 +102,7 @@ public class KayitOl extends AppCompatActivity {
                 });
     }
     boolean isEmailValid(String email){
+        i=0;
         Pattern pattern = Patterns.EMAIL_ADDRESS;
         if(pattern.matcher(email).matches()==false){
             return false;
@@ -103,6 +112,8 @@ public class KayitOl extends AppCompatActivity {
                 return true;
             }
             else{
+                toast2();
+                i=99;
                 return false;
             }
         }
