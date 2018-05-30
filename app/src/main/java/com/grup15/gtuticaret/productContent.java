@@ -36,6 +36,7 @@ public class productContent extends MenuBar {
         lastCommentLL = findViewById(R.id.lastCommentLL);
 
         newProduct = (Product) getIntent().getExtras().getSerializable("pro");
+        System.recommendations.insert(new Edge(new User(Giris.whoami),newProduct.getType()));
 
         String name = newProduct.getName();
         Double price = newProduct.getPrice();

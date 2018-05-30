@@ -5,11 +5,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
-/**
+import java.util.ArrayList;
+
+/*
  * Created by AKIN Ç on 8.04.2018.
  */
 
 public class Categories extends MenuBar {
+
+    static  String[] categories = {"ELEKTRONIK","DENEY MALZEMELERI","KITAPLAR","EV EŞYALARI",
+            "ETKINLIK-BILET"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,7 +24,7 @@ public class Categories extends MenuBar {
             @Override
             public void onClick(View view) {
                 Intent electronic=new Intent(Categories.this,ProductScreen.class);
-                electronic.putExtra("ezkey","ELEKTRONIK");
+                electronic.putExtra("ezkey",categories[0]);
                 startActivity(electronic);
             }
         });
@@ -27,7 +32,7 @@ public class Categories extends MenuBar {
             @Override
             public void onClick(View view) {
                 Intent exp=new Intent(Categories.this,ProductScreen.class);
-                exp.putExtra("ezkey","DENEY MALZEMELERI");
+                exp.putExtra("ezkey",categories[1]);
                 startActivity(exp);
             }
         });
@@ -35,7 +40,7 @@ public class Categories extends MenuBar {
             @Override
             public void onClick(View view) {
                 Intent book=new Intent(Categories.this,ProductScreen.class);
-                book.putExtra("ezkey","KITAPLAR");
+                book.putExtra("ezkey",categories[2]);
                 startActivity(book);
             }
         });
@@ -43,7 +48,7 @@ public class Categories extends MenuBar {
             @Override
             public void onClick(View view) {
                 Intent material=new Intent(Categories.this,ProductScreen.class);
-                material.putExtra("ezkey","EV EŞYALARI");
+                material.putExtra("ezkey",categories[3]);
                 startActivity(material);
             }
         });
@@ -51,7 +56,7 @@ public class Categories extends MenuBar {
             @Override
             public void onClick(View view) {
                 Intent ticket=new Intent(Categories.this,ProductScreen.class);
-                ticket.putExtra("ezkey","ETKINLIK-BILET");
+                ticket.putExtra("ezkey",categories[4]);
                 startActivity(ticket);
             }
         });

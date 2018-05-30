@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.Random;
+
 /**
  * Created by Celal Can on 26.04.2018.
  */
@@ -50,6 +52,13 @@ public class AnaEkran extends MenuBar {
             }
 
         });
+
+
+        /*Bu kategori tipinde 3 tane random ürün önerilip System classındaki recommendedProductsa eklenecek
+            ve Ana ekranda 3 ürün gösterilecek
+         */
+        String productType = System.recommendations.shortestPath(new User(Giris.whoami));
+
     }
 }
 

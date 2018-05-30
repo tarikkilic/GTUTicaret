@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
-/**
+/*
  * Created by Serkan Sorman on 12.05.2018.
  */
 
@@ -19,6 +19,9 @@ public abstract class System extends AppCompatActivity{
     static String currentUser;
     static ArrayList<Product> productList = new ArrayList<>();
     static Queue<Product> lastProducts = new LinkedList<>();
+    static ArrayList<Product> recommendedProducts = new ArrayList<>();
+    static ListGraph recommendations = new ListGraph();
+
 
     public static void showAllComments(Context context,User userComesProduct) {
 

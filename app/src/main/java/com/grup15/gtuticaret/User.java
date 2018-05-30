@@ -20,14 +20,11 @@ public class User implements UserInterface {
     static LinkedList<Product> cart = new LinkedList<>();
 
 
-    public User(String name){
-        this.name = name;
+    public User(String email){
+        this.email = email;
         this.comments = new Stack<>();
 
     }
-
-
-
 
     public User(String n,String s,String e,String p,String sT,String bL,String bR){
         name = n;
@@ -45,6 +42,17 @@ public class User implements UserInterface {
         salt = s;
         balanceLeft = bL;
         balanceRight = bR;
+    }
+
+
+    public User(User user){
+        name = user.name;
+        surname = user.surname;
+        email = user.email;
+        password = user.password;
+        balanceLeft = user.balanceLeft;
+        balanceRight = user.balanceRight;
+        salt = user.salt;
     }
 
 
@@ -86,19 +94,10 @@ public class User implements UserInterface {
     }
 
 
-
-
-
     @Override
     public int hashCode() {
-        int result;
-        long temp;
-        result = name != null ? name.hashCode() : 0;
-        result = 31 * result + (comments != null ? comments.hashCode() : 0);
-        return result;
+        return email != null ? email.hashCode() : 0;
     }
-
-
 
     public boolean addToCart(Product newProduct){
 
@@ -140,5 +139,15 @@ public class User implements UserInterface {
 
     public void setBalanceRight(String balanceRight) {
         this.balanceRight = balanceRight;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+
+        User user = (User) o;
+
+        return email != null ? email.equals(user.email) : user.email == null;
     }
 }
