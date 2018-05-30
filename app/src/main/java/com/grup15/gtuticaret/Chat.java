@@ -47,7 +47,7 @@ public class Chat extends MenuBar{
         int count=0;
         //burası ilk açıldığında tüm mesajları yükler
         //normalde buraya linked listte size a kadar devam et denmeli ama sonsuz döngüye giriyor.
-        mDatabase.child(Giris.whoami).child(Inbox.whichone).addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase.child(String.valueOf(Giris.whoami.hashCode())).child(Inbox.whichone).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
                     HashMap hp = (HashMap) ds.getValue();

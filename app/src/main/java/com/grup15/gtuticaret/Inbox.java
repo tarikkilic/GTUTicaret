@@ -37,6 +37,7 @@ public class Inbox extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 whichone = msgName.get(i);
+                Log.d("inbox",whichone);
                 Intent chat = new Intent(getApplicationContext(), Chat.class);
                 startActivity(chat);
             }

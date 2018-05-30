@@ -133,7 +133,8 @@ public class Giris extends AppCompatActivity  {
 
 
                                     }
-                                    girisBasarisiz();
+                                    if(flaggg!= 1)
+                                        girisBasarisiz();
 
                                 }
 
