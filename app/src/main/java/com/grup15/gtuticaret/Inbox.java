@@ -3,6 +3,7 @@ package com.grup15.gtuticaret;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -11,6 +12,11 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -19,11 +25,13 @@ public class Inbox extends AppCompatActivity {
     private ListView listView;
     //deneme amacli bi class ve array
     private ArrayList<Deneme> deneme_arr;
+    public static String whichone = "ab";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inbox);
         listView = findViewById(R.id.list_inbox);
+        deneme_arr = new ArrayList<>();
         //tikladiginde chat ekrani aciliyor
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -32,14 +40,28 @@ public class Inbox extends AppCompatActivity {
                 startActivity(chat);
             }
         });
-        
-        deneme_arr = new ArrayList<>();
-        deneme_arr.add(new Deneme("Tarik Kilic","kaça olur bu ürün"));
-        deneme_arr.add(new Deneme("Ramazan guvenc","altın mı lan bu fiyat ne"));
-        deneme_arr.add(new Deneme("Celal Can kaya","Uyudun mu cevap ver imcici uyumaz"));
 
-        CustomAdapter adapter = new CustomAdapter(deneme_arr);
-        listView.setAdapter(adapter);
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("Mesajlar").child(Giris.whoami).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds : dataSnapshot.getChildren()){
+                    Deneme tmp = new Deneme(ds.getKey(),ds.getKey());
+                    deneme_arr.add(tmp);
+
+                }
+                CustomAdapter adapter = new CustomAdapter(deneme_arr);
+                listView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        
+
+
 
     }
 

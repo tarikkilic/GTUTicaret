@@ -47,7 +47,7 @@ public class Chat extends MenuBar{
         int count=0;
         //burası ilk açıldığında tüm mesajları yükler
         //normalde buraya linked listte size a kadar devam et denmeli ama sonsuz döngüye giriyor.
-        mDatabase.child(Giris.whoami).addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase.child(Giris.whoami).child(Inbox.whichone).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
                     HashMap hp = (HashMap) ds.getValue();
@@ -59,25 +59,6 @@ public class Chat extends MenuBar{
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
-        send.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //gelen mesajı alır
-                EditText text = (EditText) findViewById(R.id.sms);
-                String txt = String.valueOf(text.getText());
-                //boş mesaj göndermemesi için
-                if (txt.length() > 0) {
-                    sms = new Message();
-                    //gönderme zamanı
-                    sms.setSend_time(time);
-                    //gönderen kişi bunu sepete ekledeki satın al butonuna tıkladığımızda almalıyız orayı yazmadım
-                    sms.setUser();
-                    //mesaj
-                    showMessage(sms, txt,allsms);
-                    text.setText("");
-                }
             }
         });
 
@@ -134,13 +115,24 @@ public class Chat extends MenuBar{
     }
 
 
-    private class Message{
+    public static class Message{
 
         private String message;
         //user mail adress
         private String user;
         //message time day/month/year
         private String send_time;
+        private String sender;
+        private String reciever;
+
+
+        public Message(String m,String sendTime,String send,String rec){
+            message = m;
+            send_time = sendTime;
+            sender = send;
+            reciever = rec;
+
+        }
 
         public Message(){
 
@@ -182,7 +174,8 @@ public class Chat extends MenuBar{
             return send_time;
         }
 
-        public void setSend_time(Calendar time1) {
+        public void setSend_time() {
+            Calendar time1;
             SimpleDateFormat sp=new SimpleDateFormat("dd-MM-yyyy HH:mm");
             time1=Calendar.getInstance();
             this.send_time = sp.format(time1.getTime());

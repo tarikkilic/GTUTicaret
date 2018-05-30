@@ -1,11 +1,13 @@
 package com.grup15.gtuticaret;
 
 import android.content.Intent;
+import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,6 +17,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -35,7 +40,26 @@ public class Sepet extends MenuBar {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sepet);
         final LinearLayout genel_Sepet = findViewById(R.id.general);
+        findViewById(R.id.satınAl).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Integer x = System.productList.size();
+                Log.d("satinal",x.toString());
+                for(Product p : User.cart){
+                    String productName = p.getName();
+                    String seller = p.getSeller();
+                    String me = Giris.whoami;
+                    String m1 = "Merhaba. Ben "+me+" ve urununuzle ilgileniyorum. Lutfen bana "+me+" bu mailden iletisime geciniz.\n" +
+                            "Bu mesaj otomatik gonderilmistir";
+                    Chat.Message m = new Chat.Message(m1,"",Giris.whoami,seller);
+                    m.setUser();
+                    m.setSend_time();
+                    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+                    mDatabase.child("Mesajlar").child(seller).child(Giris.whoami).child(m.getSend_time()).setValue(m);
 
+                }
+            }
+        });
         final LinkedList<Product> tmpCart = (LinkedList<Product>)User.cart.clone();  //sepetin kopyası üzerinde poll yapabilmek için
         if (User.cart != null) {
             Product tmpProduct;
