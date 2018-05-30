@@ -44,8 +44,9 @@ public class Search extends MenuBar {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         arr = new ArrayList<>();
-        String typeC = "ELEKTRONIK";
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("Urunler").child(typeC);
+        everything = new HashMap<>();
+        String [] typeC = {"ELEKTRONIK","DENEY MALZEMELERI","KITAPLAR","EV EŞYALARI","ETKINLIK-BILET"};
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Urunler");
         //kategori ekranina tiklanan kategoriyi tutuyorum.
         // Urunler kismindaki referanslari aliyorum sadece
         listView =  findViewById(R.id.productList);
@@ -57,7 +58,7 @@ public class Search extends MenuBar {
                 startActivity(intent1);
             }
         });
-        search(this.getIntent().getStringExtra("arananDeger"));
+        search(this.getIntent().getStringExtra("arananDeger"),typeC);
 
         //spinner metotlari
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -104,35 +105,51 @@ public class Search extends MenuBar {
 
     }
 
+    private void search(final String key,final String [] list) {
+        final String [] arr1 = key.split("\\s+");
+        for(int i =0;i<list.length;i++){
+            DatabaseReference fd = mDatabase.child(list[i]);
+            fd.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren() ;
+                    Iterator<DataSnapshot> iterator = snapshotIterable.iterator();
+                    while (iterator.hasNext()) {
+                        DataSnapshot dataSnapshot1 = iterator.next();
+                        Product product = dataSnapshot1.getValue(Product.class);
+                        String name = product.getName().toLowerCase();
+                        if(name.equals(key.toLowerCase()))
+                            arr.add(product);
+                        else{
+                            boolean flag = true;
+                            for (String anArr1 : arr1) {
+                                if (name.equals(anArr1.toLowerCase())){
+                                    arr.add(product);
+                                    flag = false;
+                                }
+                            }
+                            if(flag){
+                                String [] spaces = name.split("\\s+");
+                                for(String s : spaces)
+                                    if(s.toLowerCase().equals(key.toLowerCase()))
+                                        arr.add(product);
+                                }
 
-    private void search(final String key) {
-        mDatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren() ;
-                Iterator<DataSnapshot> iterator = snapshotIterable.iterator();
-                everything = new HashMap<>();
-                while (iterator.hasNext()) {
-                    DataSnapshot dataSnapshot1 = iterator.next();
-                    Product product = dataSnapshot1.getValue(Product.class);
-                    everything.put(product.getName(),product);
+                        }
+                    }
                 }
-                String [] arr1 = key.split("\\s+");
-                if(everything.get(key) != null)
-                    arr.add(everything.get(key));
-                for(int i =0;i<arr1.length;i++)
-                    if(everything.get(arr1[i]) != null)
-                        arr.add(everything.get(arr1[i]));
-                FireListAdapter fireListAdapter = new FireListAdapter(arr);
-                fireListAdapter.notifyDataSetChanged();
-                listView.setAdapter(fireListAdapter);
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                //dolduralacak
-            }
-        });
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    //dolduralacak
+                }
+            });
+        }
+        FireListAdapter fireListAdapter = new FireListAdapter(arr);
+        fireListAdapter.notifyDataSetChanged();
+        listView.setAdapter(fireListAdapter);
+        arr.clear();
+        everything.clear();
 
     }
 
