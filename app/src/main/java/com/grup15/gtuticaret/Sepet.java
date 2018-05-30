@@ -49,7 +49,7 @@ public class Sepet extends MenuBar {
                     String productName = p.getName();
                     String seller = p.getSeller();
                     String me = Giris.whoami;
-                    String m1 = "Merhaba. Ben "+me+" ve urununuzle ilgileniyorum. Lutfen bana "+me+" bu mailden iletisime geciniz.\n" +
+                    String m1 = "Merhaba."+p.getId()+" numarali urununuzle ilgileniyorum."+ "Lutfen bana "+me+" bu mailden iletisime geciniz.\n" +
                             "Bu mesaj otomatik gonderilmistir";
                     Chat.Message m = new Chat.Message(m1,"",Giris.whoami,seller);
                     m.setUser();
