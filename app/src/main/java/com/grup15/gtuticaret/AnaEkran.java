@@ -117,20 +117,31 @@ public class AnaEkran extends MenuBar {
         mFirebaseDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                int counter = 0;
+                Random r = new Random();
+                ArrayList<Product> pr=new ArrayList<>();
                 Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren();
                 Iterator<DataSnapshot> iterator = snapshotIterable.iterator();
-                while (iterator.hasNext() && counter<5) {
+                while (iterator.hasNext()) {
                     DataSnapshot dataSnapshot1 = iterator.next();
                     Product product = dataSnapshot1.getValue(Product.class);
                     arr.add(product);
-                    counter++;
                     product.setName(product.getName().toLowerCase());
                     productTree.add(product);
                 }
 
+                for(int i=0;i<5;){
+                    int j = r.nextInt(arr.size());
+                    if(!pr.contains(arr.get(j))){
+                        pr.add(arr.get(j));
+                        i++;
+                    }
+                }
 
-                FireListAdapter fireListAdapter = new FireListAdapter(arr);
+
+
+
+
+                FireListAdapter fireListAdapter = new FireListAdapter(pr);
                 fireListAdapter.notifyDataSetChanged();
                 listView.setAdapter(fireListAdapter);
 
