@@ -1,4 +1,7 @@
-package com.grup15.gtuticaret.BinarySearchTree;
+package com.grup15.gtuticaret.AVLTree;
+
+import com.grup15.gtuticaret.Product;
+import com.grup15.gtuticaret.ProductScreen;
 
 /**
  * Created by tarik on 30.05.2018.
@@ -36,13 +39,17 @@ public class BinarySearchTree < E
             return null;
 
         // Compare the target with the data field at the root.
-        int compResult = target.compareTo(localRoot.data);
-        if (compResult == 0)
-            return localRoot.data;
-        else if (compResult < 0)
+        String key = ((Product)target).getName().toLowerCase().replace(" ","");
+        String localName = ((Product)localRoot.data).getName().toLowerCase().replace(" ","");
+        int compResult = key.compareTo(localName );
+        if (localName.contains(key))
+            ProductScreen.arr.add((Product)localRoot.data);
+        if (compResult < 0)
             return find(localRoot.left, target);
         else
             return find(localRoot.right, target);
+
+        
     }
 
     /** Starter method add.

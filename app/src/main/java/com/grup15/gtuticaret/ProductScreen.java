@@ -15,6 +15,7 @@ import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -25,12 +26,15 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.grup15.gtuticaret.AVLTree.AVLTree;
 import com.squareup.picasso.Picasso;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.*;
+import java.lang.System;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -42,7 +46,8 @@ import java.util.List;
 public class ProductScreen extends MenuBar {
     String typeC;
     //firebasedeki tum urunler arr arrayine cekiyorum
-    private ArrayList<Product> arr;
+    public static ArrayList<Product> arr;
+    private AVLTree<Product> productTree = new AVLTree<>();
     //firebase degiskenleri
     private DatabaseReference mFirebaseDatabase;
     private ListView listView;
@@ -85,10 +90,18 @@ public class ProductScreen extends MenuBar {
                     DataSnapshot dataSnapshot1 = iterator.next();
                     Product product = dataSnapshot1.getValue(Product.class);
                     arr.add(product);
+                    product.setName(product.getName().toLowerCase());
+                    productTree.add(product);
                 }
                 FireListAdapter fireListAdapter = new FireListAdapter(arr);
                 fireListAdapter.notifyDataSetChanged();
                 listView.setAdapter(fireListAdapter);
+
+
+
+
+
+
             }
 
             @Override
@@ -144,13 +157,36 @@ public class ProductScreen extends MenuBar {
 
     }
 
+    public void searchProduct(View view){
+
+        EditText et = findViewById(R.id.KategorideArananUrun);
+        String key = et.getText().toString().toLowerCase();
+        if(!key.isEmpty()){
+            arr.clear();
+            productTree.find(new Product(key));
+           // if(product != null){
+               // product.setName(product.getName().substring(0, 1).toUpperCase() + product.getName().substring(1));
+               // arr.add(product);
+           // }
+
+
+            listView.setAdapter(null);
+            FireListAdapter fireListAdapter = new FireListAdapter(arr);
+            fireListAdapter.notifyDataSetChanged();
+            listView.setAdapter(fireListAdapter);
+
+        }
+
+
+    }
+
 
     public class FireListAdapter extends BaseAdapter {
         //belirlenen kategoride kac tane urun var onu buluyor.
         private ArrayList<Product> fArr;
 
         public FireListAdapter(ArrayList<Product> array) {
-            fArr = array;
+            fArr = (ArrayList<Product>) array.clone();
         }
 
         @Override
@@ -191,6 +227,7 @@ public class ProductScreen extends MenuBar {
 
             return view;
         }
+
     }
 
 }

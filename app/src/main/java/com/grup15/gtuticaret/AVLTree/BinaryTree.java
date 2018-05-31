@@ -1,4 +1,4 @@
-package com.grup15.gtuticaret.BinarySearchTree;
+package com.grup15.gtuticaret.AVLTree;
 
 import java.io.Serializable;
 

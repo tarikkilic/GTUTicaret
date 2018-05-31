@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.Stack;
 
 
-public class Product implements Serializable{
+public class Product implements Comparable<Product>,Serializable{
     private String name;
     private String features;
     private String type;
@@ -33,6 +33,8 @@ public class Product implements Serializable{
         this.imageCode = imageCode;
     }
 
+
+
     public Product(){
         name = null;
         features = null;
@@ -42,6 +44,7 @@ public class Product implements Serializable{
         keyWords = null;
         imageCode = null;
     }
+
 
     public String getType() {
         return type;
@@ -125,6 +128,9 @@ public class Product implements Serializable{
                 '}';
     }
 
+    public Product(String name) {
+        this.name = name;
+    }
 
     public String getSeller() {
         return seller;
@@ -134,6 +140,12 @@ public class Product implements Serializable{
         this.seller = seller;
     }
 
+
+    @Override
+    public int compareTo(@NonNull Product product) {
+
+        return getName().compareTo(product.getName());
+    }
 }
 
 class artanFiyat implements Comparator<Product>{

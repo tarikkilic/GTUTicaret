@@ -1,4 +1,4 @@
-package com.grup15.gtuticaret.BinarySearchTree;
+package com.grup15.gtuticaret.AVLTree;
 
 /**
  * Created by tarik on 30.05.2018.

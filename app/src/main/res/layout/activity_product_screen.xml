@@ -17,6 +17,56 @@
         tools:context="com.grup15.gtuticaret.ProductScreen">
 
 
+        <ImageView
+            android:id="@+id/aramaImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/arama"
+            app:layout_constraintBottom_toTopOf="@+id/textView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/KategorideArananUrun"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/aramabg"
+            android:layout_marginEnd="7dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="8dp"
+            android:hint="Ürün Ara"
+            android:maxLines="1"
+            android:paddingTop="10dp"
+            android:singleLine="true"
+            android:textAllCaps="false"
+            android:textAppearance="@android:style/TextAppearance.Material.Small.Inverse"
+            android:textColor="@color/Black"
+            android:textColorHint="@color/Black"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/araButonKategori"
+            app:layout_constraintEnd_toStartOf="@+id/aramaImage"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/araButonKategori"
+            app:layout_constraintTop_toTopOf="@+id/aramaImage" />
+
+        <Button
+            android:id="@+id/araButonKategori"
+            android:layout_width="60dp"
+            android:layout_height="63dp"
+            android:layout_alignBottom="@id/arananUrun"
+            android:layout_alignParentStart="true"
+            android:layout_alignStart="@id/arananUrun"
+            android:layout_alignTop="@id/arananUrun"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_toLeftOf="@id/arananUrun"
+            android:background="@drawable/buyutec"
+            android:onClick="searchProduct"
+            app:layout_constraintEnd_toStartOf="@+id/textView"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <ListView
             android:id="@+id/productList"
             android:layout_width="match_parent"
@@ -32,29 +82,25 @@
             android:id="@+id/textView"
             android:layout_width="0dp"
             android:layout_height="27dp"
-            android:layout_marginBottom="20dp"
             android:layout_marginEnd="9dp"
             android:layout_marginStart="64dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="4dp"
             android:text="Sırala"
             android:textSize="24sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/productList"
             app:layout_constraintEnd_toStartOf="@+id/spinner2"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/aramaImage" />
 
         <Spinner
             android:id="@+id/spinner2"
             android:layout_width="0dp"
-            android:layout_height="27dp"
-            android:layout_marginBottom="12dp"
+            android:layout_height="26dp"
             android:layout_marginEnd="41dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/productList"
+            android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/aramaImage" />
 
     </android.support.constraint.ConstraintLayout>
 
