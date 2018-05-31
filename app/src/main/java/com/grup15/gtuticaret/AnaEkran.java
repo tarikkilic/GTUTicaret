@@ -121,30 +121,25 @@ public class AnaEkran extends MenuBar {
                 ArrayList<Product> pr=new ArrayList<>();
                 int i=0;
                 Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren();
-                Iterator<DataSnapshot> iterator = snapshotIterable.iterator();
-                while (iterator.hasNext()) {
-                    DataSnapshot dataSnapshot1 = iterator.next();
-                    Product product = dataSnapshot1.getValue(Product.class);
-                    arr.add(product);
-                    product.setName(product.getName().toLowerCase());
-                    productTree.add(product);
-                    if(i<5 && arr.size() > 4){
-                        int j = r.nextInt(arr.size());
-                        if(!pr.contains(arr.get(j))){
-                            pr.add(arr.get(j));
-                            i++;
+                if(snapshotIterable != null){
+                    for (DataSnapshot dataSnapshot1 : snapshotIterable) {
+                        Product product = dataSnapshot1.getValue(Product.class);
+                        arr.add(product);
+                        product.setName(product.getName().toLowerCase());
+                        productTree.add(product);
+                        if (i < 5 && arr.size() > 4) {
+                            int j = r.nextInt(arr.size());
+                            if (!pr.contains(arr.get(j))) {
+                                pr.add(arr.get(j));
+                                i++;
+                            }
                         }
                     }
+                    FireListAdapter fireListAdapter = new FireListAdapter(pr);
+                    fireListAdapter.notifyDataSetChanged();
+                    listView.setAdapter(fireListAdapter);
                 }
 
-
-
-
-
-
-                FireListAdapter fireListAdapter = new FireListAdapter(pr);
-                fireListAdapter.notifyDataSetChanged();
-                listView.setAdapter(fireListAdapter);
 
 
             }
