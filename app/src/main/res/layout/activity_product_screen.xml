@@ -17,17 +17,18 @@
         tools:context="com.grup15.gtuticaret.ProductScreen">
 
         <RelativeLayout
+            android:id="@+id/relative"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/relative"
             android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/aramabg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:src="@drawable/arama"  />
+                android:src="@drawable/arama"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="57dp" />
 
             <EditText
                 android:id="@+id/KategorideArananUrun"
@@ -50,17 +51,16 @@
                 android:id="@+id/ara"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/KategorideArananUrun"
                 android:layout_alignParentStart="true"
                 android:layout_alignStart="@id/KategorideArananUrun"
-                android:layout_toLeftOf="@id/KategorideArananUrun"
-                android:layout_marginStart="7dp"
-                android:layout_marginEnd="7dp"
-                android:layout_marginTop="3dp"
                 android:layout_alignTop="@id/KategorideArananUrun"
-                android:layout_alignBottom="@id/KategorideArananUrun"
+                android:layout_marginEnd="7dp"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="3dp"
+                android:layout_toLeftOf="@id/KategorideArananUrun"
                 android:background="@drawable/buyutec"
-                android:onClick="searchProduct"
-                />
+                android:onClick="searchProduct" />
         </RelativeLayout>
 
         <ListView
@@ -76,12 +76,12 @@
 
         <ImageView
             android:id="@+id/sirala"
-            android:background="@drawable/sirala"
             android:layout_width="100dp"
             android:layout_height="30dp"
             android:layout_marginBottom="20dp"
             android:layout_marginEnd="9dp"
-            android:layout_marginStart="64dp"
+            android:layout_marginStart="84dp"
+            android:background="@drawable/sirala"
             app:layout_constraintEnd_toStartOf="@+id/spinner2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/relative" />

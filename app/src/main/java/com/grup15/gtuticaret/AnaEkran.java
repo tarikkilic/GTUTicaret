@@ -2,6 +2,7 @@ package com.grup15.gtuticaret;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -53,6 +54,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class AnaEkran extends MenuBar {
+    String typeC;
     //firebasedeki tum urunler arr arrayine cekiyorum
     public static ArrayList<Product> arr;
     private AVLTree<Product> productTree = new AVLTree<>();
@@ -122,34 +124,53 @@ public class AnaEkran extends MenuBar {
 
         });
 
+        //kategori ekranina tiklanan kategoriyi tutuyorum.
+        typeC = getIntent().getStringExtra("ezkey");
         // Urunler kismindaki referanslari aliyorum sadece
         mFirebaseDatabase = FirebaseDatabase.getInstance().getReference().child("Urunler").child(productType);
+
+
+
         //firebasedeki urunleri bu metotla cekiyorum
         mFirebaseDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Random r = new Random();
-                ArrayList<Product> pr=new ArrayList<>();
-                int x=0;
+                ArrayList<Product> pr = new ArrayList<>();
+                int i = 0;
                 Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren();
-                if(snapshotIterable != null) {
+                if (snapshotIterable != null) {
                     for (DataSnapshot dataSnapshot1 : snapshotIterable) {
                         Product product = dataSnapshot1.getValue(Product.class);
                         arr.add(product);
-                        if (x < 5 && arr.size() > 4) {
+                        product.setName(product.getName().toLowerCase());
+                        productTree.add(product);
+                    }
+                    if(arr.size()>5) {
+                        while (i < 5) {
                             int j = r.nextInt(arr.size());
                             if (!pr.contains(arr.get(j))) {
                                 pr.add(arr.get(j));
-                                x++;
+                                i++;
                             }
                         }
                     }
+                    else {
+                        int j =0;
+                        while(j<arr.size())
+                        if (!pr.contains(arr.get(j))) {
+                            pr.add(arr.get(j));
+                            j++;
+                        }
+                    }
+                }
 
                     mPager = (ViewPager) findViewById(R.id.viewPager1);
                     ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(pr);
                     mPager.setAdapter(viewPagerAdapter);
+
+
                 }
-            }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -185,9 +206,18 @@ public class AnaEkran extends MenuBar {
         }
 
         @Override
-        public Object instantiateItem(ViewGroup container, int position) {
+        public Object instantiateItem(ViewGroup container, final int position) {
             View view  = getLayoutInflater().inflate(R.layout.custom_layout, null);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent1 = new Intent(getApplicationContext(), productContent.class);
+                    intent1.putExtra("pro", fArr.get(position));
+                    startActivity(intent1);
+                }
+            });
             ImageView imageview = (ImageView) view.findViewById(R.id.imageView);
+            Typeface tf = Typeface.createFromAsset(getAssets(), "opensanss.ttf");
             TextView name = (TextView) view.findViewById(R.id.textView_name);
             TextView desc = (TextView) view.findViewById(R.id.textView_description);
             TextView price = (TextView) view.findViewById(R.id.textView_price);
@@ -295,16 +325,6 @@ public class AnaEkran extends MenuBar {
 
 
 }
-
-
-
-
-
-
-
-
-
-
 
 
 
