@@ -61,6 +61,7 @@ public class Chat extends MenuBar{
 
             }
         });
+        super.menuBar();
 
     }
 

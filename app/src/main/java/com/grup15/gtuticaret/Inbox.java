@@ -21,7 +21,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class Inbox extends AppCompatActivity {
+public class Inbox extends MenuBar {
     private ListView listView;
     //deneme amacli bi class ve array
     private ArrayList<String> msgName;
@@ -60,9 +60,8 @@ public class Inbox extends AppCompatActivity {
 
             }
         });
-        
 
-
+        super.menuBar();
 
     }
 
