@@ -10,25 +10,24 @@ import android.widget.Spinner;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 
 /*
  * Created by Serkan Sorman on 12.05.2018.
  */
 
 public abstract class System extends AppCompatActivity{
-    static String currentUser;
+    static User currentUser;
+    static Stack<Comment> comments;
     static ArrayList<Product> productList = new ArrayList<>();
     static Queue<Product> lastProducts = new LinkedList<>();
     static ArrayList<Product> recommendedProducts = new ArrayList<>();
     static ListGraph recommendations = new ListGraph();
 
 
-    public static void showAllComments(Context context,User userComesProduct) {
+    public static void showAllComments(Context context) {
 
         Intent intent = new Intent(context, commentsPage.class);
-        ArrayList<Comment> arrComment = new ArrayList<>();
-        arrComment.addAll(userComesProduct.getComments());
-        intent.putExtra("comments", arrComment);
         context.startActivity(intent);
     }
 
@@ -47,7 +46,15 @@ public abstract class System extends AppCompatActivity{
         System.productList.add(newProduct);
     }
 
-    /*
-     * Gerekli metodlar eklenecek veya taşınacak
-     */
+    public static void addComments(){
+
+        //Kullanıcıya geçici yorumlar yerleştirildi.
+        comments = new Stack<>();
+        comments.add(new Comment("okula böyle adamlar lazım teşekkürler", "01/01/2017", "burhanElgun"));
+        comments.add(new Comment("içinde tel olmayan jumper sattı", "04/05/2017", "ramazanGuvenc"));
+        comments.add(new Comment("Aldığım tüm ürünlerinden memnunum", "19/09/2017", "emirhanKaragozoglu"));
+        comments.add(new Comment("Paramı alıp kaçtı güvenmeyin", "12/02/2018", "tarikKilic"));
+        comments.add(new Comment("Adamın dibi yok böyle insan", "24/04/2018", "akinCam"));
+        comments.add(new Comment("GTU Alışveriş sağolsun sizin gibi dürüst satıcıların olduğunu görebildik. Dünya böyle satıcılar uğruna dönüyor", "30/04/2018", "Celal Can KAYA"));
+    }
 }

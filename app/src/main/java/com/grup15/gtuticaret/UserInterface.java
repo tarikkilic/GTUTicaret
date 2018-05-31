@@ -12,5 +12,5 @@ import java.util.ArrayList;
 public interface UserInterface {
 
     boolean addToCart(Product newProduct);
-    void comment(ArrayList<TextView> comment, User userComesProduct, EditText editComment);
+    void comment(ArrayList<TextView> comment,EditText editComment);
 }

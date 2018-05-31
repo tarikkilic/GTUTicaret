@@ -86,7 +86,7 @@ public class addProduct extends MenuBar {
                 newProduct.setPrice(Double.parseDouble(nprice));
                 newProduct.setImageCode(imageUrl);
                 newProduct.setId((nname+Giris.whoami).hashCode());
-                newProduct.setSeller(System.currentUser);
+                newProduct.setSeller(System.currentUser.getEmail());
                 mDatabase.child("Urunler").child(category).child(String.valueOf(newProduct.getId())).setValue(newProduct);
                 mDatabase.child("SonEklenenler").child(String.valueOf(newProduct.getId())).setValue(newProduct);
 

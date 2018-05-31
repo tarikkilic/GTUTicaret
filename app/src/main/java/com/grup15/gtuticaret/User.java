@@ -161,18 +161,20 @@ public class User implements UserInterface {
     }
 
 
-    public void comment(ArrayList<TextView> comment, User userComesProduct, EditText editComment){
+    public void comment(ArrayList<TextView> comment,EditText editComment){
 
         String formattedDate = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
         editComment.setFocusable(false);
-        if (!editComment.getText().toString().equals(null))
-            userComesProduct.getComments().add(new Comment(editComment.getText().toString(), formattedDate,getName()));
 
-        comment.get(0).setText(userComesProduct.getComments().peek().getCommentText());
-        comment.get(1).setText(userComesProduct.getComments().peek().getCommentDate());
-        comment.get(2).setText(userComesProduct.getComments().pop().getUserName());
+        System.comments.add(new Comment(editComment.getText().toString(), formattedDate,getEmail()));
+
+        comment.get(0).setText(System.comments.peek().getCommentText());
+        comment.get(1).setText(System.comments.peek().getCommentDate());
+        comment.get(2).setText(System.comments.peek().getUserName());
 
         editComment.getText().clear();
+
+
     }
 
 

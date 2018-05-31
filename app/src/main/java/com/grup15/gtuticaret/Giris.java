@@ -36,7 +36,8 @@ public class Giris extends AppCompatActivity  {
     private void girisBasarili(){
             /*******************************************************************************/
             whoami = email;
-            System.currentUser = whoami;
+            System.currentUser = new User(whoami);
+            System.addComments();
             flag = false;
             a = 6;
             toast(0);
