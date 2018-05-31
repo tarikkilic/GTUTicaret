@@ -58,7 +58,6 @@ public class AnaEkran extends MenuBar {
             ve Ana ekranda 3 ürün gösterilecek
          */
         String productType = System.recommendations.shortestPath(new User(Giris.whoami));
-
     }
 }
 

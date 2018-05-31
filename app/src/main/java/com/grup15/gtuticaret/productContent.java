@@ -11,6 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -28,7 +30,7 @@ public class productContent extends MenuBar {
     User userComesProduct;
     LinearLayout lastCommentLL;
     View view;
-
+    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +39,28 @@ public class productContent extends MenuBar {
 
         newProduct = (Product) getIntent().getExtras().getSerializable("pro");
         System.recommendations.insert(new Edge(new User(Giris.whoami),newProduct.getType()));
+
+        //girilen kategorinin agirligini 1 azaltiyorum firebase den.
+        if(newProduct.getType().equals("ELEKTRONIK")){
+            mDatabase.child("Graph").child(String.valueOf(Giris.whoami.hashCode())).child("elekW").
+                    setValue(System.recommendations.getEdge(new User(Giris.whoami),newProduct.getType()).getWeight());
+        }
+        else if(newProduct.getType().equals("DENEY MALZEMELERI")){
+            mDatabase.child("Graph").child(String.valueOf(Giris.whoami.hashCode())).child("deneyW").
+                    setValue(System.recommendations.getEdge(new User(Giris.whoami),newProduct.getType()).getWeight());
+        }
+        else if(newProduct.getType().equals("KITAPLAR")){
+            mDatabase.child("Graph").child(String.valueOf(Giris.whoami.hashCode())).child("kitapW").
+                    setValue(System.recommendations.getEdge(new User(Giris.whoami),newProduct.getType()).getWeight());
+        }
+        else if(newProduct.getType().equals("EV EŞYALARI")){
+            mDatabase.child("Graph").child(String.valueOf(Giris.whoami.hashCode())).child("esyaW").
+                    setValue(System.recommendations.getEdge(new User(Giris.whoami),newProduct.getType()).getWeight());
+        }
+        else if(newProduct.getType().equals("ETKINLIK-BILET")){
+            mDatabase.child("Graph").child(String.valueOf(Giris.whoami.hashCode())).child("biletW").
+                    setValue(System.recommendations.getEdge(new User(Giris.whoami),newProduct.getType()).getWeight());
+        }
 
         String name = newProduct.getName();
         Double price = newProduct.getPrice();

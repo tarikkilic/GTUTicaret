@@ -20,6 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
+import java.util.Iterator;
 
 public class Giris extends AppCompatActivity  {
 
@@ -39,6 +40,40 @@ public class Giris extends AppCompatActivity  {
             flag = false;
             a = 6;
             toast(0);
+       //girerken graph bilgilerini cekiyorum emailini bulup
+        DatabaseReference mDatabase1 = FirebaseDatabase.getInstance().getReference();
+        mDatabase1.child("Graph").child(String.valueOf(Giris.whoami.hashCode())).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren();
+                Iterator<DataSnapshot> iterator = snapshotIterable.iterator();
+                while (iterator.hasNext()) {
+                    DataSnapshot dataSnapshot1 = iterator.next();
+                    Long l = (Long) dataSnapshot1.getValue();
+                    int w = l.intValue();
+                    if(dataSnapshot1.getKey().equals("biletW")){
+                        System.recommendations.insert(new Edge(new User(Giris.whoami),"ETKINLIK-BILET",w));
+                    }
+                    else if(dataSnapshot1.getKey().equals("deneyW")){
+                        System.recommendations.insert(new Edge(new User(Giris.whoami),"DENEY MALZEMELERI",w));
+                    }
+                    else if(dataSnapshot1.getKey().equals("elekW")){
+                        System.recommendations.insert(new Edge(new User(Giris.whoami),"ELEKTRONIK",w));
+                    }
+                    else if(dataSnapshot1.getKey().equals("esyaW")){
+                        System.recommendations.insert(new Edge(new User(Giris.whoami),"EV EŞYALARI",w));
+                    }
+                    else if(dataSnapshot1.getKey().equals("kitapW")){
+                        System.recommendations.insert(new Edge(new User(Giris.whoami),"KITAPLAR",w));
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                //dolduralacak
+            }
+        });
             Intent kayit= new Intent(Giris.this, AnaEkran.class);
             startActivity(kayit);
             finish();

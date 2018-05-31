@@ -92,6 +92,11 @@ public class KayitOl extends AppCompatActivity {
                             password = password + salt;
                             User user = new User(email,password,salt,"0","0");
                             mDatabase.child("Users").child(String.valueOf(email.hashCode())).child(String.valueOf(email.hashCode())).setValue(user);
+                            mDatabase.child("Graph").child(String.valueOf(email.hashCode())).child("biletW").setValue(user.getBiletW());
+                            mDatabase.child("Graph").child(String.valueOf(email.hashCode())).child("deneyW").setValue(user.getDeneyW());
+                            mDatabase.child("Graph").child(String.valueOf(email.hashCode())).child("esyaW").setValue(user.getEsyaW());
+                            mDatabase.child("Graph").child(String.valueOf(email.hashCode())).child("elekW").setValue(user.getElekW());
+                            mDatabase.child("Graph").child(String.valueOf(email.hashCode())).child("kitapW").setValue(user.getKitapW());
                             toast();
                             Intent giris= new Intent(KayitOl.this, Giris.class);
                             startActivity(giris);

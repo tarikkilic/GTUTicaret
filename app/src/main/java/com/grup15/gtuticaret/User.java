@@ -18,6 +18,52 @@ public class User implements UserInterface {
     private String name,surname,password,email,salt,balanceLeft,balanceRight;
     private Stack<Comment> comments;
     static LinkedList<Product> cart = new LinkedList<>();
+    private double elekW;
+    private double deneyW;
+    private double esyaW;
+    private double biletW;
+    private double kitapW;
+
+    public double getElekW() {
+        return elekW;
+    }
+
+    public void setElekW(double elekW) {
+        this.elekW = elekW;
+    }
+
+    public double getDeneyW() {
+        return deneyW;
+    }
+
+    public void setDeneyW(double deneyW) {
+        this.deneyW = deneyW;
+    }
+
+    public double getEsyaW() {
+        return esyaW;
+    }
+
+    public void setEsyaW(double esyaW) {
+        this.esyaW = esyaW;
+    }
+
+    public double getBiletW() {
+        return biletW;
+    }
+
+    public void setBiletW(double biletW) {
+        this.biletW = biletW;
+    }
+
+    public double getKitapW() {
+        return kitapW;
+    }
+
+    public void setKitapW(double kitapW) {
+        this.kitapW = kitapW;
+    }
+
 
 
     public User(String email){
@@ -42,6 +88,11 @@ public class User implements UserInterface {
         salt = s;
         balanceLeft = bL;
         balanceRight = bR;
+        elekW = 1000.0;
+        kitapW = 1000.0;
+        deneyW = 1000.0;
+        biletW = 1000.0;
+        esyaW = 1000.0;
     }
 
 
@@ -102,7 +153,7 @@ public class User implements UserInterface {
     public boolean addToCart(Product newProduct){
 
         if(newProduct == null || cart.contains(newProduct))
-           return false;
+            return false;
         else{
             cart.add(newProduct);
             return true;
