@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class Categories extends MenuBar {
 
-    static  String[] categories = {"ELEKTRONIK","DENEY MALZEMELERI","KITAPLAR","EV EŞYALARI",
+    public static  String[] categories = {"ELEKTRONIK","DENEY MALZEMELERI","KITAPLAR","EV EŞYALARI",
             "ETKINLIK-BILET"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {

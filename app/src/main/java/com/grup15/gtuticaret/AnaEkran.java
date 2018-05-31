@@ -53,7 +53,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class AnaEkran extends MenuBar {
-    String typeC;
     //firebasedeki tum urunler arr arrayine cekiyorum
     public static ArrayList<Product> arr;
     private AVLTree<Product> productTree = new AVLTree<>();
@@ -123,13 +122,8 @@ public class AnaEkran extends MenuBar {
 
         });
 
-        //kategori ekranina tiklanan kategoriyi tutuyorum.
-        typeC = getIntent().getStringExtra("ezkey");
         // Urunler kismindaki referanslari aliyorum sadece
         mFirebaseDatabase = FirebaseDatabase.getInstance().getReference().child("Urunler").child(productType);
-
-
-
         //firebasedeki urunleri bu metotla cekiyorum
         mFirebaseDatabase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -142,8 +136,6 @@ public class AnaEkran extends MenuBar {
                     for (DataSnapshot dataSnapshot1 : snapshotIterable) {
                         Product product = dataSnapshot1.getValue(Product.class);
                         arr.add(product);
-                        product.setName(product.getName().toLowerCase());
-                        productTree.add(product);
                         if (x < 5 && arr.size() > 4) {
                             int j = r.nextInt(arr.size());
                             if (!pr.contains(arr.get(j))) {

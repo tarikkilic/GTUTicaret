@@ -1,4 +1,6 @@
-package com.grup15.gtuticaret;
+package com.grup15.gtuticaret.Graph;
+
+import com.grup15.gtuticaret.User;
 
 import java.util.Comparator;
 

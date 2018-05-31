@@ -20,17 +20,6 @@ public class Hesabim extends MenuBar {
         //kisiselbilgi.setText(get_name() +"\n" + get_mail());
         kisiselbilgi.setText(Giris.whoami);
 
-        findViewById(R.id.cuzdan).setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view)
-            {
-                Intent cuzdanim = new Intent(Hesabim.this, Cuzdanim.class);
-                startActivity(cuzdanim);
-                finish();
-            }
-
-        });
 
         super.menuBar();
     }

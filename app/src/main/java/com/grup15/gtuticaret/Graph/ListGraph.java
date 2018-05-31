@@ -1,7 +1,9 @@
-package com.grup15.gtuticaret;
+package com.grup15.gtuticaret.Graph;
+
+import com.grup15.gtuticaret.Categories;
+import com.grup15.gtuticaret.User;
 
 import java.util.*;
-import java.io.*;
 
 /** A ListGraph is an extension of the AbstractGraph abstract class
 *   that uses an array of lists to represent the edges.

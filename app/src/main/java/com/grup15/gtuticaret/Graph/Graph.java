@@ -1,4 +1,6 @@
-package com.grup15.gtuticaret;
+package com.grup15.gtuticaret.Graph;
+
+import com.grup15.gtuticaret.User;
 
 import java.util.*;
 
@@ -18,7 +20,7 @@ public interface Graph {
   /** Insert a new edge into the graph.
       @param edge The new edge
    */
-  void insert(Edge edge);
+   void insert(Edge edge);
 
   /** Determine whether an edge exists.
       @param source The source vertex

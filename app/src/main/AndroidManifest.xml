@@ -26,7 +26,6 @@
         <activity android:name=".productContent" />
         <activity android:name=".commentsPage" />
         <activity android:name=".Hesabim" />
-        <activity android:name=".Cuzdanim" />
         <activity android:name=".Sepet" />
         <activity android:name=".addProduct" />
         <activity
