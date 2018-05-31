@@ -1,12 +1,16 @@
 package com.grup15.gtuticaret;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.NavigationView;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +19,7 @@ import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -44,6 +49,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class AnaEkran extends MenuBar {
     String typeC;
@@ -54,6 +61,8 @@ public class AnaEkran extends MenuBar {
     private DatabaseReference mFirebaseDatabase;
     private ListView listView;
     EditText arananUrun;
+    Button ara;
+    ViewPager mPager;
 
     private void toast ( int i){
         if (i == 0) {
@@ -68,18 +77,35 @@ public class AnaEkran extends MenuBar {
         setContentView(R.layout.anaekran);
         super.menuBar();
         arr = new ArrayList<>();
-        //spinner init
         arananUrun = findViewById(R.id.arananUrun);
-
-        Spinner spinner = findViewById(R.id.spinner2);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.sorted_arrays, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-
-        String productType = System.recommendations.shortestPath(new User(Giris.whoami));
-
+        ara = findViewById(R.id.ara);
+        mPager = findViewById(R.id.viewPager1);
         findViewById(R.id.ara).setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View view)
+            {
+                String key = arananUrun.getText().toString();
+                if(key.isEmpty()){
+                    toast(0);
+                }
+                else {
+                    toast(1);
+                    Intent arama = new Intent(AnaEkran.this, Search.class);
+                    arama.putExtra("arananDeger", key);
+                    startActivity(arama);
+                }
+            }
+
+        });
+        String productType = System.recommendations.shortestPath(new User(Giris.whoami));
+
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new MyTimerTask(), 2000,4000);
+
+
+
+        findViewById(R.id.ara).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
             {
@@ -101,16 +127,7 @@ public class AnaEkran extends MenuBar {
         typeC = getIntent().getStringExtra("ezkey");
         // Urunler kismindaki referanslari aliyorum sadece
         mFirebaseDatabase = FirebaseDatabase.getInstance().getReference().child("Urunler").child(productType);
-        listView = findViewById(R.id.productList);
-        //tiklandiginde urun ekranina gider.
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent1 = new Intent(getApplicationContext(), productContent.class);
-                intent1.putExtra("pro", arr.get(i));
-                startActivity(intent1);
-            }
-        });
+
 
 
         //firebasedeki urunleri bu metotla cekiyorum
@@ -119,29 +136,27 @@ public class AnaEkran extends MenuBar {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Random r = new Random();
                 ArrayList<Product> pr=new ArrayList<>();
-                int i=0;
+                int x=0;
                 Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren();
-                if(snapshotIterable != null){
+                if(snapshotIterable != null) {
                     for (DataSnapshot dataSnapshot1 : snapshotIterable) {
                         Product product = dataSnapshot1.getValue(Product.class);
                         arr.add(product);
                         product.setName(product.getName().toLowerCase());
                         productTree.add(product);
-                        if (i < 5 && arr.size() > 4) {
+                        if (x < 5 && arr.size() > 4) {
                             int j = r.nextInt(arr.size());
                             if (!pr.contains(arr.get(j))) {
                                 pr.add(arr.get(j));
-                                i++;
+                                x++;
                             }
                         }
                     }
-                    FireListAdapter fireListAdapter = new FireListAdapter(pr);
-                    fireListAdapter.notifyDataSetChanged();
-                    listView.setAdapter(fireListAdapter);
+
+                    mPager = (ViewPager) findViewById(R.id.viewPager1);
+                    ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(pr);
+                    mPager.setAdapter(viewPagerAdapter);
                 }
-
-
-
             }
 
             @Override
@@ -151,70 +166,89 @@ public class AnaEkran extends MenuBar {
         });
 
 
-        //spinner metotlari
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                //neyi sectiyse ona göre siralar
-                //artanFiyat vs. Product classinin icinde bu claslar
-                if (adapterView.getSelectedItem().equals("Fiyata göre artan")) {
-                    Collections.sort(arr, new artanFiyat());
-                    listView.setAdapter(null);
-                    FireListAdapter fireListAdapter = new FireListAdapter(arr);
-                    fireListAdapter.notifyDataSetChanged();
-                    listView.setAdapter(fireListAdapter);
-                } else if (adapterView.getSelectedItem().equals("Fiyata göre azalan")) {
-                    Collections.sort(arr, new azalanFiyat());
-                    listView.setAdapter(null);
-                    FireListAdapter fireListAdapter = new FireListAdapter(arr);
-                    fireListAdapter.notifyDataSetChanged();
-                    listView.setAdapter(fireListAdapter);
-                } else if (adapterView.getSelectedItem().equals("Isme gore A-Z")) {
-                    Collections.sort(arr, new artanIsim());
-                    listView.setAdapter(null);
-                    FireListAdapter fireListAdapter = new FireListAdapter(arr);
-                    fireListAdapter.notifyDataSetChanged();
-                    listView.setAdapter(fireListAdapter);
-                } else if (adapterView.getSelectedItem().equals("Isme gore Z-A")) {
-                    Collections.sort(arr, new azalanIsim());
-                    listView.setAdapter(null);
-                    FireListAdapter fireListAdapter = new FireListAdapter(arr);
-                    fireListAdapter.notifyDataSetChanged();
-                    listView.setAdapter(fireListAdapter);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
 
     }
 
-    public void searchProduct(View view) {
 
-        EditText et = findViewById(R.id.KategorideArananUrun);
-        String key = et.getText().toString().toLowerCase();
-        if (!key.isEmpty()) {
-            arr.clear();
-            productTree.find(new Product(key));
-            // if(product != null){
-            // product.setName(product.getName().substring(0, 1).toUpperCase() + product.getName().substring(1));
-            // arr.add(product);
-            // }
+    public class ViewPagerAdapter extends PagerAdapter {
 
+        private Context context;
+        private LayoutInflater layoutInflater;
+        private Integer[] images = {R.drawable.buzdolabi, R.drawable.canon, R.drawable.buyutec};
+        private ArrayList<Product> fArr;
 
-            listView.setAdapter(null);
-            FireListAdapter fireListAdapter = new FireListAdapter(arr);
-            fireListAdapter.notifyDataSetChanged();
-            listView.setAdapter(fireListAdapter);
+        public ViewPagerAdapter(ArrayList<Product> array){
+            fArr = (ArrayList<Product>) array.clone();
+        }
 
+        @Override
+        public int getCount() {
+            return fArr.size();
         }
 
 
+        @Override
+        public boolean isViewFromObject(View view, Object object) {
+            return view == object;
+        }
 
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            View view  = getLayoutInflater().inflate(R.layout.custom_layout, null);
+            ImageView imageview = (ImageView) view.findViewById(R.id.imageView);
+            TextView name = (TextView) view.findViewById(R.id.textView_name);
+            TextView desc = (TextView) view.findViewById(R.id.textView_description);
+            TextView price = (TextView) view.findViewById(R.id.textView_price);
+            if (fArr.get(position).getImageCode().equals("default")) {
+                imageview.setImageResource(R.drawable.varsayilan);
+            } else {
+                Picasso.get()
+                        .load(fArr.get(position).getImageCode())
+                        .resize(110, 130)
+                        .into(imageview);
+            }
+
+            name.setText(fArr.get(position).getName());
+            desc.setText(fArr.get(position).getFeatures());
+            price.setText(Double.toString(fArr.get(position).getPrice()) + " TL ");
+
+            ViewPager vp = (ViewPager) container;
+            vp.addView(view, 0);
+            return view;
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            ViewPager vp = (ViewPager) container;
+            View view = (View) object;
+            vp.removeView(view);
+        }
+    }
+
+    public class MyTimerTask extends TimerTask {
+        @Override
+        public void run() {
+            AnaEkran.this.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if(mPager.getCurrentItem()==0){
+                        mPager.setCurrentItem(1);
+                    }
+                    else if(mPager.getCurrentItem()==1){
+                        mPager.setCurrentItem(2);
+                    }
+                    else if(mPager.getCurrentItem()==2){
+                        mPager.setCurrentItem(3);
+                    }
+                    else if(mPager.getCurrentItem()==3){
+                        mPager.setCurrentItem(4);
+                    }
+                    else{
+                        mPager.setCurrentItem(0);
+                    }
+                }
+            });
+        }
     }
 
 
