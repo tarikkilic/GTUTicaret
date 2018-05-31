@@ -80,22 +80,27 @@ public class productContent extends MenuBar {
                     .into(productImage);
         }
 
+        Typeface tf = Typeface.createFromAsset(getAssets(), "opensanss.ttf");
 
         TextView productName = findViewById(R.id.productName);
+        productName.setTypeface(tf);
         productName.setText(name);
 
         TextView productPrice = findViewById(R.id.productCost);
+        productPrice.setTypeface(tf);
         productPrice.setText(price.toString() + "TL");
 
         TextView productFeatures = findViewById(R.id.features);
+        productFeatures.setTypeface(tf);
         productFeatures.setText(feature);
 
         view = getLayoutInflater().inflate(R.layout.comment_row, null);
 
 
-        Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/opensans.ttf");
+        tf = Typeface.createFromAsset(getAssets(), "fonts/opensans.ttf");
         TextView txt_title = view.findViewById(R.id.userName);
         txt_title.setTypeface(tf);
+
 
 
         //yorumların ilk elemanı ekranda gösterilecek yorum son yapılan yorumdur.
@@ -103,6 +108,14 @@ public class productContent extends MenuBar {
         lastCommentDate = view.findViewById(R.id.commentDate);
         lastCommentUser = view.findViewById(R.id.userName);
 
+
+        lastCommentText.setText(System.comments.peek().getCommentText());
+        lastCommentDate.setText(System.comments.peek().getCommentDate());
+        lastCommentUser.setText(System.comments.peek().getUserName());
+
+        lastCommentText.setTypeface(tf);
+        lastCommentDate.setTypeface(tf);
+        lastCommentUser.setTypeface(tf);
 
         lastCommentText.setText(System.comments.peek().getCommentText());
         lastCommentDate.setText(System.comments.peek().getCommentDate());
