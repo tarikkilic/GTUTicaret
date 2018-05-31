@@ -119,6 +119,7 @@ public class AnaEkran extends MenuBar {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Random r = new Random();
                 ArrayList<Product> pr=new ArrayList<>();
+                int i=0;
                 Iterable<DataSnapshot> snapshotIterable = dataSnapshot.getChildren();
                 Iterator<DataSnapshot> iterator = snapshotIterable.iterator();
                 while (iterator.hasNext()) {
@@ -127,15 +128,15 @@ public class AnaEkran extends MenuBar {
                     arr.add(product);
                     product.setName(product.getName().toLowerCase());
                     productTree.add(product);
-                }
-
-                for(int i=0;i<5;){
-                    int j = r.nextInt(arr.size());
-                    if(!pr.contains(arr.get(j))){
-                        pr.add(arr.get(j));
-                        i++;
+                    if(i<5 && arr.size() > 4){
+                        int j = r.nextInt(arr.size());
+                        if(!pr.contains(arr.get(j))){
+                            pr.add(arr.get(j));
+                            i++;
+                        }
                     }
                 }
+
 
 
 
