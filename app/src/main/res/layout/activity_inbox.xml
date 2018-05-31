@@ -1,20 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.grup15.gtuticaret.Inbox"
-    tools:layout_editor_absoluteY="81dp">
+    android:layout_below="@id/drawerLayout"
+    android:background="@drawable/arkaplan">
 
-    <ListView
+
+<ListView
         android:id="@+id/list_inbox"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:divider="#000000"
-        android:dividerHeight="10px"
+        android:dividerHeight="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-</android.support.constraint.ConstraintLayout>
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/toolbar"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@drawable/arkaplannav"
+        app:menu="@menu/navigation_menu"
+        app:itemBackground="@drawable/itembackground"
+        android:theme="@style/NavigationTheme"
+        app:itemIconTint="@android:color/black"
+        >
+    </android.support.design.widget.NavigationView>
+</android.support.v4.widget.DrawerLayout>

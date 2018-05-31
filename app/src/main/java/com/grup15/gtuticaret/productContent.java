@@ -3,6 +3,7 @@ package com.grup15.gtuticaret;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -74,7 +75,7 @@ public class productContent extends MenuBar {
         comments.add(new Comment("Aldığım tüm ürünlerinden memnunum", "19/09/2017", "emirhanKaragozoglu"));
         comments.add(new Comment("Paramı alıp kaçtı güvenmeyin", "12/02/2018", "tarikKilic"));
         comments.add(new Comment("Adamın dibi yok böyle insan", "24/04/2018", "akinCam"));
-        comments.add(new Comment("GTU Alışveriş sağolsun sizin gibi dürüst satıcıların olduğunu görebildik. Dünya böyle satıcılar uğruna dönüyor", "30/04/2018", "celalCanKaya"));
+        comments.add(new Comment("GTU Alışveriş sağolsun sizin gibi dürüst satıcıların olduğunu görebildik. Dünya böyle satıcılar uğruna dönüyor", "30/04/2018", "Celal Can KAYA"));
 
 
         currentUser = new User("ssorman");
@@ -105,9 +106,17 @@ public class productContent extends MenuBar {
 
         //yorumların ilk elemanı ekranda gösterilecek yorum son yapılan yorumdur.
 
+        Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/opensans.ttf");
+
+
+        TextView txt_title = view.findViewById(R.id.userName);
+        txt_title.setTypeface(tf);
+
         lastCommentText = view.findViewById(R.id.comment);
         lastCommentDate = view.findViewById(R.id.commentDate);
         lastCommentUser = view.findViewById(R.id.userName);
+
+
 
         lastCommentText.setText(userComesProduct.getComments().peek().getCommentText());
         lastCommentDate.setText(userComesProduct.getComments().peek().getCommentDate());

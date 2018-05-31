@@ -17,16 +17,13 @@
 
         <Button
             android:id="@+id/addToCart"
-
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:background="#0be71a"
+            android:background="@drawable/sepetekle"
             android:onClick="addToCart"
-            android:text="SEPETE EKLE"
-            android:textColor="#fffcfc"
-            android:textSize="20sp" />
+ />
 
 
         <ImageButton
@@ -57,7 +54,7 @@
                     android:id="@+id/productImage"
                     android:layout_width="wrap_content"
                     android:layout_height="200dp"
-                    android:layout_alignParentStart="true"
+                    android:layout_centerHorizontal="true"
                     android:layout_alignParentTop="true" />
 
                 <TextView
@@ -80,16 +77,15 @@
                     android:textSize="20sp"
                     android:textStyle="bold|italic" />
 
-                <TextView
+                <ImageView
                     android:id="@+id/titleFeatures"
-                    android:layout_width="204dp"
-                    android:layout_height="23dp"
+                    android:background="@drawable/urunozellik"
+                    android:layout_width="200dp"
+                    android:layout_height="40dp"
                     android:layout_alignStart="@+id/productCost"
                     android:layout_below="@+id/productCost"
                     android:layout_marginTop="11dp"
-                    android:text="Ürün Özellikleri"
-                    android:textStyle="bold|italic"
-                    android:textSize="18sp"/>
+                />
 
                 <TextView
                     android:id="@+id/features"
@@ -99,16 +95,15 @@
                     android:layout_below="@+id/titleFeatures"
                     android:textStyle="bold|italic" />
 
-                <TextView
+                <ImageView
                     android:id="@+id/commentTitle"
-                    android:layout_width="190dp"
-                    android:layout_height="30dp"
+                    android:background="@drawable/kullaniciyorumlar"
+                    android:layout_width="300dp"
+                    android:layout_height="40dp"
                     android:layout_alignStart="@+id/titleFeatures"
                     android:layout_below="@+id/features"
                     android:layout_marginTop="15dp"
-                    android:text="Kullanıcıya ait Yorumlar"
-                    android:textSize="18sp"
-                    android:textStyle="bold|italic" />
+                    />
 
 
                 <LinearLayout
@@ -126,7 +121,8 @@
                     android:id="@+id/editComment"
                     android:layout_width="356dp"
                     android:layout_height="wrap_content"
-                    android:layout_alignStart="@+id/lastCommentLL"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginRight="7dp"
                     android:layout_below="@+id/lastCommentLL"
                     android:ems="10"
                     android:gravity="top|left"
@@ -138,39 +134,26 @@
 
                 <Button
                     android:id="@+id/addComment"
+                    android:background="@drawable/yorumyap"
                     android:layout_width="120dp"
                     android:layout_height="40dp"
-                    android:layout_alignBaseline="@+id/showComments"
-                    android:layout_alignBottom="@+id/showComments"
+                    android:layout_below="@+id/editComment"
                     android:layout_alignEnd="@+id/editComment"
-                    android:adjustViewBounds="true"
-                    android:background="@drawable/yorumyap"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:onClick="takeComment" />
+
 
                 <Button
                     android:id="@+id/showComments"
                     android:layout_width="120dp"
                     android:layout_height="40dp"
-                    android:layout_alignStart="@+id/editComment"
                     android:layout_below="@+id/editComment"
-                    android:layout_marginTop="12dp"
-                    android:adjustViewBounds="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_alignStart="@+id/editComment"
                     android:background="@drawable/digeryorumlar"
                     android:onClick="showAllComments" />
-
-                <ImageView
-                    android:id="@+id/stars2"
-                    android:layout_width="120dp"
-                    android:layout_height="30dp"
-                    android:layout_above="@+id/lastCommentLL"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="23dp"
-                    app:srcCompat="@drawable/star" />
-
-
-
-
-
 
 
             </RelativeLayout>

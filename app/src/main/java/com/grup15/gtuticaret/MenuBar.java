@@ -1,6 +1,7 @@
 package com.grup15.gtuticaret;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -8,10 +9,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import static java.lang.System.exit;
+
 public abstract class MenuBar extends AppCompatActivity {
     protected DrawerLayout mdrawerLayout;
     protected ActionBarDrawerToggle actionBarDrawerToggle;
     private StackTraceElement[] stackTraceElements;
+
 
     protected void menuBar(){
         mdrawerLayout = findViewById(R.id.drawerLayout);
