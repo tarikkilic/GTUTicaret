@@ -1,6 +1,7 @@
 package com.grup15.gtuticaret;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -181,11 +182,17 @@ public class Search extends MenuBar {
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
             //arraydeki degerleri ekrana aktariyorum.
+            Typeface tf1 = Typeface.createFromAsset(getAssets(), "opensansbold.ttf");
+            Typeface tf2 = Typeface.createFromAsset(getAssets(), "opensanss.ttf");
+            Typeface tf3 = Typeface.createFromAsset(getAssets(), "opensansitalic.ttf");
             view = getLayoutInflater().inflate(R.layout.custom_layout,null);
             ImageView imageView = view.findViewById(R.id.imageView);
             TextView textView_name =  view.findViewById(R.id.textView_name);
             TextView textView_description =  view.findViewById(R.id.textView_description);
             TextView textView_price =  view.findViewById(R.id.textView_price);
+            textView_name.setTypeface(tf1);
+            textView_description.setTypeface(tf3);
+            textView_price.setTypeface(tf2);
             if(arr.get(i).getImageCode().equals("default")){
                 imageView.setImageResource(R.drawable.varsayilan);
             }

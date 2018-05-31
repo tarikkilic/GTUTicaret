@@ -91,14 +91,18 @@ public class productContent extends MenuBar {
                     .into(productImage);
         }
 
+        Typeface tf = Typeface.createFromAsset(getAssets(), "opensanss.ttf");
 
         TextView productName = findViewById(R.id.productName);
+        productName.setTypeface(tf);
         productName.setText(name);
 
         TextView productPrice = findViewById(R.id.productCost);
+        productPrice.setTypeface(tf);
         productPrice.setText(price.toString() + "TL");
 
         TextView productFeatures = findViewById(R.id.features);
+        productFeatures.setTypeface(tf);
         productFeatures.setText(feature);
 
 
@@ -106,17 +110,14 @@ public class productContent extends MenuBar {
 
         //yorumların ilk elemanı ekranda gösterilecek yorum son yapılan yorumdur.
 
-        Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/opensans.ttf");
-
-
-        TextView txt_title = view.findViewById(R.id.userName);
-        txt_title.setTypeface(tf);
 
         lastCommentText = view.findViewById(R.id.comment);
         lastCommentDate = view.findViewById(R.id.commentDate);
         lastCommentUser = view.findViewById(R.id.userName);
 
-
+        lastCommentText.setTypeface(tf);
+        lastCommentDate.setTypeface(tf);
+        lastCommentUser.setTypeface(tf);
 
         lastCommentText.setText(userComesProduct.getComments().peek().getCommentText());
         lastCommentDate.setText(userComesProduct.getComments().peek().getCommentDate());

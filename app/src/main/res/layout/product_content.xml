@@ -57,50 +57,74 @@
                     android:layout_centerHorizontal="true"
                     android:layout_alignParentTop="true" />
 
-                <TextView
-                    android:id="@+id/productName"
-                    android:layout_width="225dp"
-                    android:layout_height="50dp"
+                <ImageView
+                    android:id="@+id/productNameimg"
+                    android:background="@drawable/urunadi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_below="@+id/productImage"
-                    android:layout_marginStart="22dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="10dp"
-                    android:textStyle="bold|italic" />
+                  />
+
+                <TextView
+                    android:id="@+id/productName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/productNameimg"
+                    android:layout_marginStart="34dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginBottom="6dp"
+                    android:textSize="40sp"
+                    android:textStyle="bold"  />
 
                 <TextView
                     android:id="@+id/productCost"
-                    android:layout_width="100dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignStart="@+id/productName"
-                    android:layout_below="@+id/productName"
+                    android:layout_alignRight="@id/productName"
+                    android:layout_below="@+id/productCostimg"
                     android:layout_marginTop="6dp"
-                    android:textSize="20sp"
-                    android:textStyle="bold|italic" />
+                    android:textSize="30sp"
+                    android:textStyle="bold"  />
+
+                <ImageView
+                    android:id="@+id/productCostimg"
+                    android:background="@drawable/urunfiyat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/productNameimg"
+                    android:layout_below="@+id/productName"
+                    />
 
                 <ImageView
                     android:id="@+id/titleFeatures"
                     android:background="@drawable/urunozellik"
-                    android:layout_width="200dp"
-                    android:layout_height="40dp"
-                    android:layout_alignStart="@+id/productCost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/productNameimg"
                     android:layout_below="@+id/productCost"
                     android:layout_marginTop="11dp"
-                />
+                    />
 
                 <TextView
                     android:id="@+id/features"
-                    android:layout_width="250dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignStart="@+id/titleFeatures"
+                    android:layout_marginRight="15dp"
+                    android:layout_alignStart="@+id/productName"
                     android:layout_below="@+id/titleFeatures"
-                    android:textStyle="bold|italic" />
+                    android:textStyle="bold|italic"
+                    android:textSize="20sp"/>
 
                 <ImageView
                     android:id="@+id/commentTitle"
                     android:background="@drawable/kullaniciyorumlar"
                     android:layout_width="300dp"
                     android:layout_height="40dp"
-                    android:layout_alignStart="@+id/titleFeatures"
+                    android:layout_alignStart="@+id/productNameimg"
                     android:layout_below="@+id/features"
                     android:layout_marginTop="15dp"
                     />
@@ -110,7 +134,8 @@
                     android:id="@+id/lastCommentLL"
                     android:layout_width="356dp"
                     android:layout_height="wrap_content"
-                    android:layout_alignStart="@+id/titleFeatures"
+                    android:layout_alignRight="@id/productName"
+                    android:layout_alignStart="@+id/productNameimg"
                     android:layout_below="@+id/commentTitle"
                     android:orientation="vertical">
 
@@ -139,6 +164,7 @@
                     android:layout_height="40dp"
                     android:layout_below="@+id/editComment"
                     android:layout_alignEnd="@+id/editComment"
+                    android:layout_marginRight="5dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:onClick="takeComment" />
@@ -148,6 +174,7 @@
                     android:id="@+id/showComments"
                     android:layout_width="120dp"
                     android:layout_height="40dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_below="@+id/editComment"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
