@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -49,8 +50,8 @@ public class Sepet extends MenuBar {
                     String productName = p.getName();
                     String seller = p.getSeller();
                     String me = Giris.whoami;
-                    String m1 = "Merhaba."+p.getId()+" numarali urununuzle ilgileniyorum."+ "Lutfen bana "+me+" bu mailden iletisime geciniz.\n" +
-                            "Bu mesaj otomatik gonderilmistir";
+                    String m1 = "\nMerhaba. "+p.getId()+" numarali ürününüzle ilgileniyorum."+ "Lütfen benimle "+me+" bu mailden iletişime geçiniz.\n" +
+                            "Bu mesaj otomatik gönderilmiştir.";
                     Chat.Message m = new Chat.Message(m1,"",Giris.whoami,seller);
                     m.setUser();
                     m.setSend_time();
@@ -99,8 +100,14 @@ public class Sepet extends MenuBar {
                 priceView.setText(((Double)tmpProduct.getPrice()).toString() +" TL");
                 price += tmpProduct.getPrice();
                 pairCart.add(new Pair<>(cb, tmpProduct));
-                int image = getApplicationContext().getResources().getIdentifier(tmpProduct.getImageCode(),"drawable",getPackageName());
-                iv.setBackgroundResource(image);
+                if (tmpProduct.getImageCode().equals("default")) {
+                    iv.setImageResource(R.drawable.varsayilan);
+                } else {
+                    Picasso.get()
+                            .load(tmpProduct.getImageCode())
+                            .resize(110, 130)
+                            .into(iv);
+                }
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(220, 320);
                 iv.setLayoutParams(layoutParams);
                 genel_Sepet.addView(view);

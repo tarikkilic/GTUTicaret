@@ -1,6 +1,7 @@
 package com.grup15.gtuticaret;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -94,7 +95,8 @@ public class Inbox extends MenuBar {
         public View getView(int i, View view, ViewGroup viewGroup) {
             view = getLayoutInflater().inflate(R.layout.inbox_custom, null);
             TextView textView_name = view.findViewById(R.id.textView_name_inbox);
-
+            Typeface tf = Typeface.createFromAsset(getAssets(), "opensanss.ttf");
+            textView_name.setTypeface(tf);
             textView_name.setText(adapter_arr.get(i));
             return view;
         }

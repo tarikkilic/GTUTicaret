@@ -37,6 +37,8 @@ import com.grup15.gtuticaret.AVLTree.AVLTree;
 import com.grup15.gtuticaret.System;
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -81,6 +83,9 @@ public class AnaEkran extends MenuBar {
         arananUrun = findViewById(R.id.arananUrun);
         ara = findViewById(R.id.ara);
         mPager = findViewById(R.id.viewPager1);
+        TextView oneri = (TextView) findViewById(R.id.oneriTitle);
+        Typeface tf = Typeface.createFromAsset(getAssets(), "opensansitalic.ttf");
+        oneri.setTypeface(tf);
         findViewById(R.id.ara).setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -158,10 +163,10 @@ public class AnaEkran extends MenuBar {
                     else {
                         int j =0;
                         while(j<arr.size())
-                        if (!pr.contains(arr.get(j))) {
-                            pr.add(arr.get(j));
-                            j++;
-                        }
+                            if (!pr.contains(arr.get(j))) {
+                                pr.add(arr.get(j));
+                                j++;
+                            }
                     }
                 }
 
@@ -182,12 +187,10 @@ public class AnaEkran extends MenuBar {
 
     }
 
-
     public class ViewPagerAdapter extends PagerAdapter {
 
         private Context context;
         private LayoutInflater layoutInflater;
-        private Integer[] images = {R.drawable.buzdolabi, R.drawable.canon, R.drawable.buyutec};
         private ArrayList<Product> fArr;
 
         public ViewPagerAdapter(ArrayList<Product> array){
@@ -218,9 +221,13 @@ public class AnaEkran extends MenuBar {
             });
             ImageView imageview = (ImageView) view.findViewById(R.id.imageView);
             Typeface tf = Typeface.createFromAsset(getAssets(), "opensanss.ttf");
+            Typeface tf2 = Typeface.createFromAsset(getAssets(), "opensansbold.ttf");
             TextView name = (TextView) view.findViewById(R.id.textView_name);
             TextView desc = (TextView) view.findViewById(R.id.textView_description);
             TextView price = (TextView) view.findViewById(R.id.textView_price);
+            name.setTypeface(tf2);
+            desc.setTypeface(tf);
+            price.setTypeface(tf);
             if (fArr.get(position).getImageCode().equals("default")) {
                 imageview.setImageResource(R.drawable.varsayilan);
             } else {
@@ -272,60 +279,7 @@ public class AnaEkran extends MenuBar {
             });
         }
     }
-
-
-    public class FireListAdapter extends BaseAdapter {
-        //belirlenen kategoride kac tane urun var onu buluyor.
-        private ArrayList<Product> fArr;
-
-        public FireListAdapter(ArrayList<Product> array) {
-            fArr = (ArrayList<Product>) array.clone();
-        }
-
-        @Override
-        public int getCount() {
-            return fArr.size();
-        }
-
-        @Override
-        public Object getItem(int i) {
-            return fArr.get(i);
-        }
-
-        @Override
-        public long getItemId(int i) {
-            return i;
-        }
-
-        @Override
-        public View getView(int i, View view, ViewGroup viewGroup) {
-            //arraydeki degerleri ekrana aktariyorum.
-            view = getLayoutInflater().inflate(R.layout.custom_layout, null);
-            ImageView imageView = view.findViewById(R.id.imageView);
-            TextView textView_name = view.findViewById(R.id.textView_name);
-            TextView textView_description = view.findViewById(R.id.textView_description);
-            TextView textView_price = view.findViewById(R.id.textView_price);
-            if (fArr.get(i).getImageCode().equals("default")) {
-                imageView.setImageResource(R.drawable.varsayilan);
-            } else {
-                Picasso.get()
-                        .load(fArr.get(i).getImageCode())
-                        .resize(110, 130)
-                        .into(imageView);
-            }
-
-            textView_name.setText(fArr.get(i).getName());
-            textView_description.setText(fArr.get(i).getFeatures());
-            textView_price.setText(Double.toString(fArr.get(i).getPrice()) + " TL ");
-
-            return view;
-        }
-
-    }
-
-
 }
-
 
 
 

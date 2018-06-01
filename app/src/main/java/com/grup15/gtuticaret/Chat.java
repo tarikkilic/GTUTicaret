@@ -40,7 +40,6 @@ public class Chat extends MenuBar{
         setContentView(R.layout.chat_screen);
         //bunu ekleyince exception fırlatıyor.
         //super.menuBar();
-        send = findViewById(R.id.send);
         messages=new LinkedList<>();
         temp = new LinkedList<>();
         hp = new HashMap();

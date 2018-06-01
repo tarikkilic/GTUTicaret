@@ -38,16 +38,6 @@
             app:layout_constraintTop_toBottomOf="@+id/kisiselbilgiler" />
 
         <Button
-            android:id="@+id/cuzdan"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/cuzdanim"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/siparis" />
-
-        <Button
             android:id="@+id/geribildirim"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -55,7 +45,7 @@
             android:background="@drawable/geribildirim"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cuzdan" />
+            app:layout_constraintTop_toBottomOf="@+id/siparis" />
 
     </android.support.constraint.ConstraintLayout>
     <android.support.design.widget.NavigationView

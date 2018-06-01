@@ -7,44 +7,22 @@
     android:layout_height="match_parent"
     android:layout_below="@id/drawerLayout"
     android:background="@drawable/arkaplan">
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/send"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:clickable="true"
-        android:src="@drawable/send_message_button"
-        app:backgroundTint="@android:color/holo_green_dark"
-        android:focusable="true"/>
-
-    <EditText
-        android:id="@+id/sms"
-        android:layout_width="320dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_toEndOf="@id/send"
-        android:hint="Mesaj..." />
-
-
-    <ListView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/sms_list"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_above="@id/send"
-        android:dividerHeight="16dp"
-        android:divider="@color/WhiteTransparent"
-        android:layout_marginBottom="16dp">
+        android:layout_height="match_parent">
 
-    </ListView>
-</RelativeLayout>
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/sms_list"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:dividerHeight="6px"
+            android:divider="@color/Black">
+
+        </ListView>
+    </RelativeLayout>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/toolbar"

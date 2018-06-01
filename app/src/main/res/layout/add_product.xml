@@ -12,15 +12,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
         android:layout_alignTop="@+id/spinner1"
-        android:gravity="center"
-        android:text="Ürün Kategorisi "
-        android:textSize="20sp"
-        android:textStyle="bold|italic" />
+        android:layout_marginLeft="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_toStartOf="@+id/spinner1"
+        android:background="@drawable/urunkategori"
+        android:gravity="center" />
 
     <Spinner
         android:id="@+id/spinner1"
@@ -28,57 +29,99 @@
         android:layout_height="27dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="18dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="15dp"
         android:entries="@array/country_arrays" />
+
+    <ImageView
+        android:id="@+id/nameimg"
+        android:background="@drawable/urunadi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/imageView2"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        />
 
     <EditText
         android:id="@+id/name"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="86dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="80dp"
+        android:layout_marginRight="20dp"
         android:textSize="20sp"
+        android:layout_below="@+id/nameimg"
         android:textAlignment="center"
         android:hint="Ürün İsmi Girin"
-        android:maxLength="25"/>
+        android:maxLines="1"
+        android:layout_centerHorizontal="true"
+        android:singleLine="true"
+        android:maxLength="25"
+        android:layout_marginTop="10dp"
+        />
+
+    <ImageView
+        android:id="@+id/descriptionimg"
+        android:background="@drawable/urunozellik"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/nameimg"
+        android:layout_below="@+id/name"
+        android:layout_marginTop="10dp"
+        />
 
     <EditText
         android:id="@+id/description"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="162dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="80dp"
+        android:layout_marginRight="20dp"
+        android:maxLines="1"
+        android:singleLine="true"
         android:hint="Ürün Tanımlaması Girin"
         android:textAlignment="center"
         android:maxLength="100"
-        android:textSize="20sp" />
+        android:layout_below="@+id/descriptionimg"
+        android:layout_centerHorizontal="true"
+        android:textSize="20sp"
+        android:layout_marginTop="10dp"
+        />
+
+    <ImageView
+        android:id="@+id/priceimg"
+        android:background="@drawable/urunfiyat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/nameimg"
+        android:layout_below="@+id/description"
+        android:layout_marginTop="10dp"
+        />
 
     <EditText
         android:id="@+id/editPrice"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="153dp"
         android:hint="Fiyat Giriniz"
         android:inputType="numberDecimal"
         android:maxLength="5"
+        android:layout_below="@+id/priceimg"
         android:textAlignment="center"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:layout_marginTop="10dp"
+        />
 
     <Button
         android:id="@+id/button"
+        android:layout_below="@+id/editPrice"
         android:background="@drawable/fotoekle"
         android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:layout_above="@+id/button2"
+        android:layout_height="50dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="25dp"
         android:onClick="addImage"
-         />
+        android:layout_marginTop="15dp"
+        />
 
     <Button
         android:id="@+id/button2"
